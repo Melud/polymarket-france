@@ -1,4 +1,4 @@
-name: Update Polymarket data
+name: Update Polymarket Data
 
 on:
   schedule:

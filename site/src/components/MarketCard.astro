@@ -1,0 +1,88 @@
+---
+interface Outcome {
+  name: string;
+  price: number;
+}
+interface HistoryPoint {
+  ts: string;
+  volume: number;
+  outcomes: Outcome[];
+}
+interface Market {
+  title_fr: string;
+  description_fr: string;
+  url: string;
+  history: HistoryPoint[];
+}
+
+const { slug, market } = Astro.props as { slug: string; market: Market };
+
+const latest = market.history[market.history.length - 1];
+const outcomes = latest?.outcomes ?? [];
+
+// on garde jusqu'à 6 courbes (les plus hautes en prix final) pour ne pas surcharger le graphique
+const topNames = outcomes.slice(0, 6).map((o) => o.name);
+
+const chartData = {
+  labels: market.history.map((h) => h.ts),
+  series: topNames.map((name) => ({
+    name,
+    data: market.history.map((h) => {
+      const found = h.outcomes.find((o) => o.name === name);
+      return found ? Math.round(found.price * 1000) / 10 : null; // en %
+    }),
+  })),
+};
+---
+
+<article class="card" id={`card-${slug}`}>
+  <header>
+    <h2>{market.title_fr}</h2>
+    <p class="desc">{market.description_fr}</p>
+  </header>
+
+  <ul class="bars">
+    {outcomes.map((o) => (
+      <li>
+        <div class="bar-row">
+          <span class="label">{o.name}</span>
+          <span class="pct">{Math.round(o.price * 1000) / 10}%</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" style={`width:${o.price * 100}%`}></div>
+        </div>
+      </li>
+    ))}
+  </ul>
+
+  {market.history.length > 1 && (
+    <div class="chart-wrap">
+      <canvas class="chart" data-chart={JSON.stringify(chartData)}></canvas>
+    </div>
+  )}
+
+  <footer>
+    <a href={market.url} target="_blank" rel="noopener">Voir sur Polymarket ↗</a>
+    <span class="updated">Maj : {latest ? new Date(latest.ts).toLocaleString("fr-FR") : "—"}</span>
+  </footer>
+</article>
+
+<style>
+  .card {
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    background: #141414;
+  }
+  h2 { margin: 0 0 0.25rem; font-size: 1.15rem; }
+  .desc { margin: 0 0 1rem; color: #999; font-size: 0.9rem; }
+  .bars { list-style: none; margin: 0; padding: 0; }
+  .bars li { margin-bottom: 0.5rem; }
+  .bar-row { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 2px; }
+  .bar-track { background: #262626; border-radius: 6px; height: 8px; overflow: hidden; }
+  .bar-fill { background: #4f8cff; height: 100%; }
+  .chart-wrap { margin-top: 1rem; height: 180px; }
+  footer { display: flex; justify-content: space-between; margin-top: 1rem; font-size: 0.8rem; color: #777; }
+  footer a { color: #4f8cff; text-decoration: none; }
+</style>

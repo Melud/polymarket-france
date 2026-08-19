@@ -1,0 +1,10 @@
+{
+  "markets": [
+    {
+      "slug": "next-french-presidential-election",
+      "title_fr": "Prochaine élection présidentielle française",
+      "description_fr": "Qui remportera la prochaine élection présidentielle française ?",
+      "outcomes_fr": {}
+    }
+  ]
+}

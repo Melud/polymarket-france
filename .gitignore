@@ -1,0 +1,7 @@
+site/node_modules/
+site/dist/
+site/.astro/
+__pycache__/
+*.pyc
+.venv/
+.claude/settings.local.json

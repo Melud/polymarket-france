@@ -1,0 +1,81 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import MarketCard from "../components/MarketCard.astro";
+
+const dataPath = path.resolve(process.cwd(), "../data/markets.json");
+const raw = fs.existsSync(dataPath) ? fs.readFileSync(dataPath, "utf-8") : "{}";
+const markets: Record<string, any> = JSON.parse(raw);
+
+const entries = Object.entries(markets);
+---
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Polymarket France — marchés prédictifs traduits</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Polymarket — marchés concernant la France</h1>
+      <p class="intro">
+        Suivi non officiel des marchés prédictifs Polymarket concernant la France, traduits en français.
+        Site indépendant, non affilié à Polymarket, à but purement informatif — aucune fonction de pari.
+      </p>
+
+      {entries.length === 0 && <p>Aucune donnée pour l'instant — lancez le script de collecte.</p>}
+
+      {entries.map(([slug, market]) => (
+        <MarketCard slug={slug} market={market} />
+      ))}
+    </main>
+
+    <script>
+      function renderCharts() {
+        document.querySelectorAll("canvas.chart").forEach((canvas) => {
+          const raw = canvas.getAttribute("data-chart");
+          if (!raw) return;
+          const { labels, series } = JSON.parse(raw);
+          const colors = ["#4f8cff", "#ff6b6b", "#51cf66", "#ffd43b", "#cc5de8", "#ff922b"];
+          new Chart(canvas, {
+            type: "line",
+            data: {
+              labels: labels.map((l) => new Date(l).toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })),
+              datasets: series.map((s, i) => ({
+                label: s.name,
+                data: s.data,
+                borderColor: colors[i % colors.length],
+                backgroundColor: "transparent",
+                tension: 0.2,
+                pointRadius: 0,
+              })),
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                y: { min: 0, max: 100, ticks: { callback: (v) => v + "%" } },
+              },
+              plugins: { legend: { labels: { boxWidth: 10, font: { size: 10 } } } },
+            },
+          });
+        });
+      }
+      renderCharts();
+    </script>
+
+    <style is:global>
+      body {
+        background: #0b0b0b;
+        color: #eaeaea;
+        font-family: system-ui, sans-serif;
+        margin: 0;
+      }
+      main { max-width: 720px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+      h1 { font-size: 1.5rem; }
+      .intro { color: #999; font-size: 0.9rem; margin-bottom: 2rem; }
+    </style>
+  </body>
+</html>

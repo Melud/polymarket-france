@@ -1,0 +1,33 @@
+name: Update Polymarket data
+
+on:
+  schedule:
+    - cron: "0 * * * *"  # toutes les heures
+  workflow_dispatch: {}   # déclenchement manuel possible depuis l'onglet Actions
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r collector/requirements.txt
+
+      - name: Fetch markets
+        run: python collector/fetch_markets.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/markets.json
+          git diff --staged --quiet || git commit -m "Update market data ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+          git push

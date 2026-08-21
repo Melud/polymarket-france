@@ -33,6 +33,27 @@ const entries = Object.entries(markets);
     </main>
 
     <script>
+      const crosshairPlugin = {
+        id: "crosshair",
+        afterDatasetsDraw(chart) {
+          const active = chart.tooltip?.getActiveElements?.() ?? [];
+          if (active.length === 0) return;
+          const { x } = active[0].element;
+          const { top, bottom } = chart.chartArea;
+          const ctx = chart.ctx;
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(x, top);
+          ctx.lineTo(x, bottom);
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = "rgba(234,234,234,0.35)";
+          ctx.setLineDash([4, 4]);
+          ctx.stroke();
+          ctx.restore();
+        },
+      };
+      Chart.register(crosshairPlugin);
+
       function renderCharts() {
         document.querySelectorAll("canvas.chart").forEach((canvas) => {
           const raw = canvas.getAttribute("data-chart");
@@ -63,11 +84,29 @@ const entries = Object.entries(markets);
             options: {
               responsive: true,
               maintainAspectRatio: false,
+              interaction: { mode: "index", intersect: false },
               scales: {
                 x: { ticks: { autoSkip: true, maxTicksLimit: 10 } },
                 y: { min: 0, max: yMax, ticks: { callback: (v) => v + "%" } },
               },
-              plugins: { legend: { labels: { boxWidth: 10, font: { size: 10 } } } },
+              plugins: {
+                legend: { labels: { boxWidth: 10, font: { size: 10 } } },
+                tooltip: {
+                  mode: "index",
+                  intersect: false,
+                  usePointStyle: true,
+                  backgroundColor: "#1a1a1a",
+                  borderColor: "#333",
+                  borderWidth: 1,
+                  titleColor: "#eaeaea",
+                  bodyColor: "#ccc",
+                  padding: 10,
+                  callbacks: {
+                    label: (context) =>
+                      `${context.dataset.label} : ${context.formattedValue}%`,
+                  },
+                },
+              },
             },
           });
         });

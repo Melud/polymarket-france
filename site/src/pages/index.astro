@@ -39,10 +39,18 @@ const entries = Object.entries(markets);
           if (!raw) return;
           const { labels, series } = JSON.parse(raw);
           const colors = ["#4f8cff", "#ff6b6b", "#51cf66", "#ffd43b", "#cc5de8", "#ff922b"];
+
+          const maxValue = Math.max(
+            0,
+            ...series.flatMap((s) => s.data.filter((v) => v != null))
+          );
+          // plafond arrondi à la dizaine au-dessus du max réel, avec un minimum de 10%
+          const yMax = Math.max(10, Math.ceil((maxValue + 2) / 5) * 5);
+
           new Chart(canvas, {
             type: "line",
             data: {
-              labels: labels.map((l) => new Date(l).toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })),
+              labels: labels.map((l) => new Date(l).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" })),
               datasets: series.map((s, i) => ({
                 label: s.name,
                 data: s.data,
@@ -56,7 +64,8 @@ const entries = Object.entries(markets);
               responsive: true,
               maintainAspectRatio: false,
               scales: {
-                y: { min: 0, max: 100, ticks: { callback: (v) => v + "%" } },
+                x: { ticks: { autoSkip: true, maxTicksLimit: 10 } },
+                y: { min: 0, max: yMax, ticks: { callback: (v) => v + "%" } },
               },
               plugins: { legend: { labels: { boxWidth: 10, font: { size: 10 } } } },
             },

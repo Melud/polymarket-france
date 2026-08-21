@@ -20,6 +20,10 @@ const { slug, market } = Astro.props as { slug: string; market: Market };
 const latest = market.history[market.history.length - 1];
 const outcomes = latest?.outcomes ?? [];
 
+const VISIBLE_COUNT = 6;
+const visibleOutcomes = outcomes.slice(0, VISIBLE_COUNT);
+const extraOutcomes = outcomes.slice(VISIBLE_COUNT);
+
 // on garde jusqu'à 6 courbes (les plus hautes en prix final) pour ne pas surcharger le graphique
 const topNames = outcomes.slice(0, 6).map((o) => o.name);
 
@@ -42,7 +46,7 @@ const chartData = {
   </header>
 
   <ul class="bars">
-    {outcomes.map((o) => (
+    {visibleOutcomes.map((o) => (
       <li>
         <div class="bar-row">
           <span class="label">{o.name}</span>
@@ -55,6 +59,25 @@ const chartData = {
     ))}
   </ul>
 
+  {extraOutcomes.length > 0 && (
+    <>
+      <ul class="bars extra" hidden>
+        {extraOutcomes.map((o) => (
+          <li>
+            <div class="bar-row">
+              <span class="label">{o.name}</span>
+              <span class="pct">{Math.round(o.price * 1000) / 10}%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" style={`width:${o.price * 100}%`}></div>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <button class="toggle-btn" type="button">Voir {extraOutcomes.length} de plus ↓</button>
+    </>
+  )}
+
   {market.history.length > 1 && (
     <div class="chart-wrap">
       <canvas class="chart" data-chart={JSON.stringify(chartData)}></canvas>
@@ -66,6 +89,23 @@ const chartData = {
     <span class="updated">Maj : {latest ? new Date(latest.ts).toLocaleString("fr-FR") : "—"}</span>
   </footer>
 </article>
+
+<script>
+  document.querySelectorAll(".toggle-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const extra = btn.previousElementSibling as HTMLElement | null;
+      if (!extra) return;
+      const isHidden = extra.hasAttribute("hidden");
+      if (isHidden) {
+        extra.removeAttribute("hidden");
+        btn.textContent = btn.textContent!.replace("de plus ↓", "de moins ↑");
+      } else {
+        extra.setAttribute("hidden", "");
+        btn.textContent = btn.textContent!.replace("de moins ↑", "de plus ↓");
+      }
+    });
+  });
+</script>
 
 <style>
   .card {
@@ -82,7 +122,19 @@ const chartData = {
   .bar-row { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 2px; }
   .bar-track { background: #262626; border-radius: 6px; height: 8px; overflow: hidden; }
   .bar-fill { background: #4f8cff; height: 100%; }
-  .chart-wrap { margin-top: 1rem; height: 180px; }
+  .toggle-btn {
+    display: block;
+    margin: 0.5rem 0 0;
+    padding: 0.4rem 0.75rem;
+    background: transparent;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #999;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .toggle-btn:hover { border-color: #4f8cff; color: #eaeaea; }
+  .chart-wrap { margin-top: 1.25rem; height: 320px; }
   footer { display: flex; justify-content: space-between; margin-top: 1rem; font-size: 0.8rem; color: #777; }
   footer a { color: #4f8cff; text-decoration: none; }
 </style>

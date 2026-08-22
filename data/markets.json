@@ -24676,6 +24676,176 @@
             "price": 0.0015
           }
         ]
+      },
+      {
+        "ts": "2026-08-22T00:47:06+00:00",
+        "volume": 120903822.92424999,
+        "outcomes": [
+          {
+            "name": "Marine Le Pen",
+            "price": 0.3185
+          },
+          {
+            "name": "Édouard Philippe",
+            "price": 0.255
+          },
+          {
+            "name": "Jean-Luc Mélenchon",
+            "price": 0.125
+          },
+          {
+            "name": "François Hollande",
+            "price": 0.0325
+          },
+          {
+            "name": "Gabriel Attal",
+            "price": 0.032
+          },
+          {
+            "name": "David Lisnard",
+            "price": 0.027
+          },
+          {
+            "name": "Raphaël Glucksmann",
+            "price": 0.0225
+          },
+          {
+            "name": "Jordan Bardella",
+            "price": 0.0215
+          },
+          {
+            "name": "Bruno Retailleau",
+            "price": 0.021
+          },
+          {
+            "name": "Sébastien Lecornu",
+            "price": 0.0205
+          },
+          {
+            "name": "Dominique de Villepin",
+            "price": 0.0175
+          },
+          {
+            "name": "Sarah Knafo",
+            "price": 0.0155
+          },
+          {
+            "name": "Éric Zemmour",
+            "price": 0.0075
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.0035
+          },
+          {
+            "name": "Michel Barnier",
+            "price": 0.0025
+          },
+          {
+            "name": "Jean Castex",
+            "price": 0.0025
+          },
+          {
+            "name": "Juan Branco",
+            "price": 0.002
+          },
+          {
+            "name": "Xavier Bertrand",
+            "price": 0.0015
+          },
+          {
+            "name": "Laurent Wauquiez",
+            "price": 0.0015
+          },
+          {
+            "name": "François Ruffin",
+            "price": 0.0015
+          },
+          {
+            "name": "Marine Tondelier",
+            "price": 0.0015
+          },
+          {
+            "name": "Fabien Roussel",
+            "price": 0.0015
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.0015
+          },
+          {
+            "name": "Ségolène Royal",
+            "price": 0.0015
+          },
+          {
+            "name": "François Asselineau",
+            "price": 0.0015
+          },
+          {
+            "name": "Clémentine Autain",
+            "price": 0.0015
+          },
+          {
+            "name": "Nicolas Dupont-Aignan",
+            "price": 0.0015
+          },
+          {
+            "name": "Valérie Pécresse",
+            "price": 0.0015
+          },
+          {
+            "name": "François Bayrou",
+            "price": 0.0015
+          },
+          {
+            "name": "Élisabeth Borne",
+            "price": 0.0015
+          },
+          {
+            "name": "Yaël Braun-Pivet",
+            "price": 0.0015
+          },
+          {
+            "name": "Gérald Darmanin",
+            "price": 0.0015
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0015
+          },
+          {
+            "name": "Manuel Bompard",
+            "price": 0.0015
+          },
+          {
+            "name": "Mathilde Panot",
+            "price": 0.0015
+          },
+          {
+            "name": "Clémence Guetté",
+            "price": 0.0015
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0015
+          },
+          {
+            "name": "Lucie Castets",
+            "price": 0.0015
+          },
+          {
+            "name": "Yannick Jadot",
+            "price": 0.0015
+          },
+          {
+            "name": "François Baroin",
+            "price": 0.0015
+          },
+          {
+            "name": "Marion Maréchal",
+            "price": 0.0015
+          }
+        ]
       }
     ]
   }

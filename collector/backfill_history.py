@@ -55,6 +55,11 @@ def significant_candidates(event: dict) -> list[dict]:
     """
     candidates = []
     for m in event.get("markets", []):
+        # marchés archivés/inactifs (ex. "Other" retiré par Polymarket) :
+        # même filtre que fetch_markets.py, pour ne pas backfiller un
+        # historique basé sur un outcomePrices obsolète
+        if m.get("active") is False or m.get("archived") is True:
+            continue
         outcomes = json.loads(m.get("outcomes", "[]"))
         prices = json.loads(m.get("outcomePrices", "[]"))
         token_ids = json.loads(m.get("clobTokenIds", "[]"))

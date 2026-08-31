@@ -150,6 +150,17 @@ et `CLAUDE.md`.
   collector/requirements.txt`, absent sur cette machine avant), collecteur
   lancé manuellement, site vérifié par capture d'écran — les deux cartes de
   marché s'affichent correctement, couleurs et pourcentages cohérents.
+- **Collecte horaire** : rien à ajouter au workflow — `fetch_markets.py`
+  boucle déjà sur toutes les entrées de `config.json`, donc le cron existant
+  (`update-data.yml`, toutes les heures) couvre ce nouveau marché
+  automatiquement dès qu'il est dans `config.json`.
+- **Backfill historique** : `collector/backfill_history.py` boucle lui aussi
+  sur tous les marchés de `config.json` (pas besoin de le paramétrer par
+  marché). Relancé après le fix "Other" (voir juste au-dessus, même filtre
+  `active`/`archived` ajouté ici) : 90 jours ajoutés pour ce marché
+  (02/06/2026 → 30/08/2026, création du marché → veille), 35 candidats
+  significatifs (seuil 1%), aucun conflit avec l'historique du premier
+  marché (déjà couvert, ignoré).
 
 ## Pistes non traitées (du README)
 

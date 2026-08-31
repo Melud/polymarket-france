@@ -217,6 +217,22 @@ et `CLAUDE.md`.
   `#34495E` ardoise, Delga `#9B59B6` mauve).
 - Vérifié en conditions de prod : les 10 couleurs calculées dans le
   navigateur sont bien toutes distinctes (bouton "Voir 4 de moins" déplié).
+- **Évolution demandée juste après** : l'utilisateur voulait en fait que ce
+  marché ait un code couleur **totalement indépendant**, y compris pour
+  Glucksmann et Hollande (qui gardaient jusque-là leurs couleurs globales
+  Place Publique/PS). `candidateColor()` a donc été étendue avec un second
+  paramètre optionnel `marketSlug` ; `candidateColors.ts` définit désormais
+  `MARKET_PALETTES`, une palette dédiée par slug qui prend le pas sur
+  `CANDIDATE_COLORS` quand elle existe pour ce marché — une même personne
+  peut ainsi avoir une couleur différente d'un marché à l'autre, en toute
+  cohérence avec le fait que ce marché-ci oppose des candidats du même parti
+  entre eux. Palette complète pour
+  `socialist-party-of-france-presidential-nominee-...` : Glucksmann
+  `#D6482B` (vermillon), Hollande `#1F6F8B` (bleu pétrole), les 8 autres
+  inchangés. `MarketCard.astro` passe désormais `slug` à chaque appel de
+  `candidateColor()`. Vérifié : les deux autres marchés gardent bien les
+  couleurs globales d'origine pour ces deux candidats, seul le marché PS
+  utilise la nouvelle palette indépendante.
 
 ## Permissions outillage
 

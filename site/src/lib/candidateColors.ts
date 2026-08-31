@@ -16,21 +16,26 @@ const CANDIDATE_COLORS: Record<string, string> = {
   "Raphaël Glucksmann": "#FFC0C0", // Place Publique
   "François Hollande": "#FF8080", // PS
   "Dominique de Villepin": "#999999", // sans étiquette
+};
 
-  // Primaire du Parti socialiste : tous ces candidats sont du même parti,
-  // donc logiquement une seule couleur — mais ils s'affrontent entre eux
-  // dans ce marché précis, il faut donc pouvoir les distinguer. Palette
-  // catégorielle arbitraire (pas de nuance Wikipédia dédiée par candidat),
-  // choisie pour ne pas entrer en collision avec les couleurs de parti
-  // utilisées ailleurs sur le site.
-  "Olivier Faure": "#2E8B57", // vert
-  "Philippe Brun": "#8E44AD", // violet
-  "Ségolène Royal": "#E67E22", // orange
-  "Karim Bouamrane": "#16A085", // turquoise
-  "Boris Vallaud": "#6D4C41", // marron
-  "Jérôme Guedj": "#B7950B", // ocre
-  "Bernard Cazeneuve": "#34495E", // ardoise
-  "Carole Delga": "#9B59B6", // mauve
+// Palettes propres à un marché précis, complètement indépendantes de
+// CANDIDATE_COLORS : utile quand un marché oppose des candidats du même
+// parti entre eux (la convention "couleur = nuance politique" n'a alors
+// aucun sens) — la même personne peut donc avoir une couleur différente
+// ici et dans les autres marchés, volontairement.
+const MARKET_PALETTES: Record<string, Record<string, string>> = {
+  "socialist-party-of-france-presidential-nominee-20260710182042067": {
+    "Raphaël Glucksmann": "#D6482B", // vermillon
+    "Olivier Faure": "#2E8B57", // vert
+    "Philippe Brun": "#8E44AD", // violet
+    "Ségolène Royal": "#E8A33D", // ambre
+    "François Hollande": "#1F6F8B", // bleu pétrole
+    "Boris Vallaud": "#6D4C41", // marron
+    "Jérôme Guedj": "#B7950B", // ocre
+    "Karim Bouamrane": "#16A085", // turquoise
+    "Carole Delga": "#C2185B", // framboise
+    "Bernard Cazeneuve": "#495057", // ardoise
+  },
 };
 
 // Même gris neutre que "sans étiquette" : plutôt qu'une couleur arbitraire,
@@ -47,10 +52,20 @@ function normalizeName(name: string): string {
   return name.normalize("NFD").replace(/\p{Diacritic}/gu, "");
 }
 
-const NORMALIZED_COLORS: Record<string, string> = Object.fromEntries(
-  Object.entries(CANDIDATE_COLORS).map(([name, color]) => [normalizeName(name), color])
+function normalizeMap(map: Record<string, string>): Record<string, string> {
+  return Object.fromEntries(Object.entries(map).map(([name, color]) => [normalizeName(name), color]));
+}
+
+const NORMALIZED_COLORS = normalizeMap(CANDIDATE_COLORS);
+const NORMALIZED_MARKET_PALETTES: Record<string, Record<string, string>> = Object.fromEntries(
+  Object.entries(MARKET_PALETTES).map(([slug, map]) => [slug, normalizeMap(map)])
 );
 
-export function candidateColor(name: string): string {
-  return NORMALIZED_COLORS[normalizeName(name)] ?? FALLBACK_COLOR;
+export function candidateColor(name: string, marketSlug?: string): string {
+  const normalized = normalizeName(name);
+  const palette = marketSlug ? NORMALIZED_MARKET_PALETTES[marketSlug] : undefined;
+  if (palette) {
+    return palette[normalized] ?? FALLBACK_COLOR;
+  }
+  return NORMALIZED_COLORS[normalized] ?? FALLBACK_COLOR;
 }

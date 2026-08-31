@@ -33,7 +33,7 @@ const chartData = {
   labels: market.history.map((h) => h.ts),
   series: topNames.map((name) => ({
     name,
-    color: candidateColor(name),
+    color: candidateColor(name, slug),
     data: market.history.map((h) => {
       const found = h.outcomes.find((o) => o.name === name);
       return found ? Math.round(found.price * 100) : null; // en %
@@ -56,7 +56,7 @@ const chartData = {
           <span class="pct">{Math.round(o.price * 100)}%</span>
         </div>
         <div class="bar-track">
-          <div class="bar-fill" style={`width:${o.price * 100}%; background:${candidateColor(o.name)}`}></div>
+          <div class="bar-fill" style={`width:${o.price * 100}%; background:${candidateColor(o.name, slug)}`}></div>
         </div>
       </li>
     ))}
@@ -72,7 +72,7 @@ const chartData = {
               <span class="pct">{Math.round(o.price * 100)}%</span>
             </div>
             <div class="bar-track">
-              <div class="bar-fill" style={`width:${o.price * 100}%; background:${candidateColor(o.name)}`}></div>
+              <div class="bar-fill" style={`width:${o.price * 100}%; background:${candidateColor(o.name, slug)}`}></div>
             </div>
           </li>
         ))}

@@ -69,3 +69,15 @@ export function candidateColor(name: string, marketSlug?: string): string {
   }
   return NORMALIZED_COLORS[normalized] ?? FALLBACK_COLOR;
 }
+
+// Initiale de chaque mot du nom (espaces et traits d'union), ex.
+// "Jean-Luc Mélenchon" -> "JLM", "Marine Le Pen" -> "MLP". Utilisé pour les
+// étiquettes de courbe (plus lisibles en gros que le nom complet) et en
+// rappel entre parenthèses dans la légende.
+export function candidateInitials(name: string): string {
+  return name
+    .split(/[\s-]+/)
+    .filter(Boolean)
+    .map((word) => word[0].toUpperCase())
+    .join("");
+}

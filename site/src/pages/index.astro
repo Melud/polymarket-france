@@ -70,18 +70,18 @@ const entries = Object.entries(markets);
             if (idx < 0) return;
             const point = chart.getDatasetMeta(i).data[idx];
             if (!point) return;
-            items.push({ label: ds.label, color: ds.borderColor, y: point.y });
+            items.push({ label: ds.initials ?? ds.label, color: ds.borderColor, y: point.y });
           });
 
           // évite que deux étiquettes se chevauchent quand deux courbes finissent au même niveau
           items.sort((a, b) => a.y - b.y);
-          const minGap = 12;
+          const minGap = 15;
           for (let k = 1; k < items.length; k++) {
             if (items[k].y - items[k - 1].y < minGap) items[k].y = items[k - 1].y + minGap;
           }
 
           ctx.save();
-          ctx.font = "10px system-ui, sans-serif";
+          ctx.font = "bold 13px system-ui, sans-serif";
           ctx.textBaseline = "middle";
           items.forEach((it) => {
             ctx.fillStyle = it.color;
@@ -115,6 +115,7 @@ const entries = Object.entries(markets);
                 const color = s.color ?? fallbackColors[i % fallbackColors.length];
                 return {
                   label: s.name,
+                  initials: s.initials,
                   data: s.data,
                   borderColor: color,
                   backgroundColor: "transparent",
@@ -133,7 +134,7 @@ const entries = Object.entries(markets);
             options: {
               responsive: true,
               maintainAspectRatio: false,
-              layout: { padding: { right: 96 } },
+              layout: { padding: { right: 36 } },
               interaction: { mode: "index", intersect: false },
               scales: {
                 x: { ticks: { autoSkip: true, maxTicksLimit: 10 } },
@@ -147,7 +148,7 @@ const entries = Object.entries(markets);
                     pointStyleWidth: 20,
                     generateLabels: (chart) =>
                       chart.data.datasets.map((ds, i) => ({
-                        text: ds.label,
+                        text: ds.initials ? `${ds.label} (${ds.initials})` : ds.label,
                         fillStyle: ds.borderColor,
                         strokeStyle: ds.borderColor,
                         lineWidth: 3,

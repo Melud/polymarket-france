@@ -389,6 +389,25 @@ et `CLAUDE.md`.
   posteriori avec Pillow (`Image.crop`). Préférer cette méthode aux tests
   `clip` pour toute vérification visuelle future de graphique.
 
+### 16. Étiquettes de courbe : initiales en grand + rappel dans la légende
+- Ajustement de la section 15 : au lieu du nom complet en bout de courbe,
+  seulement les initiales, en plus gros/gras (`bold 13px` au lieu de `10px`),
+  et un rappel "Nom complet (Initiales)" dans la légende du haut.
+- `candidateInitials(name)` ajoutée dans `candidateColors.ts` : initiale de
+  chaque mot séparé par espace/trait d'union, ex. "Jean-Luc Mélenchon" →
+  "JLM", "Marine Le Pen" → "MLP", "Édouard Philippe" → "ÉP" (accent conservé
+  sur la lettre, `toUpperCase()` le gère nativement). Calculée une fois côté
+  build dans `MarketCard.astro` (`initials` ajouté à chaque série du
+  graphique), pas recalculée côté client.
+- `endLabelsPlugin` (index.astro) utilise `ds.initials ?? ds.label` — la
+  carte binaire (marché budget, une seule série "Oui", pas d'`initials`
+  fournie) retombe donc sur le nom complet sans qu'on ait eu besoin de la
+  toucher. Marge droite réservée réduite de 96px à 36px (les initiales
+  prennent beaucoup moins de place qu'un nom complet).
+- Vérifié par capture d'écran (méthode fiable établie en section 15 :
+  plein viewport sans `clip` + recadrage Pillow) : légende affiche bien
+  "Marine Le Pen (MLP)" etc., bout de courbe affiche juste "MLP" en gras.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

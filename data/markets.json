@@ -46606,6 +46606,176 @@
             "price": 0.0015
           }
         ]
+      },
+      {
+        "ts": "2026-08-31T13:28:21+00:00",
+        "volume": 123852609.641032,
+        "outcomes": [
+          {
+            "name": "Marine Le Pen",
+            "price": 0.3335
+          },
+          {
+            "name": "Édouard Philippe",
+            "price": 0.255
+          },
+          {
+            "name": "Jean-Luc Mélenchon",
+            "price": 0.145
+          },
+          {
+            "name": "Gabriel Attal",
+            "price": 0.0425
+          },
+          {
+            "name": "David Lisnard",
+            "price": 0.035
+          },
+          {
+            "name": "François Hollande",
+            "price": 0.0345
+          },
+          {
+            "name": "Jordan Bardella",
+            "price": 0.0255
+          },
+          {
+            "name": "Bruno Retailleau",
+            "price": 0.0185
+          },
+          {
+            "name": "Raphaël Glucksmann",
+            "price": 0.0185
+          },
+          {
+            "name": "Dominique de Villepin",
+            "price": 0.0165
+          },
+          {
+            "name": "Sarah Knafo",
+            "price": 0.0135
+          },
+          {
+            "name": "Éric Zemmour",
+            "price": 0.009
+          },
+          {
+            "name": "Sébastien Lecornu",
+            "price": 0.0085
+          },
+          {
+            "name": "Xavier Bertrand",
+            "price": 0.0025
+          },
+          {
+            "name": "Jean Castex",
+            "price": 0.0025
+          },
+          {
+            "name": "Laurent Wauquiez",
+            "price": 0.0015
+          },
+          {
+            "name": "François Ruffin",
+            "price": 0.0015
+          },
+          {
+            "name": "Marine Tondelier",
+            "price": 0.0015
+          },
+          {
+            "name": "Fabien Roussel",
+            "price": 0.0015
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.0015
+          },
+          {
+            "name": "Ségolène Royal",
+            "price": 0.0015
+          },
+          {
+            "name": "François Asselineau",
+            "price": 0.0015
+          },
+          {
+            "name": "Clémentine Autain",
+            "price": 0.0015
+          },
+          {
+            "name": "Nicolas Dupont-Aignan",
+            "price": 0.0015
+          },
+          {
+            "name": "Michel Barnier",
+            "price": 0.0015
+          },
+          {
+            "name": "Valérie Pécresse",
+            "price": 0.0015
+          },
+          {
+            "name": "François Bayrou",
+            "price": 0.0015
+          },
+          {
+            "name": "Élisabeth Borne",
+            "price": 0.0015
+          },
+          {
+            "name": "Yaël Braun-Pivet",
+            "price": 0.0015
+          },
+          {
+            "name": "Gérald Darmanin",
+            "price": 0.0015
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0015
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.0015
+          },
+          {
+            "name": "Manuel Bompard",
+            "price": 0.0015
+          },
+          {
+            "name": "Mathilde Panot",
+            "price": 0.0015
+          },
+          {
+            "name": "Juan Branco",
+            "price": 0.0015
+          },
+          {
+            "name": "Clémence Guetté",
+            "price": 0.0015
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0015
+          },
+          {
+            "name": "Lucie Castets",
+            "price": 0.0015
+          },
+          {
+            "name": "Yannick Jadot",
+            "price": 0.0015
+          },
+          {
+            "name": "François Baroin",
+            "price": 0.0015
+          },
+          {
+            "name": "Marion Maréchal",
+            "price": 0.0015
+          }
+        ]
       }
     ]
   },
@@ -59902,6 +60072,2218 @@
           {
             "name": "Clémence Guetté",
             "price": 0.008
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-31T13:28:21+00:00",
+        "volume": 111566.687395,
+        "outcomes": [
+          {
+            "name": "Marine Le Pen",
+            "price": 0.875
+          },
+          {
+            "name": "Jean-Luc Mélenchon",
+            "price": 0.47
+          },
+          {
+            "name": "Édouard Philippe",
+            "price": 0.395
+          },
+          {
+            "name": "Jordan Bardella",
+            "price": 0.095
+          },
+          {
+            "name": "Gabriel Attal",
+            "price": 0.078
+          },
+          {
+            "name": "Manuel Bompard",
+            "price": 0.07
+          },
+          {
+            "name": "Raphaël Glucksmann",
+            "price": 0.068
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.066
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.064
+          },
+          {
+            "name": "Dominique de Villepin",
+            "price": 0.06
+          },
+          {
+            "name": "Sarah Knafo",
+            "price": 0.0585
+          },
+          {
+            "name": "Fabien Roussel",
+            "price": 0.057
+          },
+          {
+            "name": "Élisabeth Borne",
+            "price": 0.053
+          },
+          {
+            "name": "Sébastien Lecornu",
+            "price": 0.042
+          },
+          {
+            "name": "François Hollande",
+            "price": 0.04
+          },
+          {
+            "name": "Michel Barnier",
+            "price": 0.04
+          },
+          {
+            "name": "Gérald Darmanin",
+            "price": 0.04
+          },
+          {
+            "name": "Mathilde Panot",
+            "price": 0.04
+          },
+          {
+            "name": "Laurent Wauquiez",
+            "price": 0.0375
+          },
+          {
+            "name": "François Bayrou",
+            "price": 0.036
+          },
+          {
+            "name": "Juan Branco",
+            "price": 0.0345
+          },
+          {
+            "name": "Nicolas Dupont-Aignan",
+            "price": 0.034
+          },
+          {
+            "name": "Éric Zemmour",
+            "price": 0.0315
+          },
+          {
+            "name": "Bruno Retailleau",
+            "price": 0.0315
+          },
+          {
+            "name": "Clémentine Autain",
+            "price": 0.029
+          },
+          {
+            "name": "David Lisnard",
+            "price": 0.0275
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.026
+          },
+          {
+            "name": "Yaël Braun-Pivet",
+            "price": 0.0235
+          },
+          {
+            "name": "François Ruffin",
+            "price": 0.023
+          },
+          {
+            "name": "François Asselineau",
+            "price": 0.018
+          },
+          {
+            "name": "Xavier Bertrand",
+            "price": 0.015
+          },
+          {
+            "name": "Ségolène Royal",
+            "price": 0.0135
+          },
+          {
+            "name": "Marine Tondelier",
+            "price": 0.012
+          },
+          {
+            "name": "Valérie Pécresse",
+            "price": 0.011
+          },
+          {
+            "name": "Jean Castex",
+            "price": 0.011
+          },
+          {
+            "name": "Clémence Guetté",
+            "price": 0.008
+          }
+        ]
+      }
+    ]
+  },
+  "socialist-party-of-france-presidential-nominee-20260710182042067": {
+    "title_en": "Socialist Party of France Presidential Nominee",
+    "title_fr": "Candidat du Parti socialiste",
+    "description_fr": "Qui sera désigné candidat du Parti socialiste pour la présidentielle de 2027 ?",
+    "url": "https://polymarket.com/event/socialist-party-of-france-presidential-nominee-20260710182042067",
+    "history": [
+      {
+        "ts": "2026-07-14T00:00:10+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.415
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.415
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.41
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.41
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.41
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.41
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.41
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.41
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-15T00:00:17+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Segolene Royal",
+            "price": 0.39
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.375
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.375
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.365
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.36
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.33
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.14
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.1295
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-16T00:00:15+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.305
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.265
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.205
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.13
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.085
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.08
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.065
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.021
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0115
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-17T00:00:17+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.27
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.2
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.175
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.17
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.07
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.033
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0255
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.009
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0085
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-18T00:00:12+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Olivier Faure",
+            "price": 0.295
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.225
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.21
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.205
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.065
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.034
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0255
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0065
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0035
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-19T00:00:23+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.38
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.265
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.085
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.06
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0495
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0255
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.016
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0045
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0025
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-20T00:00:29+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.38
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.27
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.1415
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.075
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.06
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0335
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0185
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0165
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.004
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-21T00:00:17+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.385
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.265
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.24
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.102
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.07
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0525
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0315
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0165
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0045
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-22T00:00:12+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.385
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.265
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.145
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.094
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.06
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0445
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.017
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0145
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.009
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-23T00:00:21+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.425
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.265
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.13
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.065
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.054
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.044
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0165
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.015
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0095
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-24T00:00:32+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.375
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.265
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.15
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.09
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.067
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0465
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.016
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0155
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0095
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-25T00:00:54+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.37
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.265
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.13
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.09
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0745
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0665
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.052
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0195
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.016
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-26T00:00:47+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.375
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.265
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.135
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.078
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.065
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.053
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0515
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.017
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0145
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-27T00:00:58+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.38
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.265
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.125
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.089
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.07
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.054
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.021
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0195
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.011
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-28T00:00:55+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.38
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.265
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.13
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.1
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.065
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0555
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0465
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.019
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.019
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-29T00:00:49+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.38
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.265
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.13
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.1005
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.065
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0515
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0465
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.021
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.019
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-30T00:00:26+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.425
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.265
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.155
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.115
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.075
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.062
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.05
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0465
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0175
+          }
+        ]
+      },
+      {
+        "ts": "2026-07-31T00:00:24+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.44
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.265
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.145
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.09
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0625
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.05
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.05
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0475
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0205
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-01T00:00:15+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.4
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.265
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.17
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.1125
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.064
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.058
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.052
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.05
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0165
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-02T00:00:16+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.42
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.31
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.14
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.1175
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0655
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0585
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0465
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0165
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0125
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-03T00:00:13+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.39
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.36
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.12
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0755
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0715
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0425
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0295
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.016
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0105
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-04T00:00:15+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.39
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.37
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.12
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0755
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.072
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0415
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.035
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0295
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0105
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-05T00:00:16+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.39
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.36
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.12
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0725
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.072
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0475
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0415
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0295
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0105
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-06T00:00:15+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.415
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.375
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.085
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.076
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0675
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0495
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.044
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0295
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0105
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-07T00:00:15+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.38
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.375
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.1
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.074
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0715
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0585
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.044
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0295
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.008
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-08T00:00:19+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.375
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.37
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.11
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0715
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0635
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0515
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.045
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0295
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.008
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-09T00:00:29+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.385
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.375
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.115
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0715
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.058
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.053
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.043
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.03
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.008
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-10T00:00:21+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.395
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.365
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.11
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0665
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.064
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.059
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.043
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0295
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.008
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-11T00:00:26+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.375
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.36
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.18
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0695
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0525
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.041
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.028
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0265
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0255
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-12T00:00:16+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.375
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.365
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.18
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0605
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0585
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.033
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0305
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0235
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0185
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-13T00:00:23+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.39
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.37
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.16
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0605
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.055
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0365
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0245
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.018
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0055
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-14T00:00:23+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.39
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.35
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.19
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0495
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0235
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.018
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0175
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0145
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0045
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-15T00:00:21+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Boris Vallaud",
+            "price": 0.39
+          },
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.365
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.185
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0565
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0495
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0175
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.012
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.004
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.004
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-16T00:00:24+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.455
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.245
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.145
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.053
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0425
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0425
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.027
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.022
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0085
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-17T00:00:26+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.48
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.205
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.145
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0575
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0555
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.053
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0435
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0225
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.017
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-18T00:00:35+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.485
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.205
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.175
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.064
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.057
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0435
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.023
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.017
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.017
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-19T00:00:25+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.54
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.26
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.15
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.053
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.035
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.031
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0205
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.013
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0125
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-20T00:00:29+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.555
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.165
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.125
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.052
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.043
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.014
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.013
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.012
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.007
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-21T00:00:26+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.645
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.175
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.155
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.029
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.026
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0245
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0135
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0105
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0095
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-22T00:00:26+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.61
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.175
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.14
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.06
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0565
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.027
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.015
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.01
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0065
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-23T00:00:23+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.615
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.16
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.095
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0695
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.023
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0125
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0055
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.004
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0025
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-24T00:00:28+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.66
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.115
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.095
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0655
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0465
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.019
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.009
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.008
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.007
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-25T00:00:25+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.705
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.115
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.08
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0735
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.023
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.014
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.012
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.008
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0055
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-26T00:00:28+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.69
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.135
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.08
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.071
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.031
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0115
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0095
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.007
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0055
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-27T00:00:27+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.685
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.17
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.07
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.06
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.03
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0135
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.012
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.01
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.007
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-28T00:00:28+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.72
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.16
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.06
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0495
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0365
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.011
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.01
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0095
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0065
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-29T00:00:28+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.73
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.175
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0485
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.0425
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.036
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.016
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.011
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0055
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0045
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-30T00:00:27+00:00",
+        "volume": 0.0,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.73
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.155
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.051
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.048
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.04
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0215
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0145
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.011
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.01
+          }
+        ]
+      },
+      {
+        "ts": "2026-08-31T13:28:21+00:00",
+        "volume": 42003.723215,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 0.69
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.175
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0535
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0505
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.031
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.0275
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.016
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0125
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0115
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.0015
           }
         ]
       }

@@ -172,6 +172,34 @@ et `CLAUDE.md`.
   Marine Le Pen à 13% (alors qu'elle mène largement aujourd'hui) : Bardella
   apparaît bien en tête de l'infobulle à cette date-là.
 
+### 10. Troisième marché ajouté : primaire du Parti socialiste
+- `socialist-party-of-france-presidential-nominee-20260710182042067`
+  ("Candidat du Parti socialiste") ajouté dans `config.json`. Même routine
+  que les précédents : `fetch_markets.py` (déjà générique) le couvre
+  automatiquement pour la collecte horaire, `backfill_history.py` a ajouté
+  48 jours d'historique (14/07/2026 → veille), 9 candidats significatifs.
+- Ce marché a aussi des sous-marchés `active: false` ("Person D" à "Person
+  AO", "Other" — des emplacements réservés non utilisés) : déjà filtrés par
+  le fix `active`/`archived` mis en place pour le marché "second tour", rien
+  à refaire.
+- **Bug trouvé et corrigé** : ce marché orthographie certains noms sans
+  accent ("Raphael Glucksmann", "Francois Hollande") alors que les deux
+  autres marchés utilisent les accents ("Raphaël", "François") — la
+  correspondance exacte de `candidateColors.ts` les ratait donc, ces deux
+  candidats retombaient sur le gris de repli au lieu de leur vraie couleur.
+  Fix : `candidateColor()` compare désormais les noms normalisés (accents
+  retirés via `.normalize("NFD").replace(/\p{Diacritic}/gu, "")`) plutôt que
+  les chaînes brutes. Vérifié avec les couleurs CSS calculées réellement dans
+  le navigateur (`rgb(255,192,192)` pour Glucksmann, `rgb(255,128,128)` pour
+  Hollande), pas seulement à l'œil sur une capture.
+  - Point de vigilance pour cette regex : écrire une classe de caractères
+    avec des accents combinants **littéraux** (copiés-collés) dans le code
+    source s'est révélé fragile — le résultat dépend de l'encodage utilisé
+    pour relire le fichier (cassé différemment selon Node vs PowerShell dans
+    mes tests). Toujours préférer une syntaxe ASCII pure comme
+    `\p{Diacritic}` (ou un échappement `\u....` explicite) pour ce genre de
+    regex Unicode.
+
 ## Permissions outillage
 
 - `.claude/settings.json` (suivi par git, distinct de `settings.local.json`)

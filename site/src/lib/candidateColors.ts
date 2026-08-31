@@ -22,6 +22,20 @@ const CANDIDATE_COLORS: Record<string, string> = {
 // on assume qu'un candidat non mappé n'a pas (encore) de nuance connue.
 const FALLBACK_COLOR = "#999999";
 
+// Selon les marchés Polymarket, un même candidat peut être orthographié avec
+// ou sans accents (ex. "Raphaël"/"Raphael" Glucksmann, "François"/"Francois"
+// Hollande) — on compare donc les noms sans diacritiques. `\p{Diacritic}`
+// (propriété Unicode, syntaxe ASCII pure) plutôt qu'une plage de caractères
+// combinants littéraux, pour rester correct quel que soit l'encodage utilisé
+// pour lire ce fichier.
+function normalizeName(name: string): string {
+  return name.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+}
+
+const NORMALIZED_COLORS: Record<string, string> = Object.fromEntries(
+  Object.entries(CANDIDATE_COLORS).map(([name, color]) => [normalizeName(name), color])
+);
+
 export function candidateColor(name: string): string {
-  return CANDIDATE_COLORS[name] ?? FALLBACK_COLOR;
+  return NORMALIZED_COLORS[normalizeName(name)] ?? FALLBACK_COLOR;
 }

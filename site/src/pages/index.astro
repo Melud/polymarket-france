@@ -18,6 +18,22 @@ const categories = [
   ...PREFERRED_ORDER.filter((c) => seen.has(c)),
   ...[...seen].filter((c) => !PREFERRED_ORDER.includes(c)),
 ];
+
+// aperçu de lien (WhatsApp, etc.) : on met en avant le premier marché de la
+// liste et son candidat en tête, recalculé à chaque build donc toujours à jour
+const SITE_URL = "https://polymarket-france.vercel.app/";
+const firstMarket = entries[0]?.[1];
+const ogTitle = firstMarket
+  ? `Polymarket France — ${firstMarket.title_fr}`
+  : "Polymarket France — marchés prédictifs traduits";
+const ogDescription = (() => {
+  const latest = firstMarket?.history?.[firstMarket.history.length - 1];
+  const top = latest?.outcomes?.[0];
+  if (firstMarket && top) {
+    return `${top.name} en tête avec ${Math.round(top.price * 100)}% — ${firstMarket.description_fr}`;
+  }
+  return "Suivi non officiel des marchés prédictifs Polymarket concernant la France, traduits en français.";
+})();
 ---
 
 <html lang="fr">
@@ -25,7 +41,17 @@ const categories = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Polymarket France — marchés prédictifs traduits</title>
+    <meta name="description" content={ogDescription} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Polymarket France" />
+    <meta property="og:url" content={SITE_URL} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
     <script is:inline src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
   </head>
   <body>

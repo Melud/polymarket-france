@@ -523,6 +523,27 @@ et `CLAUDE.md`.
   sous-marchés (ballot, annonce 2026) dont le parti est connu mais non
   mappé — pas fait de passe exhaustive, seulement les deux signalés.
 
+### 22. Aperçus de lien (Open Graph) — texte dynamique, pas d'image
+- Demande : faire en sorte que les previews façon WhatsApp affichent le
+  contenu du site (le premier marché en exemple) plutôt que l'URL brute.
+- Deux parties distinctes : titre/description (facile, sans risque) vs
+  image de la vignette (le site n'a qu'un favicon SVG, WhatsApp veut du
+  raster). Trois options proposées pour l'image (bannière statique / image
+  générée dynamiquement au build / pas d'image) — l'utilisateur a choisi
+  **pas d'image pour l'instant**.
+- Implémenté dans `index.astro` : `og:title`/`og:description` +
+  `twitter:card summary` (pas `summary_large_image`, qui suppose une image)
+  + `<meta name="description">`, tous calculés au build à partir du
+  **premier marché de la liste** et de son candidat en tête (ex. "Marine Le
+  Pen en tête avec 33% — Qui remportera la prochaine élection
+  présidentielle française ?"), donc mis à jour à chaque rebuild horaire
+  sans intervention. Le `<title>` de l'onglet reste volontairement statique
+  ("Polymarket France — marchés prédictifs traduits") — seul l'aperçu de
+  partage change, pas le titre d'onglet/favoris.
+- Si une image est voulue plus tard : bannière statique (rapide) ou
+  génération dynamique au build (plus de travail, nécessite une lib de
+  rendu SVG→PNG type `satori`/`@vercel/og`).
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

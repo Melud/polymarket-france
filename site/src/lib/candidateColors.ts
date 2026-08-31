@@ -16,6 +16,21 @@ const CANDIDATE_COLORS: Record<string, string> = {
   "Raphaël Glucksmann": "#FFC0C0", // Place Publique
   "François Hollande": "#FF8080", // PS
   "Dominique de Villepin": "#999999", // sans étiquette
+
+  // Primaire du Parti socialiste : tous ces candidats sont du même parti,
+  // donc logiquement une seule couleur — mais ils s'affrontent entre eux
+  // dans ce marché précis, il faut donc pouvoir les distinguer. Palette
+  // catégorielle arbitraire (pas de nuance Wikipédia dédiée par candidat),
+  // choisie pour ne pas entrer en collision avec les couleurs de parti
+  // utilisées ailleurs sur le site.
+  "Olivier Faure": "#2E8B57", // vert
+  "Philippe Brun": "#8E44AD", // violet
+  "Ségolène Royal": "#E67E22", // orange
+  "Karim Bouamrane": "#16A085", // turquoise
+  "Boris Vallaud": "#6D4C41", // marron
+  "Jérôme Guedj": "#B7950B", // ocre
+  "Bernard Cazeneuve": "#34495E", // ardoise
+  "Carole Delga": "#9B59B6", // mauve
 };
 
 // Même gris neutre que "sans étiquette" : plutôt qu'une couleur arbitraire,

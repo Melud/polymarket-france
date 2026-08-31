@@ -200,6 +200,24 @@ et `CLAUDE.md`.
     `\p{Diacritic}` (ou un échappement `\u....` explicite) pour ce genre de
     regex Unicode.
 
+### 11. Couleurs individuelles pour la primaire PS
+- Constat de l'utilisateur : tous les candidats du marché "Candidat du Parti
+  socialiste" sont logiquement de la même nuance (PS), donc avec la
+  convention habituelle ils tomberaient tous sur le même rose ou sur le gris
+  de repli — illisible pour un graphique où ils s'affrontent entre eux.
+- Deux options proposées (nuancier rose/bordeaux vs palette catégorielle
+  distincte), l'utilisateur a choisi la **palette catégorielle**. Raphaël
+  Glucksmann et François Hollande gardent leurs couleurs déjà établies
+  (Place Publique `#FFC0C0`, PS `#FF8080`, utilisées aussi dans les deux
+  autres marchés) ; les 8 autres candidats reçoivent chacun une teinte
+  arbitraire mais distincte, choisie pour ne pas entrer en collision avec les
+  couleurs de parti utilisées ailleurs sur le site (Faure `#2E8B57` vert,
+  Brun `#8E44AD` violet, Royal `#E67E22` orange, Bouamrane `#16A085`
+  turquoise, Vallaud `#6D4C41` marron, Guedj `#B7950B` ocre, Cazeneuve
+  `#34495E` ardoise, Delga `#9B59B6` mauve).
+- Vérifié en conditions de prod : les 10 couleurs calculées dans le
+  navigateur sont bien toutes distinctes (bouton "Voir 4 de moins" déplié).
+
 ## Permissions outillage
 
 - `.claude/settings.json` (suivi par git, distinct de `settings.local.json`)

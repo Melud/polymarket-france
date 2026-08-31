@@ -80,7 +80,6 @@ const entries = Object.entries(markets);
                   data: s.data,
                   borderColor: color,
                   backgroundColor: "transparent",
-                  pointStyle: "line",
                   tension: 0.2,
                   pointRadius: 0,
                   pointHoverRadius: 4,
@@ -102,7 +101,23 @@ const entries = Object.entries(markets);
                 y: { min: 0, max: yMax, ticks: { stepSize: 10, callback: (v) => v + "%" } },
               },
               plugins: {
-                legend: { labels: { usePointStyle: true, pointStyleWidth: 20, font: { size: 10 } } },
+                legend: {
+                  labels: {
+                    font: { size: 10 },
+                    usePointStyle: true,
+                    pointStyleWidth: 20,
+                    generateLabels: (chart) =>
+                      chart.data.datasets.map((ds, i) => ({
+                        text: ds.label,
+                        fillStyle: ds.borderColor,
+                        strokeStyle: ds.borderColor,
+                        lineWidth: 3,
+                        pointStyle: "line",
+                        hidden: !chart.isDatasetVisible(i),
+                        datasetIndex: i,
+                      })),
+                  },
+                },
                 tooltip: {
                   mode: "index",
                   intersect: false,

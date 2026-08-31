@@ -149,6 +149,17 @@ et `CLAUDE.md`.
 - Points au survol : cercles creux → disques pleins, en fixant
   `pointBackgroundColor`/`pointBorderColor` (et leurs variantes `Hover`) à la
   couleur du candidat avec `pointBorderWidth: 0`.
+- **Bug introduit puis corrigé** : `pointStyle: "line"` posé au niveau du
+  dataset affecte à la fois la légende ET les points réels du graphique —
+  du coup les points de survol étaient devenus des traits au lieu de disques
+  (l'inverse de ce qui était demandé), et avec `pointBorderWidth: 0` le trait
+  de la légende devenait invisible (aucune couleur visible) dans un vrai
+  navigateur. Fix : retirer `pointStyle` du dataset (les points de survol
+  retrouvent leur style par défaut `circle`, remplis en disque plein comme
+  voulu) et gérer le rendu en traits de la légende séparément via un
+  `legend.labels.generateLabels` personnalisé (`fillStyle`/`strokeStyle` =
+  couleur du candidat, `lineWidth: 3`, `pointStyle: "line"`), indépendant de
+  la config des points du graphique.
 
 ## Permissions outillage
 

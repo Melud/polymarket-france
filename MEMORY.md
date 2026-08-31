@@ -78,6 +78,22 @@ et `CLAUDE.md`.
 - Couleurs par candidat alignées sur les nuances politiques (Wikipédia) plutôt
   qu'arbitraires — `site/src/lib/candidateColors.ts` (ajouté depuis une autre
   machine, mergé sans conflit).
+  - Source : `Modèle:Infobox Parti politique français/couleurs` sur Wikipédia
+    (couleur de nuance, pas de candidat — deux candidats du même parti
+    partagent donc la même couleur).
+  - Palette retenue : RN `#0D378A` (Bardella, Le Pen) · LR `#0066CC`
+    (Retailleau, Lisnard) · Horizons `#0001B8` (Philippe) · Renaissance
+    `#FFEB00` (Attal) · LFI `#CC2443` (Mélenchon) · Place Publique `#FFC0C0`
+    (Glucksmann) · PS `#FF8080` (Hollande) · sans étiquette `#999999`
+    (Villepin, faute de couleur officielle) · repli générique `#4f8cff` pour
+    tout nom non reconnu.
+  - Couleur transmise à la fois aux barres de score (`MarketCard.astro`) et
+    aux courbes Chart.js (`index.astro`, via un champ `color` ajouté à
+    `chartData.series`).
+  - **Point d'attention** : RN, LR et Horizons sont trois bleus assez proches
+    (fidèle à la convention Wikipédia, mais ça peut réduire le contraste
+    visuel entre Le Pen/Bardella, Retailleau/Lisnard et Philippe sur un même
+    graphique). Rendu réel pas encore vérifié en local à ce stade.
 
 ## Permissions outillage
 

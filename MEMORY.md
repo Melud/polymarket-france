@@ -534,10 +534,12 @@ et `CLAUDE.md`.
 - Implémenté dans `index.astro` : `og:title`/`og:description` +
   `twitter:card summary` (pas `summary_large_image`, qui suppose une image)
   + `<meta name="description">`, tous calculés au build à partir du
-  **premier marché de la liste** et de son candidat en tête (ex. "Marine Le
-  Pen en tête avec 33% — Qui remportera la prochaine élection
-  présidentielle française ?"), donc mis à jour à chaque rebuild horaire
-  sans intervention. Le `<title>` de l'onglet reste volontairement statique
+  **premier marché de la liste** et de son candidat en tête. Ordre inversé
+  sur retour utilisateur juste après : la question du marché passe en
+  premier, le candidat en tête ensuite (ex. "Qui remportera la prochaine
+  élection présidentielle française ? — Marine Le Pen en tête avec 33%"),
+  donc mis à jour à chaque rebuild horaire sans intervention. Le `<title>`
+  de l'onglet reste volontairement statique
   ("Polymarket France — marchés prédictifs traduits") — seul l'aperçu de
   partage change, pas le titre d'onglet/favoris.
 - Si une image est voulue plus tard : bannière statique (rapide) ou

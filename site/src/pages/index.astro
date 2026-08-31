@@ -30,7 +30,7 @@ const ogDescription = (() => {
   const latest = firstMarket?.history?.[firstMarket.history.length - 1];
   const top = latest?.outcomes?.[0];
   if (firstMarket && top) {
-    return `${top.name} en tête avec ${Math.round(top.price * 100)}% — ${firstMarket.description_fr}`;
+    return `${firstMarket.description_fr} — ${top.name} en tête avec ${Math.round(top.price * 100)}%`;
   }
   return "Suivi non officiel des marchés prédictifs Polymarket concernant la France, traduits en français.";
 })();

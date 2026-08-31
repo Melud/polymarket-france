@@ -408,6 +408,27 @@ et `CLAUDE.md`.
   plein viewport sans `clip` + recadrage Pillow) : légende affiche bien
   "Marine Le Pen (MLP)" etc., bout de courbe affiche juste "MLP" en gras.
 
+### 17. Navigation par catégories : onglets sticky
+- Réflexion sur l'organisation de la liste à mesure qu'elle grandit. 4
+  maquettes proposées via un artifact avec le contenu réel du site
+  (sections groupées / onglets sticky / sommaire fixe à gauche / liste
+  compacte dépliable) — l'utilisateur a choisi les **onglets sticky**.
+- Nouveau champ `"category"` dans `config.json` par marché (`"Présidentielle"`
+  pour les 2 marchés électoraux, `"Partis"` pour la primaire PS, `"Budget"`
+  pour le marché budget), propagé dans `data/markets.json` par
+  `fetch_markets.py`/`backfill_history.py` de la même façon que `"style"`
+  (repli `"Autres"` si absent).
+- `index.astro` calcule la liste des catégories présentes (ordre préféré
+  Présidentielle → Partis → Budget, puis toute catégorie inconnue à la
+  suite), affiche une barre de pills `position: sticky; top: 0` juste sous
+  l'intro (masquée automatiquement s'il n'y a qu'une seule catégorie). Un
+  clic sur une pill affiche/masque les `.card` selon leur attribut
+  `data-category` (ajouté sur l'`<article>` dans `MarketCard.astro` et
+  `BinaryMarketCard.astro`) — pas de rechargement de page, juste un
+  toggle de `hidden`.
+- Vérifié avec Puppeteer : clic sur "Présidentielle" ne laisse plus visibles
+  que les 2 marchés électoraux (vérifié par le DOM, pas seulement à l'œil).
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

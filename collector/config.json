@@ -4,26 +4,30 @@
       "slug": "next-french-presidential-election",
       "title_fr": "Prochaine élection présidentielle française",
       "description_fr": "Qui remportera la prochaine élection présidentielle française ?",
-      "outcomes_fr": {}
+      "outcomes_fr": {},
+      "category": "Présidentielle"
     },
     {
       "slug": "next-french-presidential-election-who-will-advance-to-the-2nd-round",
       "title_fr": "Qui accédera au second tour ?",
       "description_fr": "Quel candidat sera qualifié pour le second tour de la prochaine élection présidentielle française ?",
-      "outcomes_fr": {}
+      "outcomes_fr": {},
+      "category": "Présidentielle"
     },
     {
       "slug": "socialist-party-of-france-presidential-nominee-20260710182042067",
       "title_fr": "Candidat du Parti socialiste",
       "description_fr": "Qui sera désigné candidat du Parti socialiste pour la présidentielle de 2027 ?",
-      "outcomes_fr": {}
+      "outcomes_fr": {},
+      "category": "Partis"
     },
     {
       "slug": "will-france-pass-a-national-budget-by-december-31",
       "title_fr": "Le budget sera-t-il voté avant le 31 décembre ?",
       "description_fr": "La France adoptera-t-elle un budget national avant le 31 décembre 2026 ?",
       "outcomes_fr": {},
-      "style": "binary"
+      "style": "binary",
+      "category": "Budget"
     }
   ]
 }

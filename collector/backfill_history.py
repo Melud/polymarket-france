@@ -184,6 +184,7 @@ def main():
             "description_fr": entry.get("description_fr", ""),
             "url": f"https://polymarket.com/event/{slug}",
             "style": entry.get("style", "candidates"),
+            "category": entry.get("category", "Autres"),
             "history": [],
         })
 

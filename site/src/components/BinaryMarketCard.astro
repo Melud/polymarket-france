@@ -12,6 +12,7 @@ interface Market {
   title_fr: string;
   description_fr: string;
   url: string;
+  category?: string;
   history: HistoryPoint[];
 }
 
@@ -40,7 +41,7 @@ const chartData = {
 };
 ---
 
-<article class="card" id={`card-${slug}`}>
+<article class="card" id={`card-${slug}`} data-category={market.category ?? "Autres"}>
   <header>
     <h2>{market.title_fr}</h2>
     <p class="desc">{market.description_fr}</p>

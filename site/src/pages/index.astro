@@ -9,6 +9,15 @@ const raw = fs.existsSync(dataPath) ? fs.readFileSync(dataPath, "utf-8") : "{}";
 const markets: Record<string, any> = JSON.parse(raw);
 
 const entries = Object.entries(markets);
+
+// ordre préféré pour les onglets ; toute catégorie présente mais absente de
+// cette liste (ex. un futur "Autres") est ajoutée à la fin par ordre d'apparition
+const PREFERRED_ORDER = ["Présidentielle", "Partis", "Budget"];
+const seen = new Set(entries.map(([, m]) => m.category ?? "Autres"));
+const categories = [
+  ...PREFERRED_ORDER.filter((c) => seen.has(c)),
+  ...[...seen].filter((c) => !PREFERRED_ORDER.includes(c)),
+];
 ---
 
 <html lang="fr">
@@ -28,6 +37,15 @@ const entries = Object.entries(markets);
       </p>
 
       {entries.length === 0 && <p>Aucune donnée pour l'instant — lancez le script de collecte.</p>}
+
+      {categories.length > 1 && (
+        <div class="pillbar" role="tablist" aria-label="Filtrer par catégorie">
+          <button class="pill active" data-category="all" type="button">Tous</button>
+          {categories.map((cat) => (
+            <button class="pill" data-category={cat} type="button">{cat}</button>
+          ))}
+        </div>
+      )}
 
       {entries.map(([slug, market]) => (
         market.style === "binary"
@@ -180,6 +198,17 @@ const entries = Object.entries(markets);
         });
       }
       renderCharts();
+
+      document.querySelectorAll(".pillbar .pill").forEach((pill) => {
+        pill.addEventListener("click", () => {
+          document.querySelectorAll(".pillbar .pill").forEach((p) => p.classList.remove("active"));
+          pill.classList.add("active");
+          const cat = pill.dataset.category;
+          document.querySelectorAll(".card").forEach((card) => {
+            card.hidden = cat !== "all" && card.dataset.category !== cat;
+          });
+        });
+      });
     </script>
 
     <style is:global>
@@ -191,7 +220,32 @@ const entries = Object.entries(markets);
       }
       main { max-width: 720px; margin: 0 auto; padding: 2rem 1rem 4rem; }
       h1 { font-size: 1.5rem; }
-      .intro { color: #6b6a66; font-size: 0.9rem; margin-bottom: 2rem; }
+      .intro { color: #6b6a66; font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+      .pillbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        gap: 0.5rem;
+        padding: 0.75rem 0 1rem;
+        margin: 0 0 0.5rem;
+        background: #f4f3f0;
+        overflow-x: auto;
+      }
+      .pill {
+        flex: none;
+        font: inherit;
+        font-size: 0.82rem;
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid #e3e2de;
+        background: #ffffff;
+        color: #6b6a66;
+        cursor: pointer;
+      }
+      .pill:hover { border-color: #2454c7; color: #1a1a1a; }
+      .pill.active { background: #1a1a1a; color: #ffffff; border-color: #1a1a1a; }
     </style>
   </body>
 </html>

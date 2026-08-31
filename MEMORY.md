@@ -120,8 +120,26 @@ et `CLAUDE.md`.
   (`gh api`, `gh run view`, `curl -s`, `Set-Location`, `Test-Path`) pour réduire
   les demandes de confirmation répétées.
 
+### 6. Deuxième marché ajouté
+- `next-french-presidential-election-who-will-advance-to-the-2nd-round`
+  ("Qui accédera au second tour ?") ajouté dans `collector/config.json` —
+  même principe que le premier marché (un sous-marché binaire par candidat),
+  donc compatible tel quel avec `extract_outcomes()`.
+- Beaucoup de candidats de ce marché (Bompard, Knafo, Cazeneuve, Faure,
+  Roussel, Borne, Lecornu, Darmanin, Barnier, Panot, Wauquiez, Bayrou,
+  Zemmour, Autain, Delga, Ruffin, Braun-Pivet, Asselineau, Bertrand, Royal,
+  Tondelier, Pécresse, Castex, Guetté...) n'ont pas de couleur dédiée dans
+  `candidateColors.ts` → repli générique `#4f8cff`. Seuls les 6 premiers
+  outcomes sont affichés par défaut donc l'impact visuel immédiat est faible,
+  mais à étoffer si on veut une couleur fidèle pour tout le monde.
+- Testé en local : `.venv` créé (`python -m venv .venv` + `pip install -r
+  collector/requirements.txt`, absent sur cette machine avant), collecteur
+  lancé manuellement, site vérifié par capture d'écran — les deux cartes de
+  marché s'affichent correctement, couleurs et pourcentages cohérents.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.
 - Pas de gestion des marchés clôturés/résolus.
-- Un seul marché suivi pour l'instant (`next-french-presidential-election`).
+- Couleurs de candidats incomplètes pour le marché "second tour" (voir
+  section 6 ci-dessus).

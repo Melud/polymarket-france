@@ -5,6 +5,12 @@
       "title_fr": "Prochaine élection présidentielle française",
       "description_fr": "Qui remportera la prochaine élection présidentielle française ?",
       "outcomes_fr": {}
+    },
+    {
+      "slug": "next-french-presidential-election-who-will-advance-to-the-2nd-round",
+      "title_fr": "Qui accédera au second tour ?",
+      "description_fr": "Quel candidat sera qualifié pour le second tour de la prochaine élection présidentielle française ?",
+      "outcomes_fr": {}
     }
   ]
 }

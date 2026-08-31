@@ -125,6 +125,17 @@ et `CLAUDE.md`.
   ("Qui accédera au second tour ?") ajouté dans `collector/config.json` —
   même principe que le premier marché (un sous-marché binaire par candidat),
   donc compatible tel quel avec `extract_outcomes()`.
+- **Bug trouvé et corrigé** : le sous-marché "Other" ("Will another person
+  advance...") apparaissait sur notre site (~33%) alors qu'il n'apparaît pas
+  sur la page Polymarket elle-même. Cause : c'est le seul sous-marché avec
+  `"active": false` / `"archived": true` — Polymarket le masque de sa propre
+  UI, et son `outcomePrices` est obsolète (le vrai dernier prix négocié,
+  `lastTradePrice`, était de 9%, pas 32,5%). Fix dans
+  `extract_outcomes()` (`fetch_markets.py`) : on ignore désormais tout
+  sous-marché avec `active: false` ou `archived: true`, comme le fait
+  Polymarket. À garder en tête pour tout futur marché à sous-marchés
+  multiples — vérifier les flags `active`/`archived` si un outcome semble
+  incohérent avec la page Polymarket.
 - Beaucoup de candidats de ce marché (Bompard, Knafo, Cazeneuve, Faure,
   Roussel, Borne, Lecornu, Darmanin, Barnier, Panot, Wauquiez, Bayrou,
   Zemmour, Autain, Delga, Ruffin, Braun-Pivet, Asselineau, Bertrand, Royal,

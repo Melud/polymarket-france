@@ -54,6 +54,11 @@ def extract_outcomes(event: dict) -> list[dict]:
     else:
         # un sous-marché par candidat/option, on prend le prix "Yes" de chacun
         for m in markets:
+            # marchés archivés/inactifs (ex. "Other" retiré par Polymarket) :
+            # leur outcomePrices est obsolète, on les ignore comme le fait
+            # l'interface Polymarket elle-même
+            if m.get("active") is False or m.get("archived") is True:
+                continue
             outcomes = json.loads(m.get("outcomes", "[]"))
             prices = json.loads(m.get("outcomePrices", "[]"))
             label = m.get("groupItemTitle") or m.get("question", "?")

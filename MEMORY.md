@@ -338,6 +338,30 @@ et `CLAUDE.md`.
   conditions de build de prod (le fichier est bien copié dans `dist/`, le
   lien pointe bien dessus) + capture d'écran du SVG servi en taille réelle.
 
+### 14. Motif de trait pour distinguer les courbes de couleur proche
+- Retour utilisateur : sur le graphique, les courbes se ressemblent trop
+  (bleus RN/LR/Horizons) — mais il veut **garder ces couleurs** (fidélité
+  Wikipédia), pas les changer.
+- Propositions faites (motif de trait / surbrillance légende au survol /
+  étiquette en bout de courbe) — l'utilisateur a choisi le **motif de
+  trait**, uniquement pour les couleurs qui se ressemblent.
+- Implémenté : `candidateLineDash()` dans `candidateColors.ts`, une table
+  séparée de `CANDIDATE_COLORS` (RN reste plein, LR passe en tirets
+  `[6,4]`, Horizons en pointillés `[2,3]`) — les autres candidats
+  n'ont pas besoin d'un motif puisque leurs couleurs sont déjà distinctes.
+  `MarketCard.astro` ajoute `dash` à chaque série ; `index.astro` applique
+  `borderDash` sur chaque dataset Chart.js, et le `generateLabels` de la
+  légende lit aussi `ds.borderDash` (`lineDash`) pour que le motif apparaisse
+  dans la légende, pas seulement sur la courbe.
+- Vérifié en inspectant directement la config Chart.js réelle
+  (`Chart.getChart(canvas).data.datasets`) plutôt qu'une capture d'écran :
+  Philippe (Horizons) a bien `dash:[2,3]`, Le Pen/Bardella (RN, même
+  couleur) restent à `dash:[]`. La capture plein-page a un souci de timing
+  déjà connu cette session (le canvas se retrouve parfois vide au moment du
+  screenshot alors que son contenu réel — vérifié via `getImageData` — est
+  correct) ; ne pas s'y fier seule pour ce genre de vérification, préférer
+  lire la config Chart.js ou les pixels du canvas directement.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

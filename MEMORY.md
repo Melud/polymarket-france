@@ -69,7 +69,8 @@ et `CLAUDE.md`.
   dérouler le reste (`MarketCard.astro`).
 - Graphique (Chart.js) :
   - hauteur augmentée (320px) pour la lisibilité,
-  - labels de dates sans les heures,
+  - labels de dates sans les heures, au format JJ/MM/AA (année sur 2 chiffres
+    ajoutée pour lever l'ambiguïté sur un historique qui dépasse un an),
   - échelle Y qui s'arrête juste au-dessus du prix max réel des séries
     affichées plutôt que d'être fixée à 100 %,
   - ligne verticale en pointillés au survol + tooltip listant tous les

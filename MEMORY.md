@@ -362,6 +362,33 @@ et `CLAUDE.md`.
   correct) ; ne pas s'y fier seule pour ce genre de vérification, préférer
   lire la config Chart.js ou les pixels du canvas directement.
 
+### 15. Retour en arrière sur les motifs de trait → étiquettes en bout de courbe
+- L'utilisateur n'a finalement pas aimé le motif de trait (section 14) et a
+  demandé à tester l'option "étiquette en bout de courbe" proposée
+  précédemment (indiquée comme "option 2" par l'utilisateur, mais correspond
+  à la 3ᵉ option textuelle des propositions initiales — suivi de la
+  description, pas du numéro).
+- Motif de trait entièrement retiré (`candidateLineDash()`,
+  `CANDIDATE_DASH`, `dash` dans `MarketCard.astro`, `borderDash`/`lineDash`
+  dans `index.astro`) — retour à `candidateColors.ts` sans cette notion.
+- Nouveau : plugin Chart.js `endLabelsPlugin` dans `index.astro` — dessine le
+  nom du candidat directement à l'extrémité droite de sa courbe (couleur du
+  trait), avec une séparation verticale minimale (12px) entre étiquettes pour
+  éviter qu'elles se chevauchent quand plusieurs courbes finissent au même
+  niveau. `layout.padding.right: 96` réservé sur le graphique pour laisser la
+  place aux étiquettes. La légende du haut est conservée (elle permet aussi
+  de masquer/afficher une courbe au clic), donc le nommage est temporairement
+  redondant entre légende et étiquettes — pas retiré sans qu'on me le
+  demande.
+- **Outil de capture d'écran** : `page.screenshot({ clip: ... })` s'est
+  montré peu fiable dans cet environnement (retourne une image blanche alors
+  que `getImageData`/l'inspection de la config Chart.js confirment un rendu
+  correct) — y compris après avoir essayé d'attendre plus longtemps ou de
+  forcer un repaint. Contournement qui fonctionne de façon fiable : capture
+  plein "viewport" (`fullPage:false`, sans `clip`) puis recadrage a
+  posteriori avec Pillow (`Image.crop`). Préférer cette méthode aux tests
+  `clip` pour toute vérification visuelle future de graphique.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

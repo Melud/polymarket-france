@@ -58,6 +58,40 @@ const entries = Object.entries(markets);
       };
       Chart.register(crosshairPlugin);
 
+      const endLabelsPlugin = {
+        id: "endLabels",
+        afterDatasetsDraw(chart) {
+          const { ctx, chartArea, data } = chart;
+          const items = [];
+          data.datasets.forEach((ds, i) => {
+            if (!chart.isDatasetVisible(i)) return;
+            let idx = ds.data.length - 1;
+            while (idx >= 0 && ds.data[idx] == null) idx--;
+            if (idx < 0) return;
+            const point = chart.getDatasetMeta(i).data[idx];
+            if (!point) return;
+            items.push({ label: ds.label, color: ds.borderColor, y: point.y });
+          });
+
+          // évite que deux étiquettes se chevauchent quand deux courbes finissent au même niveau
+          items.sort((a, b) => a.y - b.y);
+          const minGap = 12;
+          for (let k = 1; k < items.length; k++) {
+            if (items[k].y - items[k - 1].y < minGap) items[k].y = items[k - 1].y + minGap;
+          }
+
+          ctx.save();
+          ctx.font = "10px system-ui, sans-serif";
+          ctx.textBaseline = "middle";
+          items.forEach((it) => {
+            ctx.fillStyle = it.color;
+            ctx.fillText(it.label, chartArea.right + 6, it.y);
+          });
+          ctx.restore();
+        },
+      };
+      Chart.register(endLabelsPlugin);
+
       function renderCharts() {
         document.querySelectorAll("canvas.chart").forEach((canvas) => {
           const raw = canvas.getAttribute("data-chart");
@@ -83,7 +117,6 @@ const entries = Object.entries(markets);
                   label: s.name,
                   data: s.data,
                   borderColor: color,
-                  borderDash: s.dash ?? [],
                   backgroundColor: "transparent",
                   tension: 0.2,
                   pointRadius: 0,
@@ -100,6 +133,7 @@ const entries = Object.entries(markets);
             options: {
               responsive: true,
               maintainAspectRatio: false,
+              layout: { padding: { right: 96 } },
               interaction: { mode: "index", intersect: false },
               scales: {
                 x: { ticks: { autoSkip: true, maxTicksLimit: 10 } },
@@ -117,7 +151,6 @@ const entries = Object.entries(markets);
                         fillStyle: ds.borderColor,
                         strokeStyle: ds.borderColor,
                         lineWidth: 3,
-                        lineDash: ds.borderDash ?? [],
                         pointStyle: "line",
                         hidden: !chart.isDatasetVisible(i),
                         datasetIndex: i,

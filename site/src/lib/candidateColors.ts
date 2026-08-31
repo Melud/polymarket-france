@@ -42,18 +42,6 @@ const MARKET_PALETTES: Record<string, Record<string, string>> = {
 // on assume qu'un candidat non mappé n'a pas (encore) de nuance connue.
 const FALLBACK_COLOR = "#999999";
 
-// RN/LR/Horizons sont trois bleus assez proches (fidèles aux nuances
-// Wikipédia, gardées telles quelles) — sur un graphique en courbes où
-// plusieurs se retrouvent ensemble, la couleur seule ne suffit pas à les
-// distinguer. On ajoute un motif de trait (plein/tirets/pointillés) en plus
-// de la couleur, uniquement pour ces cas-là. Format Chart.js `borderDash`.
-const CANDIDATE_DASH: Record<string, number[]> = {
-  "Bruno Retailleau": [6, 4], // LR — tirets
-  "David Lisnard": [6, 4], // LR — tirets
-  "Édouard Philippe": [2, 3], // Horizons — pointillés
-};
-const SOLID: number[] = [];
-
 // Selon les marchés Polymarket, un même candidat peut être orthographié avec
 // ou sans accents (ex. "Raphaël"/"Raphael" Glucksmann, "François"/"Francois"
 // Hollande) — on compare donc les noms sans diacritiques. `\p{Diacritic}`
@@ -72,9 +60,6 @@ const NORMALIZED_COLORS = normalizeMap(CANDIDATE_COLORS);
 const NORMALIZED_MARKET_PALETTES: Record<string, Record<string, string>> = Object.fromEntries(
   Object.entries(MARKET_PALETTES).map(([slug, map]) => [slug, normalizeMap(map)])
 );
-const NORMALIZED_DASH: Record<string, number[]> = Object.fromEntries(
-  Object.entries(CANDIDATE_DASH).map(([name, dash]) => [normalizeName(name), dash])
-);
 
 export function candidateColor(name: string, marketSlug?: string): string {
   const normalized = normalizeName(name);
@@ -83,11 +68,4 @@ export function candidateColor(name: string, marketSlug?: string): string {
     return palette[normalized] ?? FALLBACK_COLOR;
   }
   return NORMALIZED_COLORS[normalized] ?? FALLBACK_COLOR;
-}
-
-// Motif de trait pour le graphique (indépendant du marché : seules les
-// couleurs de parti globales sont assez proches pour en avoir besoin, les
-// palettes propres à un marché — ex. la primaire PS — sont déjà distinctes).
-export function candidateLineDash(name: string): number[] {
-  return NORMALIZED_DASH[normalizeName(name)] ?? SOLID;
 }

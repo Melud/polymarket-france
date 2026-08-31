@@ -15,7 +15,7 @@ interface Market {
   history: HistoryPoint[];
 }
 
-import { candidateColor, candidateLineDash } from "../lib/candidateColors";
+import { candidateColor } from "../lib/candidateColors";
 
 const { slug, market } = Astro.props as { slug: string; market: Market };
 
@@ -34,7 +34,6 @@ const chartData = {
   series: topNames.map((name) => ({
     name,
     color: candidateColor(name, slug),
-    dash: candidateLineDash(name),
     data: market.history.map((h) => {
       const found = h.outcomes.find((o) => o.name === name);
       return found ? Math.round(found.price * 100) : null; // en %

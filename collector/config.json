@@ -44,23 +44,9 @@
       "category": "Budget"
     },
     {
-      "slug": "macron-out-in-2025",
-      "title_fr": "Macron quittera-t-il le pouvoir ?",
-      "description_fr": "D'ici quelle date Emmanuel Macron cessera-t-il d'être président de la République ?",
-      "outcomes_fr": {},
-      "category": "Gouvernement"
-    },
-    {
       "slug": "lecornu-out-as-french-pm-by-381",
       "title_fr": "Lecornu quittera-t-il Matignon ?",
       "description_fr": "D'ici quelle date Sébastien Lecornu cessera-t-il d'être Premier ministre ?",
-      "outcomes_fr": {},
-      "category": "Gouvernement"
-    },
-    {
-      "slug": "french-election-called-by",
-      "title_fr": "Une élection législative sera-t-elle annoncée ?",
-      "description_fr": "Le gouvernement annoncera-t-il la date d'une élection législative anticipée, et avant quelle échéance ?",
       "outcomes_fr": {},
       "category": "Gouvernement"
     }

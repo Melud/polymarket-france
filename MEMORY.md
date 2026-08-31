@@ -464,6 +464,18 @@ et `CLAUDE.md`.
   Chart.js : les 5 échéances du marché Macron donnent maintenant 5 valeurs
   distinctes (31/12/26, 31/12/25, 31/07/26, 30/06/26, 31/10/25).
 
+### 19. Retrait de 2 des 5 marchés ajoutés en section 18
+- L'utilisateur est revenu sur son choix juste après : retrait de
+  `macron-out-in-2025` ("Macron quittera-t-il le pouvoir ?") et
+  `french-election-called-by` ("Une élection législative sera-t-elle
+  annoncée ?"). Reste dans la catégorie "Gouvernement" : uniquement
+  `lecornu-out-as-french-pm-by-381`.
+- Point technique retenu : retirer une entrée de `config.json` ne suffit
+  pas, `fetch_markets.py`/`backfill_history.py` n'effacent jamais les
+  entrées disparues de `data/markets.json` (ils ne font qu'ajouter/mettre à
+  jour ce qui est présent dans la config) — il faut supprimer manuellement
+  la clé du JSON de données en plus de la retirer de `config.json`.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

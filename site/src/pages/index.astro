@@ -15,7 +15,7 @@ const entries = Object.entries(markets);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Polymarket France — marchés prédictifs traduits</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
   </head>
   <body>
     <main>
@@ -65,21 +65,33 @@ const entries = Object.entries(markets);
             0,
             ...series.flatMap((s) => s.data.filter((v) => v != null))
           );
-          // plafond arrondi à la dizaine au-dessus du max réel, avec un minimum de 10%
-          const yMax = Math.max(10, Math.ceil((maxValue + 2) / 5) * 5);
+          // plafond arrondi à la dizaine au-dessus du max réel, entre 10 et 100,
+          // pour n'avoir que des tranches de 10 %
+          const yMax = Math.min(100, Math.max(10, Math.ceil((maxValue + 2) / 10) * 10));
 
           new Chart(canvas, {
             type: "line",
             data: {
               labels: labels.map((l) => new Date(l).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "2-digit", timeZone: "Europe/Paris" })),
-              datasets: series.map((s, i) => ({
-                label: s.name,
-                data: s.data,
-                borderColor: s.color ?? fallbackColors[i % fallbackColors.length],
-                backgroundColor: "transparent",
-                tension: 0.2,
-                pointRadius: 0,
-              })),
+              datasets: series.map((s, i) => {
+                const color = s.color ?? fallbackColors[i % fallbackColors.length];
+                return {
+                  label: s.name,
+                  data: s.data,
+                  borderColor: color,
+                  backgroundColor: "transparent",
+                  pointStyle: "line",
+                  tension: 0.2,
+                  pointRadius: 0,
+                  pointHoverRadius: 4,
+                  pointBackgroundColor: color,
+                  pointBorderColor: color,
+                  pointBorderWidth: 0,
+                  pointHoverBackgroundColor: color,
+                  pointHoverBorderColor: color,
+                  pointHoverBorderWidth: 0,
+                };
+              }),
             },
             options: {
               responsive: true,
@@ -87,10 +99,10 @@ const entries = Object.entries(markets);
               interaction: { mode: "index", intersect: false },
               scales: {
                 x: { ticks: { autoSkip: true, maxTicksLimit: 10 } },
-                y: { min: 0, max: yMax, ticks: { callback: (v) => v + "%" } },
+                y: { min: 0, max: yMax, ticks: { stepSize: 10, callback: (v) => v + "%" } },
               },
               plugins: {
-                legend: { labels: { boxWidth: 10, font: { size: 10 } } },
+                legend: { labels: { usePointStyle: true, pointStyleWidth: 20, font: { size: 10 } } },
                 tooltip: {
                   mode: "index",
                   intersect: false,

@@ -113,6 +113,43 @@ et `CLAUDE.md`.
   + de la ligne de crosshair Chart.js (fond blanc, texte foncé). Vérifié en
   local via capture d'écran (Edge headless).
 
+### 7. Bug critique trouvé et corrigé : le graphique ne s'est jamais affiché en production
+- En voulant vérifier 3 ajustements demandés sur le graphique (voir ci-dessous),
+  build de prod (`npm run build` + `astro preview`) testé pour la première
+  fois — jusque-là, tout avait été vérifié via `astro dev` uniquement.
+- **Découverte** : dans le HTML généré par `astro build`, la balise
+  `<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>` disparaît
+  entièrement — Astro tente de la traiter comme un script à bundler (elle n'a
+  pas la directive `is:inline`) et la supprime silencieusement puisqu'une URL
+  externe n'est pas un module local résolvable. Confirmé en rechargeant le
+  commit HEAD tel quel (clean build) ET en inspectant directement le HTML
+  servi par `https://polymarket-france.vercel.app/` avec `curl` : le tag est
+  bien absent du site en ligne. Résultat concret : `Chart` n'était jamais
+  défini côté navigateur, `Chart.register(...)` levait une exception, et
+  **aucun graphique en courbes ne s'est jamais affiché sur le site déployé**
+  depuis la création du projet (seules les barres de score fonctionnaient).
+- Fix : `<script is:inline src="...">` sur cette balise — indique à Astro de
+  la laisser telle quelle sans essayer de la bundler. Vérifié avec un script
+  Puppeteer piloté via `msedge.exe` local (`puppeteer-core`, sans télécharger
+  de nouveau navigateur) : canvas correctement dimensionné (670×320, contre
+  300×150 par défaut avant le fix) et rempli de pixels réels après le fix.
+- **Point de vigilance pour la suite** : tester un changement Astro touchant
+  aux `<script>`/`<style>` uniquement via `astro dev` ne suffit pas — le mode
+  dev et le build statique de prod peuvent diverger. Faire un
+  `npm run build && npm run preview` au moins une fois avant de considérer un
+  changement de ce type comme vérifié.
+
+### 8. Ajustements du graphique (marché "second tour")
+- Axe Y : plafond désormais arrondi à la **dizaine** (au lieu de 5), plafonné
+  à 100 % — pour n'avoir que des tranches de 10 % au lieu de valeurs comme 95%.
+- Légende : marqueurs changés de carrés creux (`fillStyle` transparent +
+  `strokeStyle` coloré, artefact du `backgroundColor: "transparent"` des
+  datasets) à des traits de couleur, via `legend.labels.usePointStyle: true` +
+  `pointStyleWidth: 20` + `pointStyle: "line"` sur chaque dataset.
+- Points au survol : cercles creux → disques pleins, en fixant
+  `pointBackgroundColor`/`pointBorderColor` (et leurs variantes `Hover`) à la
+  couleur du candidat avec `pointBorderWidth: 0`.
+
 ## Permissions outillage
 
 - `.claude/settings.json` (suivi par git, distinct de `settings.local.json`)

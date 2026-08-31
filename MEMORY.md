@@ -82,22 +82,29 @@ et `CLAUDE.md`.
   - Source : `Modèle:Infobox Parti politique français/couleurs` sur Wikipédia
     (couleur de nuance, pas de candidat — deux candidats du même parti
     partagent donc la même couleur).
-  - Palette d'origine (codes Wikipédia stricts) : RN `#0D378A` (Bardella, Le
-    Pen) · LR `#0066CC` (Retailleau, Lisnard) · Horizons `#0001B8` (Philippe).
-    **Jugée peu lisible sur le fond sombre du site** (trop proche du noir) →
-    éclaircie en gardant la teinte de chaque parti : RN `#3B5FC4`, LR
-    `#2E9CFF`, Horizons `#6C63FF` (bleu-violet, pour bien distinguer des deux
-    autres). Le reste de la palette est inchangé : Renaissance `#FFEB00`
-    (Attal) · LFI `#CC2443` (Mélenchon) · Place Publique `#FFC0C0`
-    (Glucksmann) · PS `#FF8080` (Hollande) · sans étiquette `#999999`
-    (Villepin, faute de couleur officielle) · repli générique `#4f8cff` pour
-    tout nom non reconnu.
+  - Palette : codes Wikipédia stricts, sans altération — RN `#0D378A`
+    (Bardella, Le Pen) · LR `#0066CC` (Retailleau, Lisnard) · Horizons
+    `#0001B8` (Philippe) · Renaissance `#FFEB00` (Attal) · LFI `#CC2443`
+    (Mélenchon) · Place Publique `#FFC0C0` (Glucksmann) · PS `#FF8080`
+    (Hollande) · sans étiquette `#999999` (Villepin, faute de couleur
+    officielle) · repli générique `#4f8cff` pour tout nom non reconnu.
+  - Un essai précédent avait éclairci RN/LR/Horizons (trop proches du noir
+    sur fond sombre) mais l'utilisateur a préféré l'inverse : garder les
+    couleurs Wikipédia telles quelles et changer le **fond du site** plutôt
+    que les couleurs de parti (voir juste en dessous).
   - Couleur transmise à la fois aux barres de score (`MarketCard.astro`) et
     aux courbes Chart.js (`index.astro`, via un champ `color` ajouté à
     `chartData.series`).
 - Pourcentages arrondis à l'unité (plus de décimale) sur les barres de score
   et dans les données passées au graphique (`Math.round(price * 100)` au lieu
   de `Math.round(price * 1000) / 10`).
+- **Thème du site passé de sombre à clair** (fond `#f4f3f0`, cartes blanches,
+  texte `#1a1a1a`) pour que les couleurs de parti Wikipédia (bleus foncés
+  RN/LR/Horizons compris) restent lisibles sans avoir à être modifiées.
+  Touché : `body`/`.intro` dans `index.astro`, `.card`/`.bar-track`/
+  `.toggle-btn`/`footer` dans `MarketCard.astro`, et les couleurs du tooltip
+  + de la ligne de crosshair Chart.js (fond blanc, texte foncé). Vérifié en
+  local via capture d'écran (Edge headless).
 
 ## Permissions outillage
 

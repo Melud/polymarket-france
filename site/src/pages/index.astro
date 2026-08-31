@@ -46,7 +46,7 @@ const entries = Object.entries(markets);
           ctx.moveTo(x, top);
           ctx.lineTo(x, bottom);
           ctx.lineWidth = 1;
-          ctx.strokeStyle = "rgba(234,234,234,0.35)";
+          ctx.strokeStyle = "rgba(20,20,20,0.25)";
           ctx.setLineDash([4, 4]);
           ctx.stroke();
           ctx.restore();
@@ -95,11 +95,11 @@ const entries = Object.entries(markets);
                   mode: "index",
                   intersect: false,
                   usePointStyle: true,
-                  backgroundColor: "#1a1a1a",
-                  borderColor: "#333",
+                  backgroundColor: "#ffffff",
+                  borderColor: "#ddd",
                   borderWidth: 1,
-                  titleColor: "#eaeaea",
-                  bodyColor: "#ccc",
+                  titleColor: "#1a1a1a",
+                  bodyColor: "#444",
                   padding: 10,
                   callbacks: {
                     label: (context) =>
@@ -116,14 +116,14 @@ const entries = Object.entries(markets);
 
     <style is:global>
       body {
-        background: #0b0b0b;
-        color: #eaeaea;
+        background: #f4f3f0;
+        color: #1a1a1a;
         font-family: system-ui, sans-serif;
         margin: 0;
       }
       main { max-width: 720px; margin: 0 auto; padding: 2rem 1rem 4rem; }
       h1 { font-size: 1.5rem; }
-      .intro { color: #999; font-size: 0.9rem; margin-bottom: 2rem; }
+      .intro { color: #6b6a66; font-size: 0.9rem; margin-bottom: 2rem; }
     </style>
   </body>
 </html>

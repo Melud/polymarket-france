@@ -82,19 +82,22 @@ et `CLAUDE.md`.
   - Source : `Modèle:Infobox Parti politique français/couleurs` sur Wikipédia
     (couleur de nuance, pas de candidat — deux candidats du même parti
     partagent donc la même couleur).
-  - Palette retenue : RN `#0D378A` (Bardella, Le Pen) · LR `#0066CC`
-    (Retailleau, Lisnard) · Horizons `#0001B8` (Philippe) · Renaissance
-    `#FFEB00` (Attal) · LFI `#CC2443` (Mélenchon) · Place Publique `#FFC0C0`
+  - Palette d'origine (codes Wikipédia stricts) : RN `#0D378A` (Bardella, Le
+    Pen) · LR `#0066CC` (Retailleau, Lisnard) · Horizons `#0001B8` (Philippe).
+    **Jugée peu lisible sur le fond sombre du site** (trop proche du noir) →
+    éclaircie en gardant la teinte de chaque parti : RN `#3B5FC4`, LR
+    `#2E9CFF`, Horizons `#6C63FF` (bleu-violet, pour bien distinguer des deux
+    autres). Le reste de la palette est inchangé : Renaissance `#FFEB00`
+    (Attal) · LFI `#CC2443` (Mélenchon) · Place Publique `#FFC0C0`
     (Glucksmann) · PS `#FF8080` (Hollande) · sans étiquette `#999999`
     (Villepin, faute de couleur officielle) · repli générique `#4f8cff` pour
     tout nom non reconnu.
   - Couleur transmise à la fois aux barres de score (`MarketCard.astro`) et
     aux courbes Chart.js (`index.astro`, via un champ `color` ajouté à
     `chartData.series`).
-  - **Point d'attention** : RN, LR et Horizons sont trois bleus assez proches
-    (fidèle à la convention Wikipédia, mais ça peut réduire le contraste
-    visuel entre Le Pen/Bardella, Retailleau/Lisnard et Philippe sur un même
-    graphique). Rendu réel pas encore vérifié en local à ce stade.
+- Pourcentages arrondis à l'unité (plus de décimale) sur les barres de score
+  et dans les données passées au graphique (`Math.round(price * 100)` au lieu
+  de `Math.round(price * 1000) / 10`).
 
 ## Permissions outillage
 

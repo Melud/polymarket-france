@@ -319,6 +319,25 @@ et `CLAUDE.md`.
   s'affichent correctement, pixels réels confirmés sur les 4 cartes (plus
   seulement à l'œil sur une capture).
 
+### 13. Favicon
+- Le site n'avait pas de favicon jusqu'ici. Demande : un remix du repère
+  Polymarket (triangles imbriqués) recoloré aux couleurs du drapeau français.
+- Itéré via un artifact de propositions (plusieurs allers-retours : d'abord
+  trop éloigné du logo Polymarket, puis un souci de trou entre les
+  triangles, puis un souci inverse de chevauchement/collision). Solution
+  retenue : **trois triangles isocèles qui partagent exactement leurs
+  arêtes** (mêmes coordonnées des deux côtés) plutôt que des triangles
+  pleins qu'on fait se chevaucher approximativement — structurellement ni
+  trou ni superposition possible, contrairement aux tentatives précédentes
+  qui réglaient le chevauchement à la main. Forme finale : un trapèze
+  (bleu à gauche, blanc en haut au milieu, rouge à droite), contour extérieur
+  uniquement (pas d'arêtes internes tracées).
+- Fichier : `site/public/favicon.svg` (viewBox 0 0 32 32, 3 `<polygon>` +
+  contour). Branché via `<link rel="icon" type="image/svg+xml"
+  href="/favicon.svg" />` dans le `<head>` de `index.astro`. Vérifié en
+  conditions de build de prod (le fichier est bien copié dans `dist/`, le
+  lien pointe bien dessus) + capture d'écran du SVG servi en taille réelle.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

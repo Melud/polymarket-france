@@ -59,7 +59,7 @@ const entries = Object.entries(markets);
           const raw = canvas.getAttribute("data-chart");
           if (!raw) return;
           const { labels, series } = JSON.parse(raw);
-          const colors = ["#4f8cff", "#ff6b6b", "#51cf66", "#ffd43b", "#cc5de8", "#ff922b"];
+          const fallbackColors = ["#4f8cff", "#ff6b6b", "#51cf66", "#ffd43b", "#cc5de8", "#ff922b"];
 
           const maxValue = Math.max(
             0,
@@ -75,7 +75,7 @@ const entries = Object.entries(markets);
               datasets: series.map((s, i) => ({
                 label: s.name,
                 data: s.data,
-                borderColor: colors[i % colors.length],
+                borderColor: s.color ?? fallbackColors[i % fallbackColors.length],
                 backgroundColor: "transparent",
                 tension: 0.2,
                 pointRadius: 0,

@@ -15,6 +15,8 @@ interface Market {
   history: HistoryPoint[];
 }
 
+import { candidateColor } from "../lib/candidateColors";
+
 const { slug, market } = Astro.props as { slug: string; market: Market };
 
 const latest = market.history[market.history.length - 1];
@@ -31,6 +33,7 @@ const chartData = {
   labels: market.history.map((h) => h.ts),
   series: topNames.map((name) => ({
     name,
+    color: candidateColor(name),
     data: market.history.map((h) => {
       const found = h.outcomes.find((o) => o.name === name);
       return found ? Math.round(found.price * 1000) / 10 : null; // en %
@@ -53,7 +56,7 @@ const chartData = {
           <span class="pct">{Math.round(o.price * 1000) / 10}%</span>
         </div>
         <div class="bar-track">
-          <div class="bar-fill" style={`width:${o.price * 100}%`}></div>
+          <div class="bar-fill" style={`width:${o.price * 100}%; background:${candidateColor(o.name)}`}></div>
         </div>
       </li>
     ))}
@@ -69,7 +72,7 @@ const chartData = {
               <span class="pct">{Math.round(o.price * 1000) / 10}%</span>
             </div>
             <div class="bar-track">
-              <div class="bar-fill" style={`width:${o.price * 100}%`}></div>
+              <div class="bar-fill" style={`width:${o.price * 100}%; background:${candidateColor(o.name)}`}></div>
             </div>
           </li>
         ))}

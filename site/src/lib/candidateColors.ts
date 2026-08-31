@@ -70,11 +70,34 @@ export function candidateColor(name: string, marketSlug?: string): string {
   return NORMALIZED_COLORS[normalized] ?? FALLBACK_COLOR;
 }
 
+// Certains marchés (ex. "Macron out by...?") ont des outcomes qui sont des
+// échéances ("December 31, 2026", "October 31") plutôt que des noms de
+// candidats — les initiales mot-par-mot donnaient le même résultat pour deux
+// dates différentes (ex. "December 31, 2026" et "December 31, 2025" →
+// toutes les deux "D32"). On les détecte pour reformater en JJ/MM/AA, comme
+// les dates de l'axe du graphique, plutôt que de risquer une autre collision
+// avec une abréviation par mot.
+const MONTHS = [
+  "january", "february", "march", "april", "may", "june",
+  "july", "august", "september", "october", "november", "december",
+];
+const DATE_LABEL = /^([A-Za-z]+)\s+(\d{1,2}),?\s*(\d{4})?$/;
+
 // Initiale de chaque mot du nom (espaces et traits d'union), ex.
 // "Jean-Luc Mélenchon" -> "JLM", "Marine Le Pen" -> "MLP". Utilisé pour les
 // étiquettes de courbe (plus lisibles en gros que le nom complet) et en
 // rappel entre parenthèses dans la légende.
 export function candidateInitials(name: string): string {
+  const dateMatch = name.match(DATE_LABEL);
+  if (dateMatch) {
+    const monthIndex = MONTHS.indexOf(dateMatch[1].toLowerCase());
+    if (monthIndex !== -1) {
+      const day = dateMatch[2].padStart(2, "0");
+      const month = String(monthIndex + 1).padStart(2, "0");
+      const year = dateMatch[3] ? `/${dateMatch[3].slice(2)}` : "";
+      return `${day}/${month}${year}`;
+    }
+  }
   return name
     .split(/[\s-]+/)
     .filter(Boolean)

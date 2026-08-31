@@ -429,6 +429,41 @@ et `CLAUDE.md`.
 - Vérifié avec Puppeteer : clic sur "Présidentielle" ne laisse plus visibles
   que les 2 marchés électoraux (vérifié par le DOM, pas seulement à l'œil).
 
+### 18. Cinq nouveaux marchés + fix des initiales pour les outcomes "date"
+- Demande : dresser la liste de tous les marchés Polymarket tagués "France"
+  (via `https://gamma-api.polymarket.com/events?tag_id=1378&closed=false`,
+  tag "France" trouvé via `/tags/slug/france`) pour choisir quoi ajouter.
+  32 marchés ouverts recensés, présentés en anglais groupés par thème avec
+  échéance et volume. L'utilisateur en a choisi 5 :
+  - `2027-french-presidential-election-who-will-be-on-the-ballot` → catégorie
+    Présidentielle (candidats, 46 sous-marchés)
+  - `french-presidential-election-who-will-announce-a-run-in-2026` →
+    Présidentielle (candidats, 21 sous-marchés)
+  - `macron-out-in-2025` → nouvelle catégorie **Gouvernement** (échéances,
+    pas des candidats — voir plus bas)
+  - `lecornu-out-as-french-pm-by-381` → Gouvernement (échéances)
+  - `french-election-called-by` → Gouvernement (échéances ; porte en réalité
+    sur une élection **législative** anticipée, pas la présidentielle — d'où
+    le rattachement à Gouvernement plutôt qu'à Présidentielle malgré le nom)
+  - Nouvel onglet "Gouvernement" apparu automatiquement dans la barre de
+    pills (aucun code à toucher, juste la valeur `category` dans
+    `config.json`).
+- **Particularité structurelle** : ces 3 marchés "Gouvernement" ont des
+  sous-marchés nommés par **échéance** ("December 31, 2026", "October 31")
+  plutôt que par candidat — déjà géré tel quel par `extract_outcomes()`
+  (même logique générique groupItemTitle), aucun changement de collecteur
+  nécessaire. Aucun sous-marché archivé/fantôme trouvé dans ces 5 marchés
+  (vérifié comme pour "Other" précédemment).
+- **Bug trouvé et corrigé** : `candidateInitials()` (section 16) prenait la
+  première lettre de chaque mot — pour des échéances, "December 31, 2026"
+  et "December 31, 2025" donnaient toutes les deux "D32" (collision dans la
+  légende et en bout de courbe), pareil pour "July 31, 2026"/"June 30, 2026"
+  → "J32". Fix : détection d'un libellé de date (regex `Mois JJ[, AAAA]`) et
+  reformatage en `JJ/MM/AA` (ou `JJ/MM` sans année), cohérent avec le format
+  déjà utilisé sur l'axe du graphique. Vérifié directement dans la config
+  Chart.js : les 5 échéances du marché Macron donnent maintenant 5 valeurs
+  distinctes (31/12/26, 31/12/25, 31/07/26, 30/06/26, 31/10/25).
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

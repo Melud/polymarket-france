@@ -15,6 +15,8 @@ const CANDIDATE_COLORS: Record<string, string> = {
   "Jean-Luc Mélenchon": "#CC2443", // LFI
   "Raphaël Glucksmann": "#FFC0C0", // Place Publique
   "François Hollande": "#FF8080", // PS
+  "Olivier Faure": "#FF8080", // PS
+  "Nathalie Arthaud": "#BB0000", // LO
   "Dominique de Villepin": "#999999", // sans étiquette
 };
 

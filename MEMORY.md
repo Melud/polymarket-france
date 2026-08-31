@@ -501,6 +501,28 @@ et `CLAUDE.md`.
   et "September 30, 2026" (1,35 %) restent affichées, les 6 autres
   échéances à 0 % ont disparu.
 
+### 21. Couleurs globales manquantes : Faure (PS) et Arthaud (LO)
+- Remarque de l'utilisateur : Olivier Faure et Nathalie Arthaud n'avaient
+  pas de couleur dans les marchés "généraux" (présidentielle, second tour,
+  ballot, annonce 2026) alors que leur parti est connu.
+- Cause : ils sont apparus via les marchés ajoutés en section 18 (ballot,
+  annonce 2026) et via la liste étendue du second tour — seuls les
+  candidats des tout premiers marchés avaient été mappés dans
+  `CANDIDATE_COLORS`, pas de mise à jour faite depuis.
+- Ajoutés : Olivier Faure → `#FF8080` (PS, même couleur qu'Hollande —
+  cohérent avec la convention "même parti = même couleur" du mapping
+  global). Nathalie Arthaud → `#BB0000` (LO, code Wikipédia officiel du
+  parti, trouvé dans `Modèle:Infobox Parti politique français/couleurs`,
+  même source que le reste de la palette).
+- Faure a aussi une couleur dédiée (`#2E8B57`, vert) dans
+  `MARKET_PALETTES` pour le marché "Candidat du Parti socialiste" — les deux
+  coexistent sans conflit, le lookup par marché passe avant le lookup
+  global. Vérifié : `#FF8080` dans les 4 marchés généraux, `#2E8B57`
+  uniquement dans la primaire PS.
+- Reste potentiellement d'autres candidats des marchés à 21-46
+  sous-marchés (ballot, annonce 2026) dont le parti est connu mais non
+  mappé — pas fait de passe exhaustive, seulement les deux signalés.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

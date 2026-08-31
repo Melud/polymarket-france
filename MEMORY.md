@@ -569,6 +569,17 @@ et `CLAUDE.md`.
   le test headless — c'est bien `readText()` spécifiquement qui posait
   problème, pas `writeText()`, mais le filet de sécurité reste utile.
 
+### 24. Ancre de carte masquée par la barre de pills sticky
+- Bug remonté juste après la mise en place du bouton "copier le lien" :
+  sauter sur `#card-slug` plaçait le haut de la carte **sous** la barre de
+  pills sticky (~60px de haut, mesuré), donc le titre du marché restait cru
+  sous le bandeau après un saut d'ancre.
+- Fix : `.card { scroll-margin-top: 5rem; }` dans le style global
+  d'`index.astro` — le navigateur laisse maintenant cette marge au-dessus
+  de la carte visée au lieu de la coller sous la barre. Vérifié en
+  mesurant les positions réelles avant/après (`cardTop` passe de -0.3px,
+  caché, à 79.7px, bien en dessous du bas de la barre à 59.8px).
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

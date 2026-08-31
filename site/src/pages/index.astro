@@ -268,6 +268,10 @@ const ogDescription = (() => {
       h1 { font-size: 1.5rem; }
       .intro { color: #6b6a66; font-size: 0.9rem; margin-bottom: 1.5rem; }
 
+      /* la barre de pills est sticky (~60px) : sans ça, sauter sur l'ancre
+         d'une carte (#card-slug) la place pile sous la barre, cachée */
+      .card { scroll-margin-top: 5rem; }
+
       .pillbar {
         position: sticky;
         top: 0;

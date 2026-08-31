@@ -546,6 +546,29 @@ et `CLAUDE.md`.
   génération dynamique au build (plus de travail, nécessite une lib de
   rendu SVG→PNG type `satori`/`@vercel/og`).
 
+### 23. Bouton "copier le lien direct" par marché
+- Demande ambiguë au départ ("le lien direct de chaque pari") : lien par
+  marché (carte entière) ou par candidat/option (chaque outcome a sa propre
+  page Polymarket) ? L'utilisateur a choisi **un lien par marché**.
+- Bouton 🔗 ajouté dans l'en-tête de chaque carte (`MarketCard.astro` et
+  `BinaryMarketCard.astro`, à côté du titre), qui copie dans le
+  presse-papiers une ancre vers CE site (`{origin}{pathname}#card-{slug}`,
+  l'`id` de la carte existait déjà pour d'autres besoins). Retour visuel :
+  le 🔗 devient ✅ 1,2s. Script partagé dans `index.astro` (comme le filtre
+  par catégorie).
+- **Point de robustesse** : `navigator.clipboard.writeText()` peut dans
+  certains contextes (document pas au premier plan, permission en attente)
+  ne jamais résoudre ni rejeter — testé en conditions réelles avec
+  Puppeteer où `clipboard.readText()` restait bloqué indéfiniment (a
+  nécessité de tuer les process msedge suspendus). Plutôt que `try/await`
+  simple, le clic fait courir `navigator.clipboard.writeText()` contre un
+  `Promise.race` avec un timeout de 800ms — si ça ne résout pas à temps,
+  repli sur `window.prompt()` pour que l'utilisateur puisse copier le lien
+  manuellement plutôt que de rester bloqué sans aucun retour. En pratique,
+  `writeText()` seul (sans `readText()`) a fonctionné du premier coup dans
+  le test headless — c'est bien `readText()` spécifiquement qui posait
+  problème, pas `writeText()`, mais le filet de sécurité reste utile.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

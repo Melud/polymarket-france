@@ -50,7 +50,10 @@ const chartData = {
 
 <article class="card" id={`card-${slug}`} data-category={market.category ?? "Autres"}>
   <header>
-    <h2>{market.title_fr}</h2>
+    <div class="header-row">
+      <h2>{market.title_fr}</h2>
+      <button class="copy-link-btn" type="button" data-slug={slug} title="Copier le lien direct de ce marché" aria-label="Copier le lien direct de ce marché">🔗</button>
+    </div>
     <p class="desc">{market.description_fr}</p>
   </header>
 
@@ -125,8 +128,21 @@ const chartData = {
     background: #ffffff;
     box-shadow: 0 1px 3px rgba(20, 20, 20, 0.05);
   }
-  h2 { margin: 0 0 0.25rem; font-size: 1.15rem; }
-  .desc { margin: 0 0 1rem; color: #6b6a66; font-size: 0.9rem; }
+  h2 { margin: 0; font-size: 1.15rem; }
+  .desc { margin: 0.35rem 0 1rem; color: #6b6a66; font-size: 0.9rem; }
+  .header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.6rem; }
+  .copy-link-btn {
+    flex: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    line-height: 1;
+    padding: 0.15rem 0.3rem;
+    border-radius: 6px;
+    color: #8a8983;
+  }
+  .copy-link-btn:hover { background: #ece9e3; }
   .bars { list-style: none; margin: 0; padding: 0; }
   .bars li { margin-bottom: 0.5rem; }
   .bar-row { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 2px; }

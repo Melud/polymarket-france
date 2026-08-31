@@ -235,6 +235,26 @@ const ogDescription = (() => {
           });
         });
       });
+
+      document.querySelectorAll(".copy-link-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const url = `${location.origin}${location.pathname}#card-${btn.dataset.slug}`;
+          // navigator.clipboard.writeText() peut rester bloquée indéfiniment
+          // dans certains contextes (doc pas au premier plan, permission en
+          // attente...) — on course contre un délai plutôt que d'attendre
+          // indéfiniment sans retour pour l'utilisateur.
+          const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 800));
+          Promise.race([navigator.clipboard.writeText(url), timeout])
+            .then(() => {
+              const original = btn.textContent;
+              btn.textContent = "✅";
+              setTimeout(() => { btn.textContent = original; }, 1200);
+            })
+            .catch(() => {
+              window.prompt("Copiez le lien :", url);
+            });
+        });
+      });
     </script>
 
     <style is:global>

@@ -552,3 +552,10 @@ et `CLAUDE.md`.
 - Pas de gestion des marchés clôturés/résolus.
 - Couleurs de candidats incomplètes pour le marché "second tour" (voir
   section 6 ci-dessus).
+- **Idée notée pour plus tard (pas encore commencée)** : intégrer d'autres
+  sites de marchés de prévision en plus de Polymarket — Metaculus, Manifold,
+  Kalshi cités par l'utilisateur. Impliquerait a minima : identifier
+  lesquels ont des marchés France pertinents, adapter/généraliser le
+  collecteur (chaque plateforme a sa propre API et son propre format
+  d'outcomes), et décider comment les distinguer visuellement sur le site
+  (nouvelle catégorie ? badge par source ? cartes séparées ?).

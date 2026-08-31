@@ -17,6 +17,13 @@
       "title_fr": "Candidat du Parti socialiste",
       "description_fr": "Qui sera désigné candidat du Parti socialiste pour la présidentielle de 2027 ?",
       "outcomes_fr": {}
+    },
+    {
+      "slug": "will-france-pass-a-national-budget-by-december-31",
+      "title_fr": "Le budget sera-t-il voté avant le 31 décembre ?",
+      "description_fr": "La France adoptera-t-elle un budget national avant le 31 décembre 2026 ?",
+      "outcomes_fr": {},
+      "style": "binary"
     }
   ]
 }

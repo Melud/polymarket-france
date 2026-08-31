@@ -283,6 +283,42 @@ et `CLAUDE.md`.
   significatifs (seuil 1%), aucun conflit avec l'historique du premier
   marché (déjà couvert, ignoré).
 
+### 12. Quatrième marché ajouté : un marché binaire, avec un style de carte dédié
+- `will-france-pass-a-national-budget-by-december-31` ("Le budget sera-t-il
+  voté avant le 31 décembre ?") — contrairement aux 3 précédents, ce n'est
+  pas une course à plusieurs candidats mais un marché Oui/Non simple
+  (`len(markets) == 1`, outcomes `["Yes","No"]`).
+- L'utilisateur voulait un **style visuel différent** pour ce type de
+  marché plutôt que de le forcer dans le format "liste de barres". Deux
+  options proposées (jauge/gros pourcentage vs barre unique Oui/Non),
+  l'utilisateur a choisi la **jauge circulaire**.
+- Mécanisme choisi pour distinguer les styles : un champ `"style":
+  "binary"` dans `config.json` par marché (défaut implicite : `"candidates"`),
+  propagé dans `data/markets.json` par `fetch_markets.py` ET
+  `backfill_history.py` (`record["style"]`) pour que le choix de composant
+  se fasse uniquement à partir des données déjà chargées, sans re-parser
+  `config.json` côté site.
+- Nouveau composant `site/src/components/BinaryMarketCard.astro` : anneau
+  conic-gradient CSS (pas de librairie) avec le pourcentage "Oui" au centre,
+  légende "X% Non" en dessous, puis le même graphique Chart.js que les
+  autres cartes (réutilise le script générique `renderCharts()` de
+  `index.astro`, qui cible tout `canvas.chart` peu importe le composant
+  d'origine). Couleur dédiée `#2A9D8F` (teal neutre) — volontairement pas
+  une nuance de parti puisque ce marché ne concerne pas un candidat/parti.
+  `index.astro` choisit `BinaryMarketCard` vs `MarketCard` selon
+  `market.style === "binary"`.
+- **Bug latent trouvé en généralisant** : `backfill_history.py` ne gérait
+  jusque-là que le cas "plusieurs sous-marchés par candidat" — pour un
+  marché à un seul sous-marché (Oui/Non), il aurait utilisé la question
+  entière comme nom de "candidat" et ignoré un des deux outcomes,
+  divergeant de `fetch_markets.py` qui gère déjà ce cas séparément.
+  `significant_candidates()` a été alignée sur la même logique à deux
+  branches (`len(markets) == 1` vs sous-marchés multiples) que
+  `extract_outcomes()`. Backfill obtenu : 136 jours (28/03/2026 → veille).
+- Vérifié en conditions de prod (build + Puppeteer) : jauge et graphique
+  s'affichent correctement, pixels réels confirmés sur les 4 cartes (plus
+  seulement à l'œil sur une capture).
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

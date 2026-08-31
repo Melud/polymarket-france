@@ -1,0 +1,117 @@
+---
+interface Outcome {
+  name: string;
+  price: number;
+}
+interface HistoryPoint {
+  ts: string;
+  volume: number;
+  outcomes: Outcome[];
+}
+interface Market {
+  title_fr: string;
+  description_fr: string;
+  url: string;
+  history: HistoryPoint[];
+}
+
+const { slug, market } = Astro.props as { slug: string; market: Market };
+
+const ACCENT = "#2A9D8F"; // teal neutre : marché procédural, pas une nuance de parti
+const TRACK = "#ece9e3";
+
+const latest = market.history[market.history.length - 1];
+const outcomes = latest?.outcomes ?? [];
+const yesOutcome = outcomes.find((o) => o.name.toLowerCase() === "yes") ?? outcomes[0];
+const pct = yesOutcome ? Math.round(yesOutcome.price * 100) : 0;
+
+const chartData = {
+  labels: market.history.map((h) => h.ts),
+  series: [
+    {
+      name: "Oui",
+      color: ACCENT,
+      data: market.history.map((h) => {
+        const found = h.outcomes.find((o) => o.name.toLowerCase() === "yes");
+        return found ? Math.round(found.price * 100) : null;
+      }),
+    },
+  ],
+};
+---
+
+<article class="card" id={`card-${slug}`}>
+  <header>
+    <h2>{market.title_fr}</h2>
+    <p class="desc">{market.description_fr}</p>
+  </header>
+
+  <div class="gauge-row">
+    <div class="gauge" style={`--pct:${pct}; --accent:${ACCENT}; --track:${TRACK}`}>
+      <div class="gauge-value">
+        <span class="gauge-pct">{pct}%</span>
+        <span class="gauge-label">Oui</span>
+      </div>
+    </div>
+    <p class="gauge-caption">{100 - pct}% Non</p>
+  </div>
+
+  {market.history.length > 1 && (
+    <div class="chart-wrap">
+      <canvas class="chart" data-chart={JSON.stringify(chartData)}></canvas>
+    </div>
+  )}
+
+  <footer>
+    <a href={market.url} target="_blank" rel="noopener">Voir sur Polymarket ↗</a>
+    <span class="updated">Maj : {latest ? new Date(latest.ts).toLocaleString("fr-FR", { timeZone: "Europe/Paris" }) : "—"}</span>
+  </footer>
+</article>
+
+<style>
+  .card {
+    border: 1px solid #e3e2de;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(20, 20, 20, 0.05);
+  }
+  h2 { margin: 0 0 0.25rem; font-size: 1.15rem; }
+  .desc { margin: 0 0 1rem; color: #6b6a66; font-size: 0.9rem; }
+
+  .gauge-row { display: flex; flex-direction: column; align-items: center; margin: 0.5rem 0 1rem; }
+  .gauge {
+    --size: 140px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) calc(var(--pct) * 1%), var(--track) 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .gauge::before {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    background: #ffffff;
+    border-radius: 50%;
+  }
+  .gauge-value {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.15;
+  }
+  .gauge-pct { font-size: 1.9rem; font-weight: 700; color: #1a1a1a; }
+  .gauge-label { font-size: 0.85rem; font-weight: 500; color: #6b6a66; }
+  .gauge-caption { margin: 0.6rem 0 0; font-size: 0.85rem; color: #8a8983; }
+
+  .chart-wrap { margin-top: 0.5rem; height: 320px; }
+  footer { display: flex; justify-content: space-between; margin-top: 1rem; font-size: 0.8rem; color: #8a8983; }
+  footer a { color: #2454c7; text-decoration: none; }
+</style>

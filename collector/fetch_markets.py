@@ -94,11 +94,13 @@ def main():
             "title_fr": entry.get("title_fr", event.get("title", "")),
             "description_fr": entry.get("description_fr", ""),
             "url": f"https://polymarket.com/event/{slug}",
+            "style": entry.get("style", "candidates"),
             "history": [],
         })
-        # garder les traductions à jour si modifiées dans config.json
+        # garder les traductions et le style à jour si modifiés dans config.json
         record["title_fr"] = entry.get("title_fr", record["title_fr"])
         record["description_fr"] = entry.get("description_fr", record["description_fr"])
+        record["style"] = entry.get("style", record.get("style", "candidates"))
 
         record["history"].append({
             "ts": now,

@@ -2,6 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import MarketCard from "../components/MarketCard.astro";
+import BinaryMarketCard from "../components/BinaryMarketCard.astro";
 
 const dataPath = path.resolve(process.cwd(), "../data/markets.json");
 const raw = fs.existsSync(dataPath) ? fs.readFileSync(dataPath, "utf-8") : "{}";
@@ -28,7 +29,9 @@ const entries = Object.entries(markets);
       {entries.length === 0 && <p>Aucune donnée pour l'instant — lancez le script de collecte.</p>}
 
       {entries.map(([slug, market]) => (
-        <MarketCard slug={slug} market={market} />
+        market.style === "binary"
+          ? <BinaryMarketCard slug={slug} market={market} />
+          : <MarketCard slug={slug} market={market} />
       ))}
     </main>
 

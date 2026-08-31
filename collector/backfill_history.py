@@ -53,23 +53,40 @@ def significant_candidates(event: dict) -> list[dict]:
     courant et le clobTokenId associé — nécessaire pour interroger l'historique.
     Ne garde que ceux au-dessus du seuil de significativité.
     """
+    markets = event.get("markets", [])
     candidates = []
-    for m in event.get("markets", []):
-        # marchés archivés/inactifs (ex. "Other" retiré par Polymarket) :
-        # même filtre que fetch_markets.py, pour ne pas backfiller un
-        # historique basé sur un outcomePrices obsolète
+
+    if len(markets) == 1:
+        # un seul marché avec plusieurs outcomes (ex: Oui/Non) — on garde
+        # chaque outcome tel quel, pas de regroupement par candidat
+        m = markets[0]
         if m.get("active") is False or m.get("archived") is True:
-            continue
+            return []
         outcomes = json.loads(m.get("outcomes", "[]"))
         prices = json.loads(m.get("outcomePrices", "[]"))
         token_ids = json.loads(m.get("clobTokenIds", "[]"))
-        if not outcomes or not prices or not token_ids:
-            continue
-        yes_idx = outcomes.index("Yes") if "Yes" in outcomes else 0
-        price = float(prices[yes_idx])
-        if price >= SIGNIFICANCE_THRESHOLD:
-            label = m.get("groupItemTitle") or m.get("question", "?")
-            candidates.append({"name": label, "token_id": token_ids[yes_idx], "price": price})
+        for name, price, token_id in zip(outcomes, prices, token_ids):
+            price = float(price)
+            if price >= SIGNIFICANCE_THRESHOLD:
+                candidates.append({"name": name, "token_id": token_id, "price": price})
+    else:
+        for m in markets:
+            # marchés archivés/inactifs (ex. "Other" retiré par Polymarket) :
+            # même filtre que fetch_markets.py, pour ne pas backfiller un
+            # historique basé sur un outcomePrices obsolète
+            if m.get("active") is False or m.get("archived") is True:
+                continue
+            outcomes = json.loads(m.get("outcomes", "[]"))
+            prices = json.loads(m.get("outcomePrices", "[]"))
+            token_ids = json.loads(m.get("clobTokenIds", "[]"))
+            if not outcomes or not prices or not token_ids:
+                continue
+            yes_idx = outcomes.index("Yes") if "Yes" in outcomes else 0
+            price = float(prices[yes_idx])
+            if price >= SIGNIFICANCE_THRESHOLD:
+                label = m.get("groupItemTitle") or m.get("question", "?")
+                candidates.append({"name": label, "token_id": token_ids[yes_idx], "price": price})
+
     candidates.sort(key=lambda c: c["price"], reverse=True)
     return candidates
 
@@ -166,6 +183,7 @@ def main():
             "title_fr": entry.get("title_fr", event.get("title", "")),
             "description_fr": entry.get("description_fr", ""),
             "url": f"https://polymarket.com/event/{slug}",
+            "style": entry.get("style", "candidates"),
             "history": [],
         })
 

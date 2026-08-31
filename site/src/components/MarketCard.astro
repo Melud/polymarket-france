@@ -89,7 +89,7 @@ const chartData = {
 
   <footer>
     <a href={market.url} target="_blank" rel="noopener">Voir sur Polymarket ↗</a>
-    <span class="updated">Maj : {latest ? new Date(latest.ts).toLocaleString("fr-FR") : "—"}</span>
+    <span class="updated">Maj : {latest ? new Date(latest.ts).toLocaleString("fr-FR", { timeZone: "Europe/Paris" }) : "—"}</span>
   </footer>
 </article>
 

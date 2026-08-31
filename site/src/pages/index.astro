@@ -71,7 +71,7 @@ const entries = Object.entries(markets);
           new Chart(canvas, {
             type: "line",
             data: {
-              labels: labels.map((l) => new Date(l).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "2-digit" })),
+              labels: labels.map((l) => new Date(l).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "2-digit", timeZone: "Europe/Paris" })),
               datasets: series.map((s, i) => ({
                 label: s.name,
                 data: s.data,

@@ -98,6 +98,13 @@ et `CLAUDE.md`.
 - Pourcentages arrondis à l'unité (plus de décimale) sur les barres de score
   et dans les données passées au graphique (`Math.round(price * 100)` au lieu
   de `Math.round(price * 1000) / 10`).
+- **Bug de timezone corrigé** : `toLocaleString`/`toLocaleDateString` sans
+  `timeZone` explicite convertissent l'UTC stocké dans `data/markets.json`
+  selon le fuseau du serveur qui *build* le site, pas un fuseau français fixe
+  — d'où un « Maj : ... » décalé de 2h sur le déploiement Vercel (build en
+  UTC) par rapport à un build local (Paris, UTC+2 l'été). Fix : `timeZone:
+  "Europe/Paris"` ajouté dans `MarketCard.astro` (heure de mise à jour) et
+  `index.astro` (dates de l'axe du graphique).
 - **Thème du site passé de sombre à clair** (fond `#f4f3f0`, cartes blanches,
   texte `#1a1a1a`) pour que les couleurs de parti Wikipédia (bleus foncés
   RN/LR/Horizons compris) restent lisibles sans avoir à être modifiées.

@@ -476,6 +476,31 @@ et `CLAUDE.md`.
   jour ce qui est présent dans la config) — il faut supprimer manuellement
   la clé du JSON de données en plus de la retirer de `config.json`.
 
+### 20. Masquer les échéances déjà résolues dans les marchés "date"
+- Demande : sur "Lecornu quittera-t-il Matignon ?" (et tout futur marché du
+  même type), les échéances passées ("July 31, 2026", "December 31, 2025"...
+  toutes à 0 %) n'ont plus d'intérêt une fois la date dépassée.
+- Plutôt que de parser/deviner la date exacte de chaque échéance (fragile —
+  certaines n'ont pas d'année, ex. "October 31", "November 30", et
+  deviner l'année aurait pu se tromper), le filtre se base sur le **prix** :
+  `isDateLabel(name)` (nouvelle fonction exportée dans `candidateColors.ts`,
+  réutilise la regex déjà en place pour `candidateInitials`) ET prix < 0,5 %
+  → outcome masqué. Une échéance déjà passée sans que l'événement se soit
+  produit retombe et reste à ~0 %, donc ce critère la capture correctement
+  sans avoir besoin de connaître la date d'aujourd'hui ni l'année exacte du
+  libellé.
+- Important : ce filtre ne s'applique qu'aux outcomes qui **ressemblent à
+  une date** (`isDateLabel`) — un candidat à 0 % dans un marché normal
+  (présidentielle, primaire...) reste affiché, ce n'est pas la même
+  information (une échéance à 0 % est morte ; un candidat à 0 % est juste
+  peu probable, encore intéressant dans une course).
+- Filtre appliqué une seule fois sur `outcomes` dans `MarketCard.astro`,
+  avant le découpage visible/extra et avant le calcul de `topNames` pour le
+  graphique — les échéances mortes disparaissent donc à la fois des barres
+  et de la courbe. Vérifié : pour Lecornu, seules "December 31, 2026" (28,5 %)
+  et "September 30, 2026" (1,35 %) restent affichées, les 6 autres
+  échéances à 0 % ont disparu.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

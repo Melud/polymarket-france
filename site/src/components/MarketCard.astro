@@ -16,12 +16,16 @@ interface Market {
   history: HistoryPoint[];
 }
 
-import { candidateColor, candidateInitials } from "../lib/candidateColors";
+import { candidateColor, candidateInitials, isDateLabel } from "../lib/candidateColors";
 
 const { slug, market } = Astro.props as { slug: string; market: Market };
 
 const latest = market.history[market.history.length - 1];
-const outcomes = latest?.outcomes ?? [];
+// certains marchés ("Lecornu quittera-t-il Matignon ?"...) ont des outcomes
+// qui sont des échéances plutôt que des candidats — une échéance déjà
+// résolue (prix quasi nul) n'a plus d'intérêt une fois la date passée, on
+// la masque. Un candidat à 0 % reste affiché : ce n'est pas la même chose.
+const outcomes = (latest?.outcomes ?? []).filter((o) => !(isDateLabel(o.name) && o.price < 0.005));
 
 const VISIBLE_COUNT = 6;
 const visibleOutcomes = outcomes.slice(0, VISIBLE_COUNT);

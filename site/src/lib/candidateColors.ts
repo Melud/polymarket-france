@@ -83,6 +83,13 @@ const MONTHS = [
 ];
 const DATE_LABEL = /^([A-Za-z]+)\s+(\d{1,2}),?\s*(\d{4})?$/;
 
+// Un outcome est une échéance (pas un candidat) si son nom correspond au
+// format "Mois JJ[, AAAA]" utilisé par ces marchés.
+export function isDateLabel(name: string): boolean {
+  const m = name.match(DATE_LABEL);
+  return !!m && MONTHS.includes(m[1].toLowerCase());
+}
+
 // Initiale de chaque mot du nom (espaces et traits d'union), ex.
 // "Jean-Luc Mélenchon" -> "JLM", "Marine Le Pen" -> "MLP". Utilisé pour les
 // étiquettes de courbe (plus lisibles en gros que le nom complet) et en

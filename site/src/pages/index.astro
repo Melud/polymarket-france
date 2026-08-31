@@ -122,6 +122,7 @@ const entries = Object.entries(markets);
                   mode: "index",
                   intersect: false,
                   usePointStyle: true,
+                  itemSort: (a, b) => (b.raw ?? 0) - (a.raw ?? 0),
                   backgroundColor: "#ffffff",
                   borderColor: "#ddd",
                   borderWidth: 1,

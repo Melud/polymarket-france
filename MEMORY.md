@@ -161,6 +161,17 @@ et `CLAUDE.md`.
   couleur du candidat, `lineWidth: 3`, `pointStyle: "line"`), indépendant de
   la config des points du graphique.
 
+### 9. Tri dynamique de l'infobulle au survol
+- Demande : au survol du graphique, la liste des candidats dans l'infobulle
+  doit être triée du plus probable au moins probable **à la date survolée**,
+  pas dans l'ordre fixe du classement final (la légende, elle, reste dans
+  l'ordre fixe du dernier prix connu — c'est normal, seule l'infobulle doit
+  changer).
+- Fix : `tooltip.itemSort: (a, b) => (b.raw ?? 0) - (a.raw ?? 0)`. Vérifié en
+  survolant une date ancienne (05/06/26) où Jordan Bardella était à 78% et
+  Marine Le Pen à 13% (alors qu'elle mène largement aujourd'hui) : Bardella
+  apparaît bien en tête de l'infobulle à cette date-là.
+
 ## Permissions outillage
 
 - `.claude/settings.json` (suivi par git, distinct de `settings.local.json`)

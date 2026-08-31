@@ -18,7 +18,9 @@ const CANDIDATE_COLORS: Record<string, string> = {
   "Dominique de Villepin": "#999999", // sans étiquette
 };
 
-const FALLBACK_COLOR = "#4f8cff";
+// Même gris neutre que "sans étiquette" : plutôt qu'une couleur arbitraire,
+// on assume qu'un candidat non mappé n'a pas (encore) de nuance connue.
+const FALLBACK_COLOR = "#999999";
 
 export function candidateColor(name: string): string {
   return CANDIDATE_COLORS[name] ?? FALLBACK_COLOR;

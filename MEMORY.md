@@ -129,9 +129,12 @@ et `CLAUDE.md`.
   Roussel, Borne, Lecornu, Darmanin, Barnier, Panot, Wauquiez, Bayrou,
   Zemmour, Autain, Delga, Ruffin, Braun-Pivet, Asselineau, Bertrand, Royal,
   Tondelier, Pécresse, Castex, Guetté...) n'ont pas de couleur dédiée dans
-  `candidateColors.ts` → repli générique `#4f8cff`. Seuls les 6 premiers
-  outcomes sont affichés par défaut donc l'impact visuel immédiat est faible,
-  mais à étoffer si on veut une couleur fidèle pour tout le monde.
+  `candidateColors.ts` → repli générique. Seuls les 6 premiers outcomes sont
+  affichés par défaut donc l'impact visuel immédiat est faible, mais à
+  étoffer si on veut une couleur fidèle pour tout le monde.
+- `FALLBACK_COLOR` changé de bleu (`#4f8cff`) à gris neutre (`#999999`,
+  identique à la couleur "sans étiquette" de Villepin) — un candidat non
+  mappé n'a pas de couleur arbitraire, juste l'absence de nuance connue.
 - Testé en local : `.venv` créé (`python -m venv .venv` + `pip install -r
   collector/requirements.txt`, absent sur cette machine avant), collecteur
   lancé manuellement, site vérifié par capture d'écran — les deux cartes de

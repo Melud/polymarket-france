@@ -1,0 +1,84 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  ogTitle: string;
+  ogDescription: string;
+  url: string;
+}
+const { title, description, ogTitle, ogDescription, url } = Astro.props;
+---
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Polymarket France" />
+    <meta property="og:url" content={url} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+    <script is:inline src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+
+    <style is:global>
+      body {
+        background: #f4f3f0;
+        color: #1a1a1a;
+        font-family: system-ui, sans-serif;
+        margin: 0;
+      }
+      main { max-width: 720px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+      h1 { font-size: 1.5rem; }
+      .intro { color: #6b6a66; font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+      /* la barre de pills (page d'accueil) est sticky (~60px) : sans ça,
+         sauter sur l'ancre d'une carte la place pile sous la barre, cachée */
+      .card { scroll-margin-top: 5rem; }
+
+      .back-link {
+        display: inline-block;
+        margin-bottom: 1.25rem;
+        color: #2454c7;
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+      .back-link:hover { text-decoration: underline; }
+
+      .pillbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        gap: 0.5rem;
+        padding: 0.75rem 0 1rem;
+        margin: 0 0 0.5rem;
+        background: #f4f3f0;
+        overflow-x: auto;
+      }
+      .pill {
+        flex: none;
+        font: inherit;
+        font-size: 0.82rem;
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid #e3e2de;
+        background: #ffffff;
+        color: #6b6a66;
+        cursor: pointer;
+      }
+      .pill:hover { border-color: #2454c7; color: #1a1a1a; }
+      .pill.active { background: #1a1a1a; color: #ffffff; border-color: #1a1a1a; }
+    </style>
+  </body>
+</html>

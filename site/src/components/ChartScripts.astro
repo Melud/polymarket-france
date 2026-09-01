@@ -1,0 +1,169 @@
+<script>
+  const crosshairPlugin = {
+    id: "crosshair",
+    afterDatasetsDraw(chart) {
+      const active = chart.tooltip?.getActiveElements?.() ?? [];
+      if (active.length === 0) return;
+      const { x } = active[0].element;
+      const { top, bottom } = chart.chartArea;
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(x, top);
+      ctx.lineTo(x, bottom);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "rgba(20,20,20,0.25)";
+      ctx.setLineDash([4, 4]);
+      ctx.stroke();
+      ctx.restore();
+    },
+  };
+  Chart.register(crosshairPlugin);
+
+  const endLabelsPlugin = {
+    id: "endLabels",
+    afterDatasetsDraw(chart) {
+      const { ctx, chartArea, data } = chart;
+      const items = [];
+      data.datasets.forEach((ds, i) => {
+        if (!chart.isDatasetVisible(i)) return;
+        let idx = ds.data.length - 1;
+        while (idx >= 0 && ds.data[idx] == null) idx--;
+        if (idx < 0) return;
+        const point = chart.getDatasetMeta(i).data[idx];
+        if (!point) return;
+        items.push({ label: ds.initials ?? ds.label, color: ds.borderColor, y: point.y });
+      });
+
+      // évite que deux étiquettes se chevauchent quand deux courbes finissent au même niveau
+      items.sort((a, b) => a.y - b.y);
+      const minGap = 15;
+      for (let k = 1; k < items.length; k++) {
+        if (items[k].y - items[k - 1].y < minGap) items[k].y = items[k - 1].y + minGap;
+      }
+
+      ctx.save();
+      ctx.font = "bold 13px system-ui, sans-serif";
+      ctx.textBaseline = "middle";
+      items.forEach((it) => {
+        ctx.fillStyle = it.color;
+        ctx.fillText(it.label, chartArea.right + 6, it.y);
+      });
+      ctx.restore();
+    },
+  };
+  Chart.register(endLabelsPlugin);
+
+  function renderCharts() {
+    document.querySelectorAll("canvas.chart").forEach((canvas) => {
+      const raw = canvas.getAttribute("data-chart");
+      if (!raw) return;
+      const { labels, series } = JSON.parse(raw);
+      const fallbackColors = ["#4f8cff", "#ff6b6b", "#51cf66", "#ffd43b", "#cc5de8", "#ff922b"];
+
+      const maxValue = Math.max(
+        0,
+        ...series.flatMap((s) => s.data.filter((v) => v != null))
+      );
+      // plafond arrondi à la dizaine au-dessus du max réel, entre 10 et 100,
+      // pour n'avoir que des tranches de 10 %
+      const yMax = Math.min(100, Math.max(10, Math.ceil((maxValue + 2) / 10) * 10));
+
+      new Chart(canvas, {
+        type: "line",
+        data: {
+          labels: labels.map((l) => new Date(l).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "2-digit", timeZone: "Europe/Paris" })),
+          datasets: series.map((s, i) => {
+            const color = s.color ?? fallbackColors[i % fallbackColors.length];
+            return {
+              label: s.name,
+              initials: s.initials,
+              data: s.data,
+              borderColor: color,
+              backgroundColor: "transparent",
+              tension: 0.2,
+              pointRadius: 0,
+              pointHoverRadius: 4,
+              pointBackgroundColor: color,
+              pointBorderColor: color,
+              pointBorderWidth: 0,
+              pointHoverBackgroundColor: color,
+              pointHoverBorderColor: color,
+              pointHoverBorderWidth: 0,
+            };
+          }),
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          layout: { padding: { right: 36 } },
+          interaction: { mode: "index", intersect: false },
+          scales: {
+            x: { ticks: { autoSkip: true, maxTicksLimit: 10 } },
+            y: { min: 0, max: yMax, ticks: { stepSize: 10, callback: (v) => v + "%" } },
+          },
+          plugins: {
+            legend: {
+              labels: {
+                font: { size: 11 },
+                usePointStyle: true,
+                pointStyleWidth: 20,
+                generateLabels: (chart) =>
+                  chart.data.datasets.map((ds, i) => ({
+                    text: ds.initials ? `${ds.label} (${ds.initials})` : ds.label,
+                    fillStyle: ds.borderColor,
+                    strokeStyle: ds.borderColor,
+                    lineWidth: 3,
+                    pointStyle: "line",
+                    hidden: !chart.isDatasetVisible(i),
+                    datasetIndex: i,
+                  })),
+              },
+            },
+            tooltip: {
+              mode: "index",
+              intersect: false,
+              usePointStyle: true,
+              itemSort: (a, b) => (b.raw ?? 0) - (a.raw ?? 0),
+              backgroundColor: "#ffffff",
+              borderColor: "#ddd",
+              borderWidth: 1,
+              titleColor: "#1a1a1a",
+              bodyColor: "#444",
+              padding: 10,
+              callbacks: {
+                label: (context) =>
+                  `${context.dataset.label} : ${context.formattedValue}%`,
+              },
+            },
+          },
+        },
+      });
+    });
+  }
+  renderCharts();
+
+  document.querySelectorAll(".copy-link-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      // pointe vers la page dédiée du marché (seule façon d'avoir un aperçu
+      // de lien correct : les ancres #... ne sont jamais vues par les robots
+      // qui génèrent les previews WhatsApp/réseaux, qui ne lisent que le HTML
+      // de l'URL exacte partagée)
+      const url = `${location.origin}/marche/${btn.dataset.slug}/`;
+      // navigator.clipboard.writeText() peut rester bloquée indéfiniment
+      // dans certains contextes (doc pas au premier plan, permission en
+      // attente...) — on court contre un délai plutôt que d'attendre
+      // indéfiniment sans retour pour l'utilisateur.
+      const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 800));
+      Promise.race([navigator.clipboard.writeText(url), timeout])
+        .then(() => {
+          const original = btn.textContent;
+          btn.textContent = "✅";
+          setTimeout(() => { btn.textContent = original; }, 1200);
+        })
+        .catch(() => {
+          window.prompt("Copiez le lien :", url);
+        });
+    });
+  });
+</script>

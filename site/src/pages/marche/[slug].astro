@@ -1,0 +1,51 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import BaseLayout from "../../components/BaseLayout.astro";
+import ChartScripts from "../../components/ChartScripts.astro";
+import MarketCard from "../../components/MarketCard.astro";
+import BinaryMarketCard from "../../components/BinaryMarketCard.astro";
+
+export async function getStaticPaths() {
+  const dataPath = path.resolve(process.cwd(), "../data/markets.json");
+  const raw = fs.existsSync(dataPath) ? fs.readFileSync(dataPath, "utf-8") : "{}";
+  const markets: Record<string, any> = JSON.parse(raw);
+  return Object.entries(markets).map(([slug, market]) => ({
+    params: { slug },
+    props: { market },
+  }));
+}
+
+const { slug } = Astro.params;
+const { market } = Astro.props as { market: any };
+
+// page dédiée par marché : seule façon d'avoir un aperçu de lien (WhatsApp,
+// etc.) correct pour un marché précis — un lien vers #card-slug sur la page
+// d'accueil ne peut pas fonctionner, l'ancre n'est jamais vue par les robots
+// qui lisent le HTML de l'URL exacte partagée pour générer la preview.
+const SITE_URL = `https://polymarket-france.vercel.app/marche/${slug}/`;
+const ogDescription = (() => {
+  const latest = market.history?.[market.history.length - 1];
+  const top = latest?.outcomes?.[0];
+  if (top) {
+    return `${market.description_fr} — ${top.name} en tête avec ${Math.round(top.price * 100)}%`;
+  }
+  return market.description_fr;
+})();
+---
+
+<BaseLayout
+  title={`${market.title_fr} — Polymarket France`}
+  description={ogDescription}
+  ogTitle={market.title_fr}
+  ogDescription={ogDescription}
+  url={SITE_URL}
+>
+  <a class="back-link" href="/">← Tous les marchés</a>
+
+  {market.style === "binary"
+    ? <BinaryMarketCard slug={slug} market={market} />
+    : <MarketCard slug={slug} market={market} />}
+
+  <ChartScripts />
+</BaseLayout>

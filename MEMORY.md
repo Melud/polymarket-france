@@ -588,6 +588,42 @@ et `CLAUDE.md`.
   dynamique). La description reste dynamique (question + candidat en tête),
   seul le titre est redevenu statique.
 
+### 26. Page dédiée par marché — aperçu de lien correct au partage
+- Demande : que le lien "copier" d'un marché donne un aperçu de partage
+  affichant CE marché, pas toujours le premier de la liste.
+- **Explication du blocage technique** : impossible avec une simple ancre
+  (`#card-slug`) sur une seule page — les robots qui génèrent les previews
+  (WhatsApp, etc.) lisent le HTML de l'URL exacte partagée sans jamais voir
+  le fragment `#...` (jamais envoyé au serveur, jamais exécuté de JS). Seule
+  solution : une page statique dédiée par marché, avec ses propres balises
+  Open Graph.
+- Implémenté : `site/src/pages/marche/[slug].astro` (route dynamique Astro,
+  `getStaticPaths()` génère une page par entrée de `data/markets.json`,
+  même mécanisme de lecture fichier que `index.astro`). `og:title`/`title`
+  = titre du marché (contrairement à la page d'accueil qui reste
+  volontairement générique "Polymarket France"), description dynamique
+  identique (question + candidat en tête). Contenu de la page : lien
+  "← Tous les marchés" + la carte du marché (même composant
+  `MarketCard`/`BinaryMarketCard` que la page d'accueil) + le graphique.
+- **Refactor pour éviter la duplication** : extrait `BaseLayout.astro`
+  (le `<head>` avec meta/OG + le style global body/main/pillbar/back-link,
+  paramétré par props `title`/`description`/`ogTitle`/`ogDescription`/`url`)
+  et `ChartScripts.astro` (crosshair + endLabels + `renderCharts()` + le
+  handler du bouton copier-lien), tous deux utilisés par `index.astro` ET
+  `marche/[slug].astro`. Attention lors du split : le handler du bouton
+  "Voir X de plus" est resté dans le propre `<script>` de `MarketCard.astro`
+  (pas dupliqué dans `ChartScripts.astro`) — Astro dédoublonne déjà les
+  scripts de composants par page, donc le dupliquer aurait attaché le même
+  listener deux fois et cassé le toggle (clique → ouvre puis se referme
+  aussitôt).
+- Le bouton 🔗 pointe désormais vers `{origin}/marche/{slug}/` au lieu de
+  `{pathname}#card-{slug}` — ancien lien par ancre remplacé, plus utilisé.
+- Vérifié en conditions de prod (build + Puppeteer) : les 7 pages
+  `/marche/{slug}/` sont bien générées, chacune avec son propre
+  `og:title`/`og:description`, le graphique et le bouton copier
+  fonctionnent sur la page dédiée, et la page d'accueil (barre de pills,
+  filtre, 7 cartes) n'a rien perdu dans le refactor.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

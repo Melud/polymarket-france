@@ -580,6 +580,14 @@ et `CLAUDE.md`.
   mesurant les positions réelles avant/après (`cardTop` passe de -0.3px,
   caché, à 79.7px, bien en dessous du bas de la barre à 59.8px).
 
+### 25. Titre OG simplifié
+- Retour utilisateur sur le rendu réel de la preview (capture d'écran
+  fournie) : le titre "Polymarket France — {titre du premier marché}" était
+  trop long/pas voulu — juste "Polymarket France". `og:title`/
+  `twitter:title` fixés à `"Polymarket France"` (constante, plus de suffixe
+  dynamique). La description reste dynamique (question + candidat en tête),
+  seul le titre est redevenu statique.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

@@ -16,10 +16,16 @@ interface Market {
   history: HistoryPoint[];
 }
 
+import { ema } from "../lib/smoothing";
+
 const { slug, market } = Astro.props as { slug: string; market: Market };
 
 const ACCENT = "#2A9D8F"; // teal neutre : marché procédural, pas une nuance de parti
 const TRACK = "#ece9e3";
+
+// lissage exponentiel appliqué uniquement à la courbe du graphique — la
+// jauge affiche le prix brut du dernier relevé
+const SMOOTHING_ALPHA = 0.5;
 
 const latest = market.history[market.history.length - 1];
 const outcomes = latest?.outcomes ?? [];
@@ -32,10 +38,13 @@ const chartData = {
     {
       name: "Oui",
       color: ACCENT,
-      data: market.history.map((h) => {
-        const found = h.outcomes.find((o) => o.name.toLowerCase() === "yes");
-        return found ? Math.round(found.price * 100) : null;
-      }),
+      data: ema(
+        market.history.map((h) => {
+          const found = h.outcomes.find((o) => o.name.toLowerCase() === "yes");
+          return found ? found.price * 100 : null;
+        }),
+        SMOOTHING_ALPHA
+      ).map((v) => (v == null ? null : Math.round(v))),
     },
   ],
 };

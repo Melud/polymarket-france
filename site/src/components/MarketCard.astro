@@ -17,6 +17,11 @@ interface Market {
 }
 
 import { candidateColor, candidateInitials, isDateLabel } from "../lib/candidateColors";
+import { ema } from "../lib/smoothing";
+
+// lissage exponentiel appliqué uniquement à la courbe du graphique — les
+// barres/pourcentages affichés restent le prix brut du dernier relevé
+const SMOOTHING_ALPHA = 0.5;
 
 const { slug, market } = Astro.props as { slug: string; market: Market };
 
@@ -40,10 +45,13 @@ const chartData = {
     name,
     color: candidateColor(name, slug),
     initials: candidateInitials(name),
-    data: market.history.map((h) => {
-      const found = h.outcomes.find((o) => o.name === name);
-      return found ? Math.round(found.price * 100) : null; // en %
-    }),
+    data: ema(
+      market.history.map((h) => {
+        const found = h.outcomes.find((o) => o.name === name);
+        return found ? found.price * 100 : null;
+      }),
+      SMOOTHING_ALPHA
+    ).map((v) => (v == null ? null : Math.round(v))), // en %
   })),
 };
 ---

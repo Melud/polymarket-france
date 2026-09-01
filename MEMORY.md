@@ -624,6 +624,37 @@ et `CLAUDE.md`.
   fonctionnent sur la page dédiée, et la page d'accueil (barre de pills,
   filtre, 7 cartes) n'a rien perdu dans le refactor.
 
+### 27. Lissage exponentiel (EMA) passé en prod, α=0,5
+- Suite à la question d'un ami de l'utilisateur ("SMC comme The Economist ?"
+  → Sequential Monte Carlo, technique de lissage bayésien des courbes de
+  sondages) : discussion des méthodes de lissage possibles (SMA, EMA,
+  médiane glissante, LOESS, Kalman, SMC) avec pour/contre, puis détail
+  mathématique du lissage exponentiel simple (SES) à la demande de
+  l'utilisateur ("je suis matheux") — récurrence, forme close en moyenne
+  géométrique pondérée, retard moyen `(1-α)/α`, équivalence avec une SMA de
+  `N` points via `α=2/(N+1)`, réduction de variance `α/(2-α)`, lien avec le
+  filtre de Kalman en régime stationnaire (SES = cas particulier).
+- Maquette dans un artifact (données réelles des 7 marchés, candidat le
+  plus haut de chaque marché, brut + 3 niveaux de lissage superposés en
+  épaisseur croissante, légende cliquable pour isoler une courbe sur tous
+  les graphiques à la fois). Plage d'α ajustée sur retour utilisateur vers
+  plus léger (0,5 / 0,25 / 0,1 au lieu de 0,333 / 0,133 / 0,065).
+  - Bug rencontré et corrigé dans l'artifact : mauvais nom de fichier/version
+    cdnjs pour Chart.js (`Chart.js/4.4.4/chart.umd.min.js` → 404 silencieux,
+    donc zone de graphique vide). Version/casse correctes trouvées via
+    `api.cdnjs.com/libraries?search=chart.js` : `Chart.js/4.5.1/chart.umd.min.js`.
+- **Passé en prod avec α=0,5** (le plus léger testé, N≈3). Nouveau fichier
+  `site/src/lib/smoothing.ts` (`ema()`, même formule que la maquette).
+  Appliqué dans `MarketCard.astro` ET `BinaryMarketCard.astro`, uniquement
+  sur les données du **graphique** — les barres de score et le pourcentage
+  affiché restent le prix brut du dernier relevé, pas lissé (distinction
+  volontaire : la jauge/barre doit montrer le vrai prix actuel, seule la
+  courbe historique bénéficie du lissage).
+- Vérifié précisément (pas juste visuellement) : valeurs de la courbe lissée
+  comparées à la main pour les 15 premiers points de Marine Le Pen — chaque
+  valeur correspond exactement au calcul théorique `s(t)=0,5·y(t)+0,5·s(t-1)`
+  arrondi à l'entier le plus proche.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

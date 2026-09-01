@@ -655,6 +655,26 @@ et `CLAUDE.md`.
   valeur correspond exactement au calcul théorique `s(t)=0,5·y(t)+0,5·s(t-1)`
   arrondi à l'entier le plus proche.
 
+### 28. Investigation des écarts de mise à jour + cron décalé
+- L'utilisateur a remarqué un "Maj" vieux de 3h sur le site. Vérifié via
+  l'API GitHub (`api.github.com/repos/.../actions/workflows/.../runs`,
+  188 runs récupérés sur 2 pages) : **tous les runs se terminent en
+  succès**, ce n'est pas un plantage du script.
+- Le vrai problème : le déclenchement `schedule` de GitHub lui-même. Rythme
+  réel par jour : ~23/jour (quasi horaire) du 20 au 26 août, puis chute
+  nette à ~2-6/jour à partir du 27 août — sans aucun changement de notre
+  côté (le fichier du workflow n'a plus bougé depuis le 19/08, vérifié par
+  `git log --follow`). C'est cohérent avec une dégradation connue et non
+  documentée officiellement des workflows `schedule` sur les dépôts
+  publics/gratuits, qui s'aggrave avec le temps indépendamment de
+  l'activité réelle du dépôt.
+- Décision : décaler quand même le cron de `0 * * * *` à `17 * * * *`
+  (éviter le créneau `:00`, le plus chargé côté GitHub, comme recommandé
+  dans leur documentation) — amélioration probablement partielle, pas une
+  vraie garantie de retour à un rythme horaire. Une solution plus fiable
+  (déclencheur externe type cron-job.org ou cron Vercel appelant
+  `workflow_dispatch`) a été proposée mais pas retenue pour l'instant.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.
@@ -668,3 +688,9 @@ et `CLAUDE.md`.
   collecteur (chaque plateforme a sa propre API et son propre format
   d'outcomes), et décider comment les distinguer visuellement sur le site
   (nouvelle catégorie ? badge par source ? cartes séparées ?).
+- **Idée notée pour plus tard (pas retenue pour l'instant)** : le cron
+  `schedule` de GitHub Actions s'est révélé peu fiable dans la durée (voir
+  section 28) — un déclencheur externe (cron-job.org, ou un cron Vercel
+  appelant `workflow_dispatch` via l'API GitHub) donnerait un rythme de
+  collecte plus proche du réel "toutes les heures" si le décalage à `17 *
+  * * *` ne suffit pas.

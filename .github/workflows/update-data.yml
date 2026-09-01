@@ -2,7 +2,7 @@ name: Update Polymarket Data
 
 on:
   schedule:
-    - cron: "0 * * * *"  # toutes les heures
+    - cron: "17 * * * *"  # toutes les heures, décalé de :00 (créneau le plus chargé côté GitHub)
   workflow_dispatch: {}   # déclenchement manuel possible depuis l'onglet Actions
 
 permissions:

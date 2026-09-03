@@ -1,6 +1,7 @@
 {
   "markets": [
     {
+      "source": "polymarket",
       "slug": "next-french-presidential-election",
       "title_fr": "Prochaine élection présidentielle française",
       "description_fr": "Qui remportera la prochaine élection présidentielle française ?",
@@ -8,6 +9,7 @@
       "category": "Présidentielle"
     },
     {
+      "source": "polymarket",
       "slug": "next-french-presidential-election-who-will-advance-to-the-2nd-round",
       "title_fr": "Qui accédera au second tour ?",
       "description_fr": "Quel candidat sera qualifié pour le second tour de la prochaine élection présidentielle française ?",
@@ -15,6 +17,7 @@
       "category": "Présidentielle"
     },
     {
+      "source": "polymarket",
       "slug": "2027-french-presidential-election-who-will-be-on-the-ballot",
       "title_fr": "Qui sera candidat à la présidentielle 2027 ?",
       "description_fr": "Quel candidat sera officiellement sur les bulletins de la présidentielle de 2027 ?",
@@ -22,6 +25,7 @@
       "category": "Présidentielle"
     },
     {
+      "source": "polymarket",
       "slug": "french-presidential-election-who-will-announce-a-run-in-2026",
       "title_fr": "Qui annoncera sa candidature en 2026 ?",
       "description_fr": "Quel candidat annoncera sa candidature à la présidentielle de 2027 au cours de l'année 2026 ?",
@@ -29,6 +33,7 @@
       "category": "Présidentielle"
     },
     {
+      "source": "polymarket",
       "slug": "socialist-party-of-france-presidential-nominee-20260710182042067",
       "title_fr": "Candidat du Parti socialiste",
       "description_fr": "Qui sera désigné candidat du Parti socialiste pour la présidentielle de 2027 ?",
@@ -36,6 +41,7 @@
       "category": "Partis"
     },
     {
+      "source": "polymarket",
       "slug": "will-france-pass-a-national-budget-by-december-31",
       "title_fr": "Le budget sera-t-il voté avant le 31 décembre ?",
       "description_fr": "La France adoptera-t-elle un budget national avant le 31 décembre 2026 ?",
@@ -44,11 +50,48 @@
       "category": "Budget"
     },
     {
+      "source": "polymarket",
       "slug": "lecornu-out-as-french-pm-by-381",
       "title_fr": "Lecornu quittera-t-il Matignon ?",
       "description_fr": "D'ici quelle date Sébastien Lecornu cessera-t-il d'être Premier ministre ?",
       "outcomes_fr": {},
       "category": "Gouvernement"
+    },
+    {
+      "source": "kalshi",
+      "slug": "kalshi-next-french-presidential-election",
+      "series_ticker": "KXFRENCHPRES",
+      "event_ticker": "KXFRENCHPRES-27",
+      "title_fr": "Prochaine élection présidentielle française",
+      "description_fr": "Qui remportera la prochaine élection présidentielle française ?",
+      "category": "Présidentielle"
+    },
+    {
+      "source": "kalshi",
+      "slug": "kalshi-french-presidential-election-who-will-advance",
+      "series_ticker": "KXFRPRESADVANCE",
+      "event_ticker": "KXFRPRESADVANCE-26APR18",
+      "title_fr": "Qui accédera au second tour ?",
+      "description_fr": "Quel candidat sera qualifié pour le second tour de la prochaine élection présidentielle française ?",
+      "category": "Présidentielle"
+    },
+    {
+      "source": "kalshi",
+      "slug": "kalshi-french-presidential-election-ballot",
+      "series_ticker": "KXFRPRESBALLOT",
+      "event_ticker": "KXFRPRESBALLOT-27JUN30",
+      "title_fr": "Qui sera candidat à la présidentielle 2027 ?",
+      "description_fr": "Quel candidat sera officiellement sur les bulletins de la présidentielle de 2027 ?",
+      "category": "Présidentielle"
+    },
+    {
+      "source": "kalshi",
+      "slug": "kalshi-french-socialist-bloc-nominee",
+      "series_ticker": "KXFRPSNOM",
+      "event_ticker": "KXFRPSNOM-26OCT01",
+      "title_fr": "Candidat du Parti socialiste",
+      "description_fr": "Qui sera désigné candidat du Parti socialiste pour la présidentielle de 2027 ?",
+      "category": "Partis"
     }
   ]
 }

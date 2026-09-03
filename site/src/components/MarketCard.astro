@@ -13,11 +13,13 @@ interface Market {
   description_fr: string;
   url: string;
   category?: string;
+  source?: string;
   history: HistoryPoint[];
 }
 
 import { candidateColor, candidateInitials, isDateLabel } from "../lib/candidateColors";
 import { ema } from "../lib/smoothing";
+import { sourceLabel } from "../lib/sources";
 
 // lissage exponentiel appliqué uniquement à la courbe du graphique — les
 // barres/pourcentages affichés restent le prix brut du dernier relevé
@@ -62,7 +64,10 @@ const chartData = {
       <h2>{market.title_fr}</h2>
       <button class="copy-link-btn" type="button" data-slug={slug} title="Copier le lien direct de ce marché" aria-label="Copier le lien direct de ce marché">🔗</button>
     </div>
-    <p class="desc">{market.description_fr}</p>
+    <div class="subtitle-row">
+      <p class="desc">{market.description_fr}</p>
+      <span class={`source-badge ${market.source ?? "polymarket"}`}>{sourceLabel(market.source)}</span>
+    </div>
   </header>
 
   <ul class="bars">
@@ -105,7 +110,7 @@ const chartData = {
   )}
 
   <footer>
-    <a href={market.url} target="_blank" rel="noopener">Voir sur Polymarket ↗</a>
+    <a href={market.url} target="_blank" rel="noopener">Voir sur {sourceLabel(market.source)} ↗</a>
     <span class="updated">Maj : {latest ? new Date(latest.ts).toLocaleString("fr-FR", { timeZone: "Europe/Paris" }) : "—"}</span>
   </footer>
 </article>
@@ -137,8 +142,20 @@ const chartData = {
     box-shadow: 0 1px 3px rgba(20, 20, 20, 0.05);
   }
   h2 { margin: 0; font-size: 1.15rem; }
-  .desc { margin: 0.35rem 0 1rem; color: #6b6a66; font-size: 0.9rem; }
+  .desc { margin: 0; color: #6b6a66; font-size: 0.9rem; }
   .header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.6rem; }
+  .subtitle-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.6rem; margin: 0.35rem 0 1rem; }
+  .source-badge {
+    flex: none;
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .source-badge.polymarket { background: #e8edfb; color: #2454c7; }
+  .source-badge.kalshi { background: #e3f5ef; color: #0f7a5f; }
   .copy-link-btn {
     flex: none;
     background: transparent;

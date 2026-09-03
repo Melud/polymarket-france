@@ -675,22 +675,76 @@ et `CLAUDE.md`.
   (déclencheur externe type cron-job.org ou cron Vercel appelant
   `workflow_dispatch`) a été proposée mais pas retenue pour l'instant.
 
+### 29. Intégration de Kalshi comme deuxième source de marchés
+- Avant d'implémenter, exploré à la demande de l'utilisateur une maquette
+  (artifact) des options d'intégration multi-plateformes (badge de source +
+  double filtre thème/source combinable), affinée sur trois retours de
+  layout successifs (badge à la place du bouton lien → badge empilé sous le
+  bouton → badge finalement aligné sur la même ligne que le sous-titre,
+  décision retenue et reproduite sur le vrai site).
+- Recherche API : Kalshi (`api.elections.kalshi.com/trade-api/v2`) est
+  publique, sans authentification. Un "event" Kalshi (ex. `KXFRENCHPRES-27`)
+  contient un sous-marché binaire Oui/Non par candidat — même structure que
+  le cas multi-sous-marchés de Polymarket. Prix courant : `last_price_dollars`
+  sur chaque market (déjà une fraction 0–1, même convention que
+  `outcomePrices` de Polymarket). Historique quotidien : endpoint
+  `/series/{series}/markets/{ticker}/candlesticks` (bien plus riche que prévu :
+  certains marchés Kalshi ont un historique quotidien continu depuis leur
+  création, ex. 565 jours pour "Prochaine élection présidentielle française"
+  contre une fenêtre bien plus courte côté Polymarket).
+- 4 marchés Kalshi ajoutés (équivalents directs de marchés Polymarket déjà
+  suivis, pas de correspondance trouvée côté Kalshi pour "budget" ni
+  "annonce de candidature 2026") : `KXFRENCHPRES-27` (présidentielle),
+  `KXFRPRESADVANCE-26APR18` (second tour), `KXFRPRESBALLOT-27JUN30`
+  (bulletins 2027), `KXFRPSNOM-26OCT01` (nominé du bloc socialiste).
+- `collector/config.json` : chaque entrée porte désormais un champ
+  `"source"` (`"polymarket"` ou `"kalshi"`) ; les entrées Kalshi utilisent
+  `series_ticker`/`event_ticker` au lieu de `slug` pour interroger l'API,
+  mais gardent un `slug` (préfixé `kalshi-`) comme clé JSON/URL.
+- Deux nouveaux scripts collecteurs, calqués sur le modèle Polymarket
+  existant : `collector/fetch_kalshi.py` (snapshot courant, filtre les
+  marchés `status != "active"`) et `collector/backfill_kalshi_history.py`
+  (backfill quotidien via les candlesticks, même seuil de significativité
+  1% et même logique de fusion/forward-fill que `backfill_history.py`).
+  `fetch_markets.py`/`backfill_history.py` ignorent désormais explicitement
+  les entrées `source != "polymarket"` (auparavant ils auraient tenté de
+  fetcher un ticker Kalshi via l'API Gamma et échoué).
+  Les deux scripts ont été exécutés en local avec succès : 565 jours
+  backfillés pour le marché présidentiel, 49-53 jours pour les trois autres.
+- `.github/workflows/update-data.yml` : ajout d'une étape "Fetch Kalshi
+  markets" (`python collector/fetch_kalshi.py`) après celle de Polymarket,
+  avant le commit — même cron, même dépendance (`requests`, déjà dans
+  `requirements.txt`).
+- Site : nouveau `site/src/lib/sources.ts` (`sourceLabel()`) : badge de
+  plateforme ajouté dans `MarketCard.astro` et `BinaryMarketCard.astro`
+  (aligné avec le sous-titre, comme validé sur la maquette), lien de pied de
+  carte devenu dynamique (`Voir sur {Polymarket|Kalshi} ↗` au lieu du texte
+  Polymarket en dur). Palette de couleurs `MARKET_PALETTES` du marché PS
+  (candidateColors.ts) partagée entre la carte Polymarket et son équivalent
+  Kalshi (même candidats, même palette dédiée). Texte d'intro de la page
+  d'accueil mis à jour pour mentionner les deux plateformes.
+- Vérifié en conditions quasi réelles : build Astro complet (11 marchés → 11
+  pages `/marche/{slug}/` générées, aucune erreur), puis Puppeteer sur le
+  site buildé servi en local — les 11 cartes s'affichent avec le bon badge
+  (7 Polymarket, 4 Kalshi), le graphique de la page dédiée Kalshi affiche
+  bien les 565 jours d'historique backfillés, le lien de pied de page pointe
+  vers `kalshi.com/markets/...`.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.
 - Pas de gestion des marchés clôturés/résolus.
 - Couleurs de candidats incomplètes pour le marché "second tour" (voir
   section 6 ci-dessus).
-- **Idée notée pour plus tard (pas encore commencée)** : intégrer d'autres
-  sites de marchés de prévision en plus de Polymarket — Metaculus, Manifold,
-  Kalshi cités par l'utilisateur. Impliquerait a minima : identifier
-  lesquels ont des marchés France pertinents, adapter/généraliser le
-  collecteur (chaque plateforme a sa propre API et son propre format
-  d'outcomes), et décider comment les distinguer visuellement sur le site
-  (nouvelle catégorie ? badge par source ? cartes séparées ?).
+- **Idée notée pour plus tard (pas encore commencée)** : Metaculus et
+  Manifold restent à intégrer (Kalshi est fait, voir section 29). Metaculus
+  exige désormais un compte + token d'API ; Manifold est ouvert sans auth
+  (`api.manifold.markets/v0/search-markets`).
 - **Idée notée pour plus tard (pas retenue pour l'instant)** : le cron
   `schedule` de GitHub Actions s'est révélé peu fiable dans la durée (voir
   section 28) — un déclencheur externe (cron-job.org, ou un cron Vercel
   appelant `workflow_dispatch` via l'API GitHub) donnerait un rythme de
   collecte plus proche du réel "toutes les heures" si le décalage à `17 *
   * * *` ne suffit pas.
+- **Idée notée pour plus tard (pas encore commencée)** : ajouter des pages/
+  sections "À propos", "Explications" et "Contact" au site.

@@ -21,8 +21,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r collector/requirements.txt
 
-      - name: Fetch markets
+      - name: Fetch Polymarket markets
         run: python collector/fetch_markets.py
+
+      - name: Fetch Kalshi markets
+        run: python collector/fetch_kalshi.py
 
       - name: Commit updated data
         run: |

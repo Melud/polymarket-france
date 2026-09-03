@@ -25,19 +25,23 @@ const CANDIDATE_COLORS: Record<string, string> = {
 // parti entre eux (la convention "couleur = nuance politique" n'a alors
 // aucun sens) — la même personne peut donc avoir une couleur différente
 // ici et dans les autres marchés, volontairement.
+const SOCIALIST_NOMINEE_PALETTE: Record<string, string> = {
+  "Raphaël Glucksmann": "#D6482B", // vermillon
+  "Olivier Faure": "#2E8B57", // vert
+  "Philippe Brun": "#8E44AD", // violet
+  "Ségolène Royal": "#E8A33D", // ambre
+  "François Hollande": "#1F6F8B", // bleu pétrole
+  "Boris Vallaud": "#6D4C41", // marron
+  "Jérôme Guedj": "#B7950B", // ocre
+  "Karim Bouamrane": "#16A085", // turquoise
+  "Carole Delga": "#C2185B", // framboise
+  "Bernard Cazeneuve": "#495057", // ardoise
+};
+
 const MARKET_PALETTES: Record<string, Record<string, string>> = {
-  "socialist-party-of-france-presidential-nominee-20260710182042067": {
-    "Raphaël Glucksmann": "#D6482B", // vermillon
-    "Olivier Faure": "#2E8B57", // vert
-    "Philippe Brun": "#8E44AD", // violet
-    "Ségolène Royal": "#E8A33D", // ambre
-    "François Hollande": "#1F6F8B", // bleu pétrole
-    "Boris Vallaud": "#6D4C41", // marron
-    "Jérôme Guedj": "#B7950B", // ocre
-    "Karim Bouamrane": "#16A085", // turquoise
-    "Carole Delga": "#C2185B", // framboise
-    "Bernard Cazeneuve": "#495057", // ardoise
-  },
+  // même marché (nominé PS), deux plateformes — même palette pour les deux cartes
+  "socialist-party-of-france-presidential-nominee-20260710182042067": SOCIALIST_NOMINEE_PALETTE,
+  "kalshi-french-socialist-bloc-nominee": SOCIALIST_NOMINEE_PALETTE,
 };
 
 // Même gris neutre que "sans étiquette" : plutôt qu'une couleur arbitraire,

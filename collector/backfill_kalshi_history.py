@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 """
-Backfill ponctuel de l'historique des cotes depuis l'API CLOB de Polymarket
-(clob.polymarket.com/prices-history), qui conserve l'historique complet par
-candidat depuis la création du marché — contrairement à la Gamma API qui ne
-donne que le prix courant.
+Backfill ponctuel de l'historique des cotes depuis l'API de candlesticks de
+Kalshi (/series/{series_ticker}/markets/{ticker}/candlesticks), qui conserve
+l'historique quotidien complet par candidat depuis la création du marché —
+contrairement au endpoint /events qui ne donne que le prix courant.
 
 Ne backfille que les candidats dont le prix actuel dépasse SIGNIFICANCE_THRESHOLD,
-pour garder un fichier et un graphique lisibles (la plupart des ~40 candidats
-d'un marché comme la présidentielle sont plats à 0.15% et n'ont jamais bougé).
+même logique que backfill_history.py (Polymarket).
 
-Usage: python backfill_history.py
+Usage: python backfill_kalshi_history.py
 """
 
 import json
@@ -23,11 +22,11 @@ import requests
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = ROOT / "collector" / "config.json"
 DATA_PATH = ROOT / "data" / "markets.json"
-GAMMA_URL = "https://gamma-api.polymarket.com/events"
-CLOB_HISTORY_URL = "https://clob.polymarket.com/prices-history"
+KALSHI_EVENTS_URL = "https://api.elections.kalshi.com/trade-api/v2/events"
+KALSHI_SERIES_URL = "https://api.elections.kalshi.com/trade-api/v2/series"
 
 SIGNIFICANCE_THRESHOLD = 0.01  # on ne backfille que les candidats à >= 1%
-FIDELITY_MINUTES = 1440  # un point par jour
+PERIOD_INTERVAL_MINUTES = 1440  # un point par jour
 
 
 def load_json(path: Path, default):
@@ -37,87 +36,80 @@ def load_json(path: Path, default):
     return default
 
 
-def fetch_event(slug: str) -> dict | None:
-    resp = requests.get(GAMMA_URL, params={"slug": slug}, timeout=15)
+def fetch_event(event_ticker: str) -> dict | None:
+    resp = requests.get(
+        f"{KALSHI_EVENTS_URL}/{event_ticker}",
+        params={"with_nested_markets": "true"},
+        timeout=15,
+    )
     resp.raise_for_status()
-    events = resp.json()
-    if not events:
-        print(f"  [!] Aucun event trouvé pour le slug '{slug}'", file=sys.stderr)
+    event = resp.json().get("event")
+    if not event:
+        print(f"  [!] Aucun event trouvé pour '{event_ticker}'", file=sys.stderr)
         return None
-    return events[0]
+    return event
 
 
 def significant_candidates(event: dict) -> list[dict]:
-    """
-    Pour chaque sous-marché (un par candidat), récupère le nom, le prix "Yes"
-    courant et le clobTokenId associé — nécessaire pour interroger l'historique.
-    Ne garde que ceux au-dessus du seuil de significativité.
-    """
-    markets = event.get("markets", [])
     candidates = []
-
-    if len(markets) == 1:
-        # un seul marché avec plusieurs outcomes (ex: Oui/Non) — on garde
-        # chaque outcome tel quel, pas de regroupement par candidat
-        m = markets[0]
-        if m.get("active") is False or m.get("archived") is True:
-            return []
-        outcomes = json.loads(m.get("outcomes", "[]"))
-        prices = json.loads(m.get("outcomePrices", "[]"))
-        token_ids = json.loads(m.get("clobTokenIds", "[]"))
-        for name, price, token_id in zip(outcomes, prices, token_ids):
-            price = float(price)
-            if price >= SIGNIFICANCE_THRESHOLD:
-                candidates.append({"name": name, "token_id": token_id, "price": price})
-    else:
-        for m in markets:
-            # marchés archivés/inactifs (ex. "Other" retiré par Polymarket) :
-            # même filtre que fetch_markets.py, pour ne pas backfiller un
-            # historique basé sur un outcomePrices obsolète
-            if m.get("active") is False or m.get("archived") is True:
-                continue
-            outcomes = json.loads(m.get("outcomes", "[]"))
-            prices = json.loads(m.get("outcomePrices", "[]"))
-            token_ids = json.loads(m.get("clobTokenIds", "[]"))
-            if not outcomes or not prices or not token_ids:
-                continue
-            yes_idx = outcomes.index("Yes") if "Yes" in outcomes else 0
-            price = float(prices[yes_idx])
-            if price >= SIGNIFICANCE_THRESHOLD:
-                label = m.get("groupItemTitle") or m.get("question", "?")
-                candidates.append({"name": label, "token_id": token_ids[yes_idx], "price": price})
+    for m in event.get("markets", []):
+        if m.get("status") != "active":
+            continue
+        price_str = m.get("last_price_dollars")
+        if price_str is None:
+            continue
+        price = float(price_str)
+        if price < SIGNIFICANCE_THRESHOLD:
+            continue
+        name = m.get("yes_sub_title") or m.get("subtitle") or m.get("ticker", "?")
+        created = m.get("created_time")
+        start_ts = (
+            int(datetime.fromisoformat(created.replace("Z", "+00:00")).timestamp())
+            if created
+            else 0
+        )
+        candidates.append({
+            "name": name,
+            "ticker": m["ticker"],
+            "price": price,
+            "start_ts": start_ts,
+        })
 
     candidates.sort(key=lambda c: c["price"], reverse=True)
     return candidates
 
 
-def fetch_daily_history(token_id: str) -> dict[str, tuple[int, float]]:
-    """Retourne {jour ISO: (timestamp unix du dernier point du jour, prix)}."""
+def fetch_daily_history(series_ticker: str, ticker: str, start_ts: int, end_ts: int) -> dict[str, tuple[int, float]]:
+    """Retourne {jour ISO: (timestamp unix de fin de bougie, prix)}."""
     resp = requests.get(
-        CLOB_HISTORY_URL,
-        params={"market": token_id, "interval": "max", "fidelity": FIDELITY_MINUTES},
+        f"{KALSHI_SERIES_URL}/{series_ticker}/markets/{ticker}/candlesticks",
+        params={"start_ts": start_ts, "end_ts": end_ts, "period_interval": PERIOD_INTERVAL_MINUTES},
         timeout=20,
     )
     resp.raise_for_status()
-    points = resp.json().get("history", [])
+    points = resp.json().get("candlesticks", [])
 
     daily: dict[str, tuple[int, float]] = {}
     for point in points:
-        ts = point["t"]
-        price = float(point["p"])
+        ts = point["end_period_ts"]
+        price_block = point.get("price") or {}
+        close = price_block.get("close_dollars")
+        if close is not None:
+            price = float(close)
+        else:
+            # pas d'échange ce jour-là : on retombe sur le milieu bid/ask
+            bid = (point.get("yes_bid") or {}).get("close_dollars")
+            ask = (point.get("yes_ask") or {}).get("close_dollars")
+            if bid is None or ask is None:
+                continue
+            price = (float(bid) + float(ask)) / 2
         day = datetime.fromtimestamp(ts, tz=timezone.utc).date().isoformat()
-        if day not in daily or ts > daily[day][0]:
-            daily[day] = (ts, price)
+        daily[day] = (ts, price)
     return daily
 
 
 def build_history_entries(per_candidate_daily: dict[str, dict[str, tuple[int, float]]]) -> list[dict]:
-    """
-    Fusionne les séries journalières par candidat (timestamps non alignés)
-    en une liste de snapshots synchronisés (un par jour), avec forward-fill :
-    un candidat garde son dernier prix connu tant qu'il n'a pas de nouveau
-    point ce jour-là.
-    """
+    """Même logique de fusion/forward-fill que backfill_history.py (Polymarket)."""
     all_days = sorted({day for daily in per_candidate_daily.values() for day in daily})
     last_price: dict[str, float] = {}
     entries = []
@@ -133,7 +125,7 @@ def build_history_entries(per_candidate_daily: dict[str, dict[str, tuple[int, fl
         outcomes_today = [
             {"name": name, "price": price}
             for name, price in last_price.items()
-            if name in per_candidate_daily  # garde uniquement les candidats déjà apparus
+            if name in per_candidate_daily
         ]
         outcomes_today.sort(key=lambda o: o["price"], reverse=True)
 
@@ -150,16 +142,19 @@ def build_history_entries(per_candidate_daily: dict[str, dict[str, tuple[int, fl
 def main():
     config = load_json(CONFIG_PATH, {"markets": []})
     data = load_json(DATA_PATH, {})
+    now_ts = int(datetime.now(timezone.utc).timestamp())
 
     for entry in config["markets"]:
-        if entry.get("source", "polymarket") != "polymarket":
+        if entry.get("source") != "kalshi":
             continue
         slug = entry["slug"]
-        print(f"Backfill '{slug}'...")
+        event_ticker = entry["event_ticker"]
+        series_ticker = entry["series_ticker"]
+        print(f"Backfill '{event_ticker}'...")
         try:
-            event = fetch_event(slug)
+            event = fetch_event(event_ticker)
         except requests.RequestException as e:
-            print(f"  [!] Erreur réseau pour '{slug}': {e}", file=sys.stderr)
+            print(f"  [!] Erreur réseau pour '{event_ticker}': {e}", file=sys.stderr)
             continue
         if event is None:
             continue
@@ -170,7 +165,9 @@ def main():
         per_candidate_daily = {}
         for c in candidates:
             try:
-                per_candidate_daily[c["name"]] = fetch_daily_history(c["token_id"])
+                per_candidate_daily[c["name"]] = fetch_daily_history(
+                    series_ticker, c["ticker"], c["start_ts"], now_ts
+                )
             except requests.RequestException as e:
                 print(f"    [!] Erreur historique pour '{c['name']}': {e}", file=sys.stderr)
             time.sleep(0.2)
@@ -184,8 +181,8 @@ def main():
             "title_en": event.get("title", ""),
             "title_fr": entry.get("title_fr", event.get("title", "")),
             "description_fr": entry.get("description_fr", ""),
-            "url": f"https://polymarket.com/event/{slug}",
-            "source": "polymarket",
+            "url": f"https://kalshi.com/markets/{series_ticker.lower()}/{event_ticker.lower()}",
+            "source": "kalshi",
             "style": entry.get("style", "candidates"),
             "category": entry.get("category", "Autres"),
             "history": [],

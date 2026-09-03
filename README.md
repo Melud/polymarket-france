@@ -1,18 +1,21 @@
 # Polymarket France
 
-Site perso affichant les marchés Polymarket concernant la France, traduits en français.
-Lecture seule, données publiques via l'API Gamma de Polymarket. Non affilié à Polymarket.
+Site perso affichant des marchés prédictifs (Polymarket, Kalshi) concernant la France,
+traduits en français. Lecture seule, données publiques. Non affilié à ces plateformes.
 
 ## Structure
 
 ```
-collector/           script Python de collecte
-  config.json         liste des marchés suivis + traductions
-  fetch_markets.py     appelle l'API Gamma et met à jour data/markets.json
+collector/                    scripts Python de collecte
+  config.json                  liste des marchés suivis + traductions (champ "source")
+  fetch_markets.py              Polymarket : appelle l'API Gamma, met à jour data/markets.json
+  backfill_history.py           Polymarket : backfill l'historique via l'API CLOB
+  fetch_kalshi.py                Kalshi : appelle l'API publique Kalshi
+  backfill_kalshi_history.py     Kalshi : backfill l'historique via les candlesticks
 data/
-  markets.json         historique des prix (généré/mis à jour par le script)
-site/                 site Astro qui lit data/markets.json et l'affiche
-.github/workflows/    cron GitHub Actions (collecte horaire + commit auto)
+  markets.json                 historique des prix (généré/mis à jour par les scripts)
+site/                         site Astro qui lit data/markets.json et l'affiche
+.github/workflows/            cron GitHub Actions (collecte horaire + commit auto)
 ```
 
 ## Démarrage rapide
@@ -23,10 +26,13 @@ site/                 site Astro qui lit data/markets.json et l'affiche
 cd collector
 pip install -r requirements.txt
 python fetch_markets.py
+python fetch_kalshi.py
 ```
 
-Ça remplit/complète `data/markets.json`. Relancez le script plusieurs fois (ou attendez
-entre deux runs) pour accumuler de l'historique et voir apparaître les courbes.
+Ça remplit/complète `data/markets.json`. Relancez les scripts plusieurs fois (ou attendez
+entre deux runs) pour accumuler de l'historique et voir apparaître les courbes — ou lancez
+`backfill_history.py`/`backfill_kalshi_history.py` une fois pour récupérer l'historique
+existant directement depuis chaque plateforme.
 
 ### 2. Lancer le site en local
 
@@ -40,12 +46,28 @@ Ouvrez http://localhost:4321
 
 ### 3. Ajouter un marché à suivre
 
-Éditez `collector/config.json` et ajoutez une entrée avec le `slug` de l'URL Polymarket
-(ex: `polymarket.com/event/mon-marche` → slug = `mon-marche`) et sa traduction :
+Éditez `collector/config.json` et ajoutez une entrée. Pour un marché Polymarket, le
+`slug` est celui de l'URL (ex: `polymarket.com/event/mon-marche` → slug = `mon-marche`) :
 
 ```json
 {
+  "source": "polymarket",
   "slug": "mon-marche",
+  "title_fr": "Titre traduit",
+  "description_fr": "Description traduite"
+}
+```
+
+Pour un marché Kalshi, il faut le `series_ticker` et l'`event_ticker` (visibles dans
+l'URL ou via l'API `/trade-api/v2/series`), plus un `slug` propre au site (préfixé
+`kalshi-` par convention, pour ne pas entrer en collision avec un slug Polymarket) :
+
+```json
+{
+  "source": "kalshi",
+  "slug": "kalshi-mon-marche",
+  "series_ticker": "KXMONMARCHE",
+  "event_ticker": "KXMONMARCHE-27",
   "title_fr": "Titre traduit",
   "description_fr": "Description traduite"
 }

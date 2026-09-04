@@ -93,7 +93,11 @@ const anyHasHistory = Object.values(views).some((v: any) => v.hasHistory);
     </div>
     <p class="desc">{primaryMarket.description_fr}</p>
     {sourceKeys.length > 1 ? (
-      <div class="source-switch" data-active={defaultSource}>
+      <div
+        class="source-switch"
+        data-active={defaultSource}
+        style={`--count:${sourceKeys.length}; --active-index:${sourceKeys.indexOf(defaultSource)};`}
+      >
         <span class="switch-thumb"></span>
         {sourceKeys.map((key) => (
           <button class="switch-opt" class:list={{ active: key === defaultSource }} type="button" data-src={key}>
@@ -181,10 +185,12 @@ const anyHasHistory = Object.values(views).some((v: any) => v.hasHistory);
   .mono-source-note { margin: 0 0 0.9rem; color: #8a8983; font-size: 0.78rem; }
 
   .source-switch {
+    --count: 2;
+    --active-index: 0;
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 150px;
+    grid-template-columns: repeat(var(--count), 1fr);
+    width: calc(75px * var(--count));
     background: #ece9e3;
     border-radius: 999px;
     padding: 2px;
@@ -195,10 +201,13 @@ const anyHasHistory = Object.values(views).some((v: any) => v.hasHistory);
     top: 2px;
     left: 2px;
     height: calc(100% - 4px);
-    width: calc(50% - 2px);
+    width: calc((100% - 4px) / var(--count));
     background: #ffffff;
     border: 1px solid #e3e2de;
     border-radius: 999px;
+    /* translateX en % est relatif à la largeur du thumb lui-même, donc ce
+       calcul reste correct quel que soit le nombre de sources (--count) */
+    transform: translateX(calc(var(--active-index) * 100%));
     transition: transform 0.2s ease;
   }
   .switch-opt {
@@ -216,7 +225,6 @@ const anyHasHistory = Object.values(views).some((v: any) => v.hasHistory);
     transition: color 0.15s ease;
   }
   .switch-opt.active { color: #1a1a1a; font-weight: 600; }
-  .source-switch[data-active="kalshi"] .switch-thumb { transform: translateX(100%); }
 
   .copy-link-btn {
     flex: none;

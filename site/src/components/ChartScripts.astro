@@ -151,7 +151,7 @@
   }
   renderCharts();
 
-  const SOURCE_LABELS = { polymarket: "Polymarket", kalshi: "Kalshi" };
+  const SOURCE_LABELS = { polymarket: "Polymarket", kalshi: "Kalshi", manifold: "Manifold" };
 
   function barsHtml(bars) {
     return bars
@@ -180,14 +180,16 @@
     const link = card.querySelector(".source-link");
     const updatedEl = card.querySelector(".updated");
 
-    switchEl.querySelectorAll(".switch-opt").forEach((btn) => {
+    const optButtons = [...switchEl.querySelectorAll(".switch-opt")];
+    optButtons.forEach((btn, index) => {
       btn.addEventListener("click", () => {
         const src = btn.dataset.src;
         const view = sources[src];
         if (!view) return;
 
         switchEl.dataset.active = src;
-        switchEl.querySelectorAll(".switch-opt").forEach((b) => b.classList.toggle("active", b === btn));
+        switchEl.style.setProperty("--active-index", String(index));
+        optButtons.forEach((b) => b.classList.toggle("active", b === btn));
 
         if (visibleUl) visibleUl.innerHTML = barsHtml(view.visibleOutcomes);
         if (extraUl) {

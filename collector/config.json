@@ -96,6 +96,26 @@
       "description_fr": "Qui sera désigné candidat du Parti socialiste pour la présidentielle de 2027 ?",
       "category": "Partis",
       "pairs_with": "socialist-party-of-france-presidential-nominee-20260710182042067"
+    },
+    {
+      "source": "manifold",
+      "slug": "manifold-next-president-of-france",
+      "market_id": "z2qd3bYd3YMpUElgo9hx",
+      "market_slug": "who-will-be-the-next-president-of-f-11b98432cfee",
+      "title_fr": "Prochaine élection présidentielle française",
+      "description_fr": "Qui remportera la prochaine élection présidentielle française ?",
+      "category": "Présidentielle",
+      "pairs_with": "next-french-presidential-election"
+    },
+    {
+      "source": "manifold",
+      "slug": "manifold-french-presidential-election-who-will-advance",
+      "market_id": "2lsII0lq2s",
+      "market_slug": "who-will-make-the-second-round-of-t",
+      "title_fr": "Qui accédera au second tour ?",
+      "description_fr": "Quel candidat sera qualifié pour le second tour de la prochaine élection présidentielle française ?",
+      "category": "Présidentielle",
+      "pairs_with": "next-french-presidential-election-who-will-advance-to-the-2nd-round"
     }
   ]
 }

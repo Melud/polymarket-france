@@ -794,16 +794,65 @@ et `CLAUDE.md`.
   budget (sans équivalent Kalshi) n'affiche aucun slider, juste "Source :
   Polymarket".
 
+### 31. Manifold comme troisième source, généralisation du slider à N sources
+- L'utilisateur a demandé d'intégrer 2 marchés Manifold parmi ceux repérés en
+  section précédente (les plus gros par volume) : "Who will be the next
+  president of France?" (vol 43 630, id `z2qd3bYd3YMpUElgo9hx`) et "Who will
+  make the second round of the 2027 French Presidental Election?" (vol 7 368,
+  id `2lsII0lq2s`) — tous deux liés (`pairs_with`) à leurs équivalents
+  Polymarket déjà suivis (présidentielle, second tour).
+- API Manifold (`api.manifold.markets`, publique, sans auth) : marché à choix
+  multiples (`outcomeType: MULTIPLE_CHOICE`), chaque candidat est une entrée
+  de `answers[]` avec `text`/`probability` (même convention 0–1 que les
+  autres plateformes) ; un bucket générique `isOther` à ignorer (pas un vrai
+  candidat), pas d'endpoint "historique"/candlesticks dédié contrairement à
+  Kalshi.
+- Backfill reconstruit à la main depuis `/v0/bets?contractId=...` : paginé
+  avec le curseur `before` (bet le plus ancien de la page précédente), du
+  plus récent au plus ancien, jusqu'à la date de création du marché (garde-
+  fou à 200 pages de 1000 paris). Comme les paris arrivent triés du plus
+  récent au plus ancien, le premier pari rencontré pour un (candidat, jour)
+  est déjà le dernier de ce jour — pas besoin de comparer des timestamps.
+  Résultat : 3148 paris récupérés → 219 jours d'historique pour le marché
+  principal (créé février 2024, donc plus de recul que Kalshi ou Polymarket
+  sur cette question) ; 274 paris → 21 jours pour le marché "second tour"
+  (créé bien plus récemment).
+- Nouveaux `collector/fetch_manifold.py`/`backfill_manifold_history.py`,
+  même structure que les scripts Kalshi ; `config.json` gagne deux entrées
+  `"source": "manifold"` avec `market_id` (id du contrat, utilisé pour
+  interroger l'API — le `slug` Manifold de l'URL ne suffit pas pour l'API
+  bets) et `market_slug` (pour reconstruire l'URL publique en repli).
+- **Généralisation du slider à N sources** (jusque-là câblé en dur pour
+  exactement 2 : `grid-template-columns: 1fr 1fr`, une seule règle CSS
+  `[data-active="kalshi"]` pour la position du thumb). Remplacé par des
+  variables CSS `--count`/`--active-index` posées en style inline sur
+  `.source-switch` (calculées côté build pour l'état initial, mises à jour
+  en JS via `style.setProperty` au clic) : `grid-template-columns:
+  repeat(var(--count), 1fr)`, largeur du thumb `(100% - 4px) / var(--count)`,
+  position `translateX(calc(var(--active-index) * 100%))` — correct quel
+  que soit N car `translateX` en % est relatif à la largeur de l'élément
+  lui-même, pas à celle du parent. `groupMarkets.ts` n'a nécessité aucun
+  changement : il était déjà générique sur le nombre de sources par
+  construction.
+- `.github/workflows/update-data.yml` : ajout de l'étape "Fetch Manifold
+  markets". `sources.ts`/`ChartScripts.astro` : ajout de `manifold:
+  "Manifold"` aux libellés de source.
+- Vérifié via Puppeteer+Chrome sur le site buildé (14 pages générées, 7
+  cartes sur l'accueil) : le slider à 3 options s'affiche et se dimensionne
+  correctement, cliquer sur "Manifold" bascule bien les barres/le lien/le
+  graphique (qui affiche alors tout l'historique 2024→2026 reconstruit), le
+  thumb glisse à la bonne position (`--active-index` passe à 2/2).
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.
 - Pas de gestion des marchés clôturés/résolus.
 - Couleurs de candidats incomplètes pour le marché "second tour" (voir
   section 6 ci-dessus).
-- **Idée notée pour plus tard (pas encore commencée)** : Metaculus et
-  Manifold restent à intégrer (Kalshi est fait, voir section 29). Metaculus
-  exige désormais un compte + token d'API ; Manifold est ouvert sans auth
-  (`api.manifold.markets/v0/search-markets`).
+- **Idée notée pour plus tard (pas encore commencée)** : Metaculus reste à
+  intégrer (Kalshi section 29, Manifold section 31, tous les deux faits).
+  Metaculus exige désormais un compte + token d'API, contrairement aux deux
+  autres.
 - **Idée notée pour plus tard (pas retenue pour l'instant)** : le cron
   `schedule` de GitHub Actions s'est révélé peu fiable dans la durée (voir
   section 28) — un déclencheur externe (cron-job.org, ou un cron Vercel

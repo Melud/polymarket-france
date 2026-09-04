@@ -1,7 +1,7 @@
 # Polymarket France
 
-Site perso affichant des marchés prédictifs (Polymarket, Kalshi) concernant la France,
-traduits en français. Lecture seule, données publiques. Non affilié à ces plateformes.
+Site perso affichant des marchés prédictifs (Polymarket, Kalshi, Manifold) concernant la
+France, traduits en français. Lecture seule, données publiques. Non affilié à ces plateformes.
 
 ## Structure
 
@@ -12,11 +12,18 @@ collector/                    scripts Python de collecte
   backfill_history.py           Polymarket : backfill l'historique via l'API CLOB
   fetch_kalshi.py                Kalshi : appelle l'API publique Kalshi
   backfill_kalshi_history.py     Kalshi : backfill l'historique via les candlesticks
+  fetch_manifold.py              Manifold : appelle l'API publique Manifold
+  backfill_manifold_history.py   Manifold : backfill l'historique en reconstituant les
+                                  paris quotidiens (pas d'endpoint "historique" dédié)
 data/
   markets.json                 historique des prix (généré/mis à jour par les scripts)
 site/                         site Astro qui lit data/markets.json et l'affiche
 .github/workflows/            cron GitHub Actions (collecte horaire + commit auto)
 ```
+
+Un même marché peut être suivi sur plusieurs plateformes à la fois (champ `pairs_with` sur
+l'entrée secondaire, voir plus bas) : la carte du site les fusionne alors en une seule, avec
+un petit slider pour basculer entre les sources.
 
 ## Démarrage rapide
 
@@ -27,12 +34,13 @@ cd collector
 pip install -r requirements.txt
 python fetch_markets.py
 python fetch_kalshi.py
+python fetch_manifold.py
 ```
 
 Ça remplit/complète `data/markets.json`. Relancez les scripts plusieurs fois (ou attendez
 entre deux runs) pour accumuler de l'historique et voir apparaître les courbes — ou lancez
-`backfill_history.py`/`backfill_kalshi_history.py` une fois pour récupérer l'historique
-existant directement depuis chaque plateforme.
+`backfill_history.py`/`backfill_kalshi_history.py`/`backfill_manifold_history.py` une fois
+pour récupérer l'historique existant directement depuis chaque plateforme.
 
 ### 2. Lancer le site en local
 
@@ -72,6 +80,25 @@ l'URL ou via l'API `/trade-api/v2/series`), plus un `slug` propre au site (préf
   "description_fr": "Description traduite"
 }
 ```
+
+Pour un marché Manifold, il faut le `market_id` (l'id du contrat, pas le slug — visible
+via `api.manifold.markets/v0/slug/{slug-de-l-url}`), plus un `slug` propre au site
+(préfixé `manifold-`) :
+
+```json
+{
+  "source": "manifold",
+  "slug": "manifold-mon-marche",
+  "market_id": "abc123",
+  "market_slug": "mon-marche-sur-lurl-manifold",
+  "title_fr": "Titre traduit",
+  "description_fr": "Description traduite"
+}
+```
+
+Si ce marché suit la même question qu'un marché déjà présent (sur une autre plateforme),
+ajoutez `"pairs_with": "<slug-du-marché-principal>"` pour que le site les fusionne en une
+seule carte avec un slider au lieu d'afficher deux cartes séparées.
 
 ### 4. Déployer
 

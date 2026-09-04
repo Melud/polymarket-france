@@ -730,6 +730,70 @@ et `CLAUDE.md`.
   bien les 565 jours d'historique backfillés, le lien de pied de page pointe
   vers `kalshi.com/markets/...`.
 
+### 30. Remplacement du badge par un slider Polymarket/Kalshi (une carte par question)
+- L'utilisateur a changé d'avis sur la présentation de la section 29 : plutôt
+  que deux cartes séparées (une par plateforme) distinguées par un badge, il
+  a demandé une maquette où une **même question suivie sur les deux
+  plateformes n'affiche qu'une seule carte**, avec un petit slider dans
+  l'en-tête pour basculer les barres/le graphique entre les deux sources.
+  Maquette affinée sur un retour ("boutons plus petits et discrets") avant
+  validation ("ok on peut passer ça en prod").
+- Regroupement : nouveau champ `pairs_with` sur les 4 entrées Kalshi de
+  `config.json` (pointant vers le slug Polymarket équivalent), propagé dans
+  `data/markets.json` par `fetch_kalshi.py`/`backfill_kalshi_history.py`.
+  Nouveau `site/src/lib/groupMarkets.ts` : `groupMarkets()` fusionne les
+  entrées liées par `pairs_with` en un seul groupe `{slug, sources: {polymarket,
+  kalshi}}` (un `pairs_with` orphelin — cible absente — n'est pas fusionné,
+  le marché reste affiché seul plutôt que de disparaître) ; `findGroupForSlug()`
+  retrouve, pour un slug de page dédiée précis, son groupe ET quelle source
+  doit être active par défaut (pour que le contenu visible corresponde à
+  l'aperçu de lien OG de CE slug précis).
+- `MarketCard.astro` réécrit : prend désormais `sources` (map source→
+  {slug, market}) au lieu d'un `market` unique. Calcule les barres/graphique
+  pour CHAQUE source au build, avec un slider (`.source-switch`, sliding
+  thumb en CSS) si plusieurs sources, sinon une simple mention texte
+  "Source : X" (le badge coloré de la section 29 est retiré). Toutes les
+  vues par source sont embarquées en JSON dans un attribut `data-sources` du
+  `<article>` pour le swap côté client. `BinaryMarketCard.astro` garde un
+  `market` unique (aucun marché binaire Kalshi n'existe pour l'instant) mais
+  adopte la même mention "Source : X" pour rester visuellement cohérent.
+- `ChartScripts.astro` : le handler de clic sur le slider régénère le HTML
+  des barres, mute `chart.data`/`chart.options.scales.y.max` puis appelle
+  `chart.update()` (instance Chart.js maintenant gardée sur `canvas._chart`),
+  et met à jour le lien + le texte de pied de carte — sans recharger la page
+  ni dupliquer le canvas (un canvas caché aurait un `offsetWidth` nul et
+  poserait des problèmes de rendu Chart.js).
+- **Bug découvert et corrigé pendant la vérification** : les barres
+  régénérées côté client perdaient tout leur style (plus de piste/remplissage
+  visible). Cause : Astro scope le CSS d'un composant via un attribut
+  `data-astro-cid-*` ajouté au HTML rendu au build — les nœuds recréés par
+  `innerHTML` en JS n'ont pas cet attribut, donc les règles scopées
+  (`.bar-row`, `.bar-track`, `.bar-fill`, `.bars`) ne s'appliquaient plus.
+  Corrigé en passant ces règles précises en `:global(...)` dans le `<style>`
+  du composant (pas tout le bloc, pour ne pas faire fuir le reste vers les
+  autres composants).
+- `index.astro`/`[slug].astro` utilisent désormais `groupMarkets()` pour
+  construire les cartes (7 cartes sur la page d'accueil : 4 fusionnées + 3
+  Polymarket seul, au lieu de 11 cartes séparées) ; les pages dédiées par
+  slug existent toujours pour CHAQUE entrée d'origine (y compris les 4 slugs
+  Kalshi), chacune affichant la même carte fusionnée mais avec sa propre
+  source activée par défaut.
+- Outillage : Edge headless s'est mis à échouer silencieusement dans cet
+  environnement pendant la vérification (`--dump-dom` sur une simple
+  data-URL ne produisait plus rien, indépendamment de Puppeteer/du site) —
+  contourné en utilisant Chrome (`C:/Program Files/Google/Chrome/Application/
+  chrome.exe`, déjà installé) comme `executablePath` à la place. À retenir
+  pour la suite si Edge headless refait des siennes dans cet environnement.
+- Vérifié via Puppeteer+Chrome sur le site buildé servi en local : page
+  d'accueil = 7 cartes ; clic sur le slider d'une carte change bien le
+  candidat en tête affiché, le lien de pied de carte (URL + texte) et le
+  graphique (nouvelles séries, nouveau plafond d'axe Y) sans toucher aux
+  autres cartes ; le bouton "voir N de plus" fonctionne après un changement
+  de source ; la page dédiée `/marche/kalshi-french-socialist-bloc-nominee/`
+  s'ouvre bien avec Kalshi pré-sélectionné dans le slider ; la page dédiée
+  budget (sans équivalent Kalshi) n'affiche aucun slider, juste "Source :
+  Polymarket".
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.

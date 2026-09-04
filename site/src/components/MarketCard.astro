@@ -13,8 +13,11 @@ interface Market {
   description_fr: string;
   url: string;
   category?: string;
-  source?: string;
   history: HistoryPoint[];
+}
+interface SourceEntry {
+  slug: string;
+  market: Market;
 }
 
 import { candidateColor, candidateInitials, isDateLabel } from "../lib/candidateColors";
@@ -24,94 +27,125 @@ import { sourceLabel } from "../lib/sources";
 // lissage exponentiel appliqué uniquement à la courbe du graphique — les
 // barres/pourcentages affichés restent le prix brut du dernier relevé
 const SMOOTHING_ALPHA = 0.5;
-
-const { slug, market } = Astro.props as { slug: string; market: Market };
-
-const latest = market.history[market.history.length - 1];
-// certains marchés ("Lecornu quittera-t-il Matignon ?"...) ont des outcomes
-// qui sont des échéances plutôt que des candidats — une échéance déjà
-// résolue (prix quasi nul) n'a plus d'intérêt une fois la date passée, on
-// la masque. Un candidat à 0 % reste affiché : ce n'est pas la même chose.
-const outcomes = (latest?.outcomes ?? []).filter((o) => !(isDateLabel(o.name) && o.price < 0.005));
-
 const VISIBLE_COUNT = 6;
-const visibleOutcomes = outcomes.slice(0, VISIBLE_COUNT);
-const extraOutcomes = outcomes.slice(VISIBLE_COUNT);
 
-// on garde jusqu'à 6 courbes (les plus hautes en prix final) pour ne pas surcharger le graphique
-const topNames = outcomes.slice(0, 6).map((o) => o.name);
-
-const chartData = {
-  labels: market.history.map((h) => h.ts),
-  series: topNames.map((name) => ({
-    name,
-    color: candidateColor(name, slug),
-    initials: candidateInitials(name),
-    data: ema(
-      market.history.map((h) => {
-        const found = h.outcomes.find((o) => o.name === name);
-        return found ? found.price * 100 : null;
-      }),
-      SMOOTHING_ALPHA
-    ).map((v) => (v == null ? null : Math.round(v))), // en %
-  })),
+const { slug, sources, initialSource } = Astro.props as {
+  slug: string;
+  sources: Record<string, SourceEntry>;
+  initialSource?: string;
 };
+
+const sourceKeys = Object.keys(sources);
+const defaultSource =
+  initialSource && sources[initialSource] ? initialSource : sourceKeys.includes("polymarket") ? "polymarket" : sourceKeys[0];
+const primaryMarket = sources[defaultSource].market;
+
+function buildView(entry: SourceEntry) {
+  const { slug: sourceSlug, market } = entry;
+  const latest = market.history[market.history.length - 1];
+  // certains marchés ("Lecornu quittera-t-il Matignon ?"...) ont des outcomes
+  // qui sont des échéances plutôt que des candidats — une échéance déjà
+  // résolue (prix quasi nul) n'a plus d'intérêt une fois la date passée, on
+  // la masque. Un candidat à 0 % reste affiché : ce n'est pas la même chose.
+  const outcomes = (latest?.outcomes ?? []).filter((o) => !(isDateLabel(o.name) && o.price < 0.005));
+  const withColor = outcomes.map((o) => ({ ...o, color: candidateColor(o.name, sourceSlug) }));
+  const visibleOutcomes = withColor.slice(0, VISIBLE_COUNT);
+  const extraOutcomes = withColor.slice(VISIBLE_COUNT);
+
+  // on garde jusqu'à 6 courbes (les plus hautes en prix final) pour ne pas surcharger le graphique
+  const topNames = outcomes.slice(0, 6).map((o) => o.name);
+  const chart = {
+    labels: market.history.map((h) => h.ts),
+    series: topNames.map((name) => ({
+      name,
+      color: candidateColor(name, sourceSlug),
+      initials: candidateInitials(name),
+      data: ema(
+        market.history.map((h) => {
+          const found = h.outcomes.find((o) => o.name === name);
+          return found ? found.price * 100 : null;
+        }),
+        SMOOTHING_ALPHA
+      ).map((v) => (v == null ? null : Math.round(v))), // en %
+    })),
+  };
+
+  return {
+    visibleOutcomes,
+    extraOutcomes,
+    chart,
+    url: market.url,
+    updatedTs: latest?.ts ?? null,
+    hasHistory: market.history.length > 1,
+  };
+}
+
+const views = Object.fromEntries(sourceKeys.map((key) => [key, buildView(sources[key])]));
+const view = views[defaultSource];
+const anyHasHistory = Object.values(views).some((v: any) => v.hasHistory);
 ---
 
-<article class="card" id={`card-${slug}`} data-category={market.category ?? "Autres"}>
+<article class="card" id={`card-${slug}`} data-category={primaryMarket.category ?? "Autres"} data-sources={sourceKeys.length > 1 ? JSON.stringify(views) : undefined}>
   <header>
     <div class="header-row">
-      <h2>{market.title_fr}</h2>
+      <h2>{primaryMarket.title_fr}</h2>
       <button class="copy-link-btn" type="button" data-slug={slug} title="Copier le lien direct de ce marché" aria-label="Copier le lien direct de ce marché">🔗</button>
     </div>
-    <div class="subtitle-row">
-      <p class="desc">{market.description_fr}</p>
-      <span class={`source-badge ${market.source ?? "polymarket"}`}>{sourceLabel(market.source)}</span>
-    </div>
+    <p class="desc">{primaryMarket.description_fr}</p>
+    {sourceKeys.length > 1 ? (
+      <div class="source-switch" data-active={defaultSource}>
+        <span class="switch-thumb"></span>
+        {sourceKeys.map((key) => (
+          <button class="switch-opt" class:list={{ active: key === defaultSource }} type="button" data-src={key}>
+            {sourceLabel(key)}
+          </button>
+        ))}
+      </div>
+    ) : (
+      <p class="mono-source-note">Source : {sourceLabel(sourceKeys[0])}</p>
+    )}
   </header>
 
-  <ul class="bars">
-    {visibleOutcomes.map((o) => (
+  <ul class="bars" data-role="visible-bars">
+    {view.visibleOutcomes.map((o) => (
       <li>
         <div class="bar-row">
           <span class="label">{o.name}</span>
           <span class="pct">{Math.round(o.price * 100)}%</span>
         </div>
         <div class="bar-track">
-          <div class="bar-fill" style={`width:${o.price * 100}%; background:${candidateColor(o.name, slug)}`}></div>
+          <div class="bar-fill" style={`width:${o.price * 100}%; background:${o.color}`}></div>
         </div>
       </li>
     ))}
   </ul>
 
-  {extraOutcomes.length > 0 && (
-    <>
-      <ul class="bars extra" hidden>
-        {extraOutcomes.map((o) => (
-          <li>
-            <div class="bar-row">
-              <span class="label">{o.name}</span>
-              <span class="pct">{Math.round(o.price * 100)}%</span>
-            </div>
-            <div class="bar-track">
-              <div class="bar-fill" style={`width:${o.price * 100}%; background:${candidateColor(o.name, slug)}`}></div>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <button class="toggle-btn" type="button">Voir {extraOutcomes.length} de plus ↓</button>
-    </>
-  )}
+  <ul class="bars extra" data-role="extra-bars" hidden>
+    {view.extraOutcomes.map((o) => (
+      <li>
+        <div class="bar-row">
+          <span class="label">{o.name}</span>
+          <span class="pct">{Math.round(o.price * 100)}%</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" style={`width:${o.price * 100}%; background:${o.color}`}></div>
+        </div>
+      </li>
+    ))}
+  </ul>
+  <button class="toggle-btn" type="button" hidden={view.extraOutcomes.length === 0}>
+    Voir {view.extraOutcomes.length} de plus ↓
+  </button>
 
-  {market.history.length > 1 && (
+  {anyHasHistory && (
     <div class="chart-wrap">
-      <canvas class="chart" data-chart={JSON.stringify(chartData)}></canvas>
+      <canvas class="chart" data-chart={JSON.stringify(view.chart)}></canvas>
     </div>
   )}
 
   <footer>
-    <a href={market.url} target="_blank" rel="noopener">Voir sur {sourceLabel(market.source)} ↗</a>
-    <span class="updated">Maj : {latest ? new Date(latest.ts).toLocaleString("fr-FR", { timeZone: "Europe/Paris" }) : "—"}</span>
+    <a class="source-link" href={view.url} target="_blank" rel="noopener">Voir sur {sourceLabel(defaultSource)} ↗</a>
+    <span class="updated">Maj : {view.updatedTs ? new Date(view.updatedTs).toLocaleString("fr-FR", { timeZone: "Europe/Paris" }) : "—"}</span>
   </footer>
 </article>
 
@@ -142,20 +176,48 @@ const chartData = {
     box-shadow: 0 1px 3px rgba(20, 20, 20, 0.05);
   }
   h2 { margin: 0; font-size: 1.15rem; }
-  .desc { margin: 0; color: #6b6a66; font-size: 0.9rem; }
+  .desc { margin: 0.35rem 0 0.9rem; color: #6b6a66; font-size: 0.9rem; }
   .header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.6rem; }
-  .subtitle-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.6rem; margin: 0.35rem 0 1rem; }
-  .source-badge {
-    flex: none;
-    display: inline-block;
-    font-size: 0.68rem;
-    font-weight: 600;
-    padding: 0.18rem 0.55rem;
+  .mono-source-note { margin: 0 0 0.9rem; color: #8a8983; font-size: 0.78rem; }
+
+  .source-switch {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 150px;
+    background: #ece9e3;
     border-radius: 999px;
-    white-space: nowrap;
+    padding: 2px;
+    margin-bottom: 0.9rem;
   }
-  .source-badge.polymarket { background: #e8edfb; color: #2454c7; }
-  .source-badge.kalshi { background: #e3f5ef; color: #0f7a5f; }
+  .switch-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: calc(100% - 4px);
+    width: calc(50% - 2px);
+    background: #ffffff;
+    border: 1px solid #e3e2de;
+    border-radius: 999px;
+    transition: transform 0.2s ease;
+  }
+  .switch-opt {
+    position: relative;
+    z-index: 1;
+    border: none;
+    background: transparent;
+    font: inherit;
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 0.25rem 0.4rem;
+    border-radius: 999px;
+    cursor: pointer;
+    color: #8a8983;
+    transition: color 0.15s ease;
+  }
+  .switch-opt.active { color: #1a1a1a; font-weight: 600; }
+  .source-switch[data-active="kalshi"] .switch-thumb { transform: translateX(100%); }
+
   .copy-link-btn {
     flex: none;
     background: transparent;
@@ -168,11 +230,14 @@ const chartData = {
     color: #8a8983;
   }
   .copy-link-btn:hover { background: #ece9e3; }
-  .bars { list-style: none; margin: 0; padding: 0; }
-  .bars li { margin-bottom: 0.5rem; }
-  .bar-row { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 2px; }
-  .bar-track { background: #ece9e3; border-radius: 6px; height: 8px; overflow: hidden; }
-  .bar-fill { background: #4f8cff; height: 100%; }
+  /* :global() car le slider régénère ces éléments côté client (innerHTML) —
+     l'attribut de scoping CSS d'Astro n'existe que sur le HTML rendu au build,
+     les nœuds recréés en JS n'en héritent pas et perdraient sinon ce style */
+  :global(.bars) { list-style: none; margin: 0; padding: 0; }
+  :global(.bars li) { margin-bottom: 0.5rem; }
+  :global(.bar-row) { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 2px; }
+  :global(.bar-track) { background: #ece9e3; border-radius: 6px; height: 8px; overflow: hidden; }
+  :global(.bar-fill) { height: 100%; }
   .toggle-btn {
     display: block;
     margin: 0.5rem 0 0;

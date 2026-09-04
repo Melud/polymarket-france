@@ -5,17 +5,26 @@ import BaseLayout from "../components/BaseLayout.astro";
 import ChartScripts from "../components/ChartScripts.astro";
 import MarketCard from "../components/MarketCard.astro";
 import BinaryMarketCard from "../components/BinaryMarketCard.astro";
+import { groupMarkets } from "../lib/groupMarkets";
 
 const dataPath = path.resolve(process.cwd(), "../data/markets.json");
 const raw = fs.existsSync(dataPath) ? fs.readFileSync(dataPath, "utf-8") : "{}";
 const markets: Record<string, any> = JSON.parse(raw);
 
 const entries = Object.entries(markets);
+const groups = groupMarkets(markets);
+
+// pour le style/la catégorie affichés, on se base sur la source Polymarket du
+// groupe si elle existe, sinon la première disponible — les deux sources d'un
+// même groupe partagent censément le même style/catégorie (défini une fois par question)
+function primaryOf(group: (typeof groups)[number]) {
+  return group.sources["polymarket"]?.market ?? Object.values(group.sources)[0].market;
+}
 
 // ordre préféré pour les onglets ; toute catégorie présente mais absente de
 // cette liste (ex. un futur "Autres") est ajoutée à la fin par ordre d'apparition
 const PREFERRED_ORDER = ["Présidentielle", "Partis", "Budget"];
-const seen = new Set(entries.map(([, m]) => m.category ?? "Autres"));
+const seen = new Set(groups.map((g) => primaryOf(g).category ?? "Autres"));
 const categories = [
   ...PREFERRED_ORDER.filter((c) => seen.has(c)),
   ...[...seen].filter((c) => !PREFERRED_ORDER.includes(c)),
@@ -61,11 +70,14 @@ const ogDescription = (() => {
     </div>
   )}
 
-  {entries.map(([slug, market]) => (
-    market.style === "binary"
-      ? <BinaryMarketCard slug={slug} market={market} />
-      : <MarketCard slug={slug} market={market} />
-  ))}
+  {groups.map((group) => {
+    const primary = primaryOf(group);
+    return primary.style === "binary" ? (
+      <BinaryMarketCard slug={group.slug} market={primary} />
+    ) : (
+      <MarketCard slug={group.slug} sources={group.sources} />
+    );
+  })}
 
   <ChartScripts />
 

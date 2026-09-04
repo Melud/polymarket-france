@@ -185,6 +185,7 @@ def main():
             "source": "kalshi",
             "style": entry.get("style", "candidates"),
             "category": entry.get("category", "Autres"),
+            "pairs_with": entry.get("pairs_with"),
             "history": [],
         })
 

@@ -64,7 +64,8 @@
       "event_ticker": "KXFRENCHPRES-27",
       "title_fr": "Prochaine élection présidentielle française",
       "description_fr": "Qui remportera la prochaine élection présidentielle française ?",
-      "category": "Présidentielle"
+      "category": "Présidentielle",
+      "pairs_with": "next-french-presidential-election"
     },
     {
       "source": "kalshi",
@@ -73,7 +74,8 @@
       "event_ticker": "KXFRPRESADVANCE-26APR18",
       "title_fr": "Qui accédera au second tour ?",
       "description_fr": "Quel candidat sera qualifié pour le second tour de la prochaine élection présidentielle française ?",
-      "category": "Présidentielle"
+      "category": "Présidentielle",
+      "pairs_with": "next-french-presidential-election-who-will-advance-to-the-2nd-round"
     },
     {
       "source": "kalshi",
@@ -82,7 +84,8 @@
       "event_ticker": "KXFRPRESBALLOT-27JUN30",
       "title_fr": "Qui sera candidat à la présidentielle 2027 ?",
       "description_fr": "Quel candidat sera officiellement sur les bulletins de la présidentielle de 2027 ?",
-      "category": "Présidentielle"
+      "category": "Présidentielle",
+      "pairs_with": "2027-french-presidential-election-who-will-be-on-the-ballot"
     },
     {
       "source": "kalshi",
@@ -91,7 +94,8 @@
       "event_ticker": "KXFRPSNOM-26OCT01",
       "title_fr": "Candidat du Parti socialiste",
       "description_fr": "Qui sera désigné candidat du Parti socialiste pour la présidentielle de 2027 ?",
-      "category": "Partis"
+      "category": "Partis",
+      "pairs_with": "socialist-party-of-france-presidential-nominee-20260710182042067"
     }
   ]
 }

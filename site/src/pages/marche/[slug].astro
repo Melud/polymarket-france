@@ -5,24 +5,34 @@ import BaseLayout from "../../components/BaseLayout.astro";
 import ChartScripts from "../../components/ChartScripts.astro";
 import MarketCard from "../../components/MarketCard.astro";
 import BinaryMarketCard from "../../components/BinaryMarketCard.astro";
+import { groupMarkets, findGroupForSlug } from "../../lib/groupMarkets";
 
 export async function getStaticPaths() {
   const dataPath = path.resolve(process.cwd(), "../data/markets.json");
   const raw = fs.existsSync(dataPath) ? fs.readFileSync(dataPath, "utf-8") : "{}";
   const markets: Record<string, any> = JSON.parse(raw);
-  return Object.entries(markets).map(([slug, market]) => ({
-    params: { slug },
-    props: { market },
-  }));
+  const groups = groupMarkets(markets);
+
+  return Object.entries(markets).map(([slug, market]) => {
+    const found = findGroupForSlug(groups, slug);
+    return {
+      params: { slug },
+      props: { market, group: found?.group ?? null, initialSource: found?.initialSource ?? null },
+    };
+  });
 }
 
 const { slug } = Astro.params;
-const { market } = Astro.props as { market: any };
+const { market, group, initialSource } = Astro.props as { market: any; group: any; initialSource: string | null };
 
 // page dédiée par marché : seule façon d'avoir un aperçu de lien (WhatsApp,
 // etc.) correct pour un marché précis — un lien vers #card-slug sur la page
 // d'accueil ne peut pas fonctionner, l'ancre n'est jamais vue par les robots
-// qui lisent le HTML de l'URL exacte partagée pour générer la preview.
+// qui lisent le HTML de l'URL exacte partagée pour générer la preview. Quand
+// ce slug fait partie d'un groupe fusionné (même question sur Polymarket ET
+// Kalshi), la carte affichée reste la carte fusionnée avec son slider, mais
+// initialisée sur LA source de ce slug précis pour rester cohérente avec
+// l'aperçu de lien généré ci-dessous.
 const SITE_URL = `https://polymarket-france.vercel.app/marche/${slug}/`;
 const ogDescription = (() => {
   const latest = market.history?.[market.history.length - 1];
@@ -32,6 +42,9 @@ const ogDescription = (() => {
   }
   return market.description_fr;
 })();
+
+const cardSlug = group?.slug ?? slug;
+const cardSources = group?.sources ?? { [market.source ?? "polymarket"]: { slug, market } };
 ---
 
 <BaseLayout
@@ -44,8 +57,8 @@ const ogDescription = (() => {
   <a class="back-link" href="/">← Tous les marchés</a>
 
   {market.style === "binary"
-    ? <BinaryMarketCard slug={slug} market={market} />
-    : <MarketCard slug={slug} market={market} />}
+    ? <BinaryMarketCard slug={cardSlug} market={market} />
+    : <MarketCard slug={cardSlug} sources={cardSources} initialSource={initialSource ?? undefined} />}
 
   <ChartScripts />
 </BaseLayout>

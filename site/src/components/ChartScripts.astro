@@ -54,44 +54,52 @@
   };
   Chart.register(endLabelsPlugin);
 
+  const FALLBACK_COLORS = ["#4f8cff", "#ff6b6b", "#51cf66", "#ffd43b", "#cc5de8", "#ff922b"];
+
+  function formatLabels(labels) {
+    return labels.map((l) => new Date(l).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "2-digit", timeZone: "Europe/Paris" }));
+  }
+
+  function datasetsFromSeries(series) {
+    return series.map((s, i) => {
+      const color = s.color ?? FALLBACK_COLORS[i % FALLBACK_COLORS.length];
+      return {
+        label: s.name,
+        initials: s.initials,
+        data: s.data,
+        borderColor: color,
+        backgroundColor: "transparent",
+        tension: 0.2,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        pointBackgroundColor: color,
+        pointBorderColor: color,
+        pointBorderWidth: 0,
+        pointHoverBackgroundColor: color,
+        pointHoverBorderColor: color,
+        pointHoverBorderWidth: 0,
+      };
+    });
+  }
+
+  function yMaxFor(series) {
+    const maxValue = Math.max(0, ...series.flatMap((s) => s.data.filter((v) => v != null)));
+    // plafond arrondi à la dizaine au-dessus du max réel, entre 10 et 100,
+    // pour n'avoir que des tranches de 10 %
+    return Math.min(100, Math.max(10, Math.ceil((maxValue + 2) / 10) * 10));
+  }
+
   function renderCharts() {
     document.querySelectorAll("canvas.chart").forEach((canvas) => {
       const raw = canvas.getAttribute("data-chart");
       if (!raw) return;
       const { labels, series } = JSON.parse(raw);
-      const fallbackColors = ["#4f8cff", "#ff6b6b", "#51cf66", "#ffd43b", "#cc5de8", "#ff922b"];
 
-      const maxValue = Math.max(
-        0,
-        ...series.flatMap((s) => s.data.filter((v) => v != null))
-      );
-      // plafond arrondi à la dizaine au-dessus du max réel, entre 10 et 100,
-      // pour n'avoir que des tranches de 10 %
-      const yMax = Math.min(100, Math.max(10, Math.ceil((maxValue + 2) / 10) * 10));
-
-      new Chart(canvas, {
+      canvas._chart = new Chart(canvas, {
         type: "line",
         data: {
-          labels: labels.map((l) => new Date(l).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "2-digit", timeZone: "Europe/Paris" })),
-          datasets: series.map((s, i) => {
-            const color = s.color ?? fallbackColors[i % fallbackColors.length];
-            return {
-              label: s.name,
-              initials: s.initials,
-              data: s.data,
-              borderColor: color,
-              backgroundColor: "transparent",
-              tension: 0.2,
-              pointRadius: 0,
-              pointHoverRadius: 4,
-              pointBackgroundColor: color,
-              pointBorderColor: color,
-              pointBorderWidth: 0,
-              pointHoverBackgroundColor: color,
-              pointHoverBorderColor: color,
-              pointHoverBorderWidth: 0,
-            };
-          }),
+          labels: formatLabels(labels),
+          datasets: datasetsFromSeries(series),
         },
         options: {
           responsive: true,
@@ -100,7 +108,7 @@
           interaction: { mode: "index", intersect: false },
           scales: {
             x: { ticks: { autoSkip: true, maxTicksLimit: 10 } },
-            y: { min: 0, max: yMax, ticks: { stepSize: 10, callback: (v) => v + "%" } },
+            y: { min: 0, max: yMaxFor(series), ticks: { stepSize: 10, callback: (v) => v + "%" } },
           },
           plugins: {
             legend: {
@@ -142,6 +150,73 @@
     });
   }
   renderCharts();
+
+  const SOURCE_LABELS = { polymarket: "Polymarket", kalshi: "Kalshi" };
+
+  function barsHtml(bars) {
+    return bars
+      .map(
+        (o) => `
+        <li>
+          <div class="bar-row"><span class="label">${o.name}</span><span class="pct">${Math.round(o.price * 100)}%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:${o.price * 100}%; background:${o.color}"></div></div>
+        </li>`
+      )
+      .join("");
+  }
+
+  // marché suivi sur plusieurs plateformes (Polymarket + Kalshi) : un petit
+  // slider dans l'en-tête bascule les barres/le graphique/le lien de pied de
+  // carte entre les deux, sans recharger la page ni dupliquer la carte.
+  document.querySelectorAll(".card[data-sources]").forEach((card) => {
+    const sources = JSON.parse(card.getAttribute("data-sources"));
+    const switchEl = card.querySelector(".source-switch");
+    if (!switchEl) return;
+
+    const canvas = card.querySelector("canvas.chart");
+    const visibleUl = card.querySelector('[data-role="visible-bars"]');
+    const extraUl = card.querySelector('[data-role="extra-bars"]');
+    const toggleBtn = card.querySelector(".toggle-btn");
+    const link = card.querySelector(".source-link");
+    const updatedEl = card.querySelector(".updated");
+
+    switchEl.querySelectorAll(".switch-opt").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const src = btn.dataset.src;
+        const view = sources[src];
+        if (!view) return;
+
+        switchEl.dataset.active = src;
+        switchEl.querySelectorAll(".switch-opt").forEach((b) => b.classList.toggle("active", b === btn));
+
+        if (visibleUl) visibleUl.innerHTML = barsHtml(view.visibleOutcomes);
+        if (extraUl) {
+          extraUl.innerHTML = barsHtml(view.extraOutcomes);
+          extraUl.setAttribute("hidden", "");
+        }
+        if (toggleBtn) {
+          toggleBtn.textContent = `Voir ${view.extraOutcomes.length} de plus ↓`;
+          toggleBtn.hidden = view.extraOutcomes.length === 0;
+        }
+
+        if (canvas?._chart) {
+          const chart = canvas._chart;
+          chart.data.labels = formatLabels(view.chart.labels);
+          chart.data.datasets = datasetsFromSeries(view.chart.series);
+          chart.options.scales.y.max = yMaxFor(view.chart.series);
+          chart.update();
+        }
+
+        if (link) {
+          link.href = view.url;
+          link.textContent = `Voir sur ${SOURCE_LABELS[src] ?? src} ↗`;
+        }
+        if (updatedEl && view.updatedTs) {
+          updatedEl.textContent = `Maj : ${new Date(view.updatedTs).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}`;
+        }
+      });
+    });
+  });
 
   document.querySelectorAll(".copy-link-btn").forEach((btn) => {
     btn.addEventListener("click", () => {

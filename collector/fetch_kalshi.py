@@ -92,6 +92,7 @@ def main():
             "source": "kalshi",
             "style": entry.get("style", "candidates"),
             "category": entry.get("category", "Autres"),
+            "pairs_with": entry.get("pairs_with"),
             "history": [],
         })
         # garder les traductions, le style et la catégorie à jour si modifiés dans config.json
@@ -100,6 +101,7 @@ def main():
         record["source"] = "kalshi"
         record["style"] = entry.get("style", record.get("style", "candidates"))
         record["category"] = entry.get("category", record.get("category", "Autres"))
+        record["pairs_with"] = entry.get("pairs_with", record.get("pairs_with"))
 
         record["history"].append({
             "ts": now,

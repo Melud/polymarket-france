@@ -861,3 +861,8 @@ et `CLAUDE.md`.
   * * *` ne suffit pas.
 - **Idée notée pour plus tard (pas encore commencée)** : ajouter des pages/
   sections "À propos", "Explications" et "Contact" au site.
+- **Idée notée pour plus tard (pas encore commencée)** : le bouton 🔗 copie
+  toujours le lien du slug "canonique" du groupe (généralement la source
+  Polymarket), même si on a basculé le slider sur Kalshi/Manifold avant de
+  cliquer — il faudrait que le lien copié reflète la source actuellement
+  affichée dans la carte.

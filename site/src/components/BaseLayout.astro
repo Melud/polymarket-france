@@ -5,8 +5,9 @@ interface Props {
   ogTitle: string;
   ogDescription: string;
   url: string;
+  activeNav?: "about" | "contact";
 }
-const { title, description, ogTitle, ogDescription, url } = Astro.props;
+const { title, description, ogTitle, ogDescription, url, activeNav } = Astro.props;
 ---
 <html lang="fr">
   <head>
@@ -17,7 +18,7 @@ const { title, description, ogTitle, ogDescription, url } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Polymarket France" />
+    <meta property="og:site_name" content="France Futur" />
     <meta property="og:url" content={url} />
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />
@@ -28,6 +29,12 @@ const { title, description, ogTitle, ogDescription, url } = Astro.props;
   </head>
   <body>
     <main>
+      <div class="masthead">
+        <a href="/" class="brand">France Futur</a>
+        <nav class="masthead-nav">
+          <a href="/a-propos/" class:list={{ current: activeNav === "about" }}>À propos</a>
+        </nav>
+      </div>
       <slot />
     </main>
 
@@ -41,6 +48,35 @@ const { title, description, ogTitle, ogDescription, url } = Astro.props;
       main { max-width: 720px; margin: 0 auto; padding: 2rem 1rem 4rem; }
       h1 { font-size: 1.5rem; }
       .intro { color: #6b6a66; font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+      .masthead {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-bottom: 0.85rem;
+        margin-bottom: 1.75rem;
+        border-bottom: 1px solid #e3e2de;
+      }
+      .masthead .brand {
+        font-size: 1.85rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        text-decoration: none;
+        letter-spacing: -0.01em;
+      }
+      .masthead .brand:hover { color: #2454c7; }
+      .masthead-nav { display: flex; gap: 1.4rem; }
+      .masthead-nav a {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #8a8983;
+        text-decoration: none;
+      }
+      .masthead-nav a:hover { color: #2454c7; }
+      .masthead-nav a.current { color: #1a1a1a; pointer-events: none; }
 
       /* la barre de pills (page d'accueil) est sticky (~60px) : sans ça,
          sauter sur l'ancre d'une carte la place pile sous la barre, cachée */

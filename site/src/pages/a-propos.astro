@@ -1,0 +1,163 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+
+const SITE_URL = "https://polymarket-france.vercel.app/a-propos/";
+const DESCRIPTION =
+  "Comment lire les pourcentages affichés sur France Futur, pourquoi leur faire confiance, et ce que ce site n'est pas.";
+---
+
+<BaseLayout
+  title="À propos — France Futur"
+  description={DESCRIPTION}
+  ogTitle="À propos de France Futur"
+  ogDescription={DESCRIPTION}
+  url={SITE_URL}
+  activeNav="about"
+>
+  <a class="back-link" href="/">← Tous les marchés</a>
+
+  <article class="faq">
+    <h1>À propos</h1>
+    <p class="lede">{DESCRIPTION}</p>
+
+    <section>
+      <h2>C'est quoi, un marché prédictif ?</h2>
+      <p>
+        Un marché prédictif est un pari public sur l'issue d'un événement futur (qui sera élu, un
+        budget sera-t-il voté...). Le principe ressemble aux paris sportifs : quand plus de monde
+        parie sur telle issue, son prix — donc sa probabilité implicite — augmente ; si personne
+        n'y croit, son prix chute.
+      </p>
+      <div class="example">
+        <b>Concrètement :</b> si un candidat est affiché à 30&nbsp;%, une part « Oui » sur ce
+        candidat coûte 30 centimes. S'il gagne, cette part vaut 1&nbsp;€ — vous empochez 70
+        centimes de gain pour 30 centimes misés. S'il perd, la part ne vaut plus rien — vous
+        perdez votre mise de 30 centimes.
+      </div>
+      <p>
+        Le prix affiché est donc littéralement ce que le marché est prêt à payer pour parier sur
+        ce résultat, converti en probabilité.
+      </p>
+    </section>
+
+    <section>
+      <h2>Pourquoi ce serait plus fiable qu'un sondage ou un expert ?</h2>
+      <p>
+        Parce que se tromper coûte de l'argent. Si un marché affiche 10&nbsp;% pour un événement
+        dont la vraie probabilité tourne plutôt autour de 50&nbsp;%, n'importe qui peut acheter
+        des parts à bas prix et empocher la différence quand l'écart se corrige — un peu comme un
+        billet de banque qui traînerait par terre : quelqu'un finit toujours par le ramasser. Ce
+        mécanisme pousse le prix vers la meilleure estimation disponible, en agrégeant l'avis de
+        tous les participants plutôt que celui d'une seule source.
+      </p>
+      <p>
+        Dans les faits, les marchés prédictifs ont un bon historique : sur les élections
+        notamment, ils ont souvent fait aussi bien, voire mieux, que les agrégateurs de sondages
+        professionnels.
+      </p>
+    </section>
+
+    <section>
+      <h2>Ça ne se manipule pas, avec assez d'argent ?</h2>
+      <p>
+        Le même mécanisme qui corrige les erreurs corrige aussi les tentatives de manipulation.
+        Pousser artificiellement un prix loin de la réalité crée une opportunité de profit
+        évidente pour quiconque parie dans l'autre sens — plus l'écart est gros, plus l'incitation
+        à le corriger est grande. Ça ne rend pas la manipulation impossible, mais ça la rend chère
+        et généralement de courte durée.
+      </p>
+    </section>
+
+    <section>
+      <h2>Comment lire un pourcentage ?</h2>
+      <p>
+        « 60&nbsp;% » ne veut pas dire « ça va probablement arriver », ni l'inverse — ça veut dire
+        que si dix situations comme celle-ci se répétaient, l'événement se produirait environ 6
+        fois. Un candidat à 10&nbsp;% qui gagne n'est pas une preuve que le marché avait tort : un
+        événement à 10&nbsp;% arrive quand même une fois sur dix.
+      </p>
+    </section>
+
+    <section>
+      <h2>Les limites</h2>
+      <p>
+        Sur des échéances très lointaines ou des questions très spécialisées, les marchés
+        attirent moins de monde et moins d'argent — donc moins fiables que sur une élection qui
+        approche.
+      </p>
+    </section>
+
+    <section>
+      <h2>Pourquoi ce site existe</h2>
+      <p>
+        Polymarket est bloqué en France depuis juillet 2026 (redirection ANJ), et Kalshi/Manifold
+        ne sont pas plus simples d'accès pour un francophone non-initié — les marchés France y
+        sont noyés dans des milliers d'autres, en anglais. Ce site traduit et regroupe ceux qui
+        concernent la France, pour que ce soit lisible sans compte ni VPN.
+      </p>
+    </section>
+
+    <section>
+      <h2>Ce que ce site n'est pas</h2>
+      <p>
+        Il ne permet de parier sur rien. Il n'est affilié à aucune des plateformes citées. Les
+        données sont publiques, collectées automatiquement toutes les heures, sans garantie
+        d'exactitude.
+      </p>
+    </section>
+
+    <footer>
+      Cette page doit beaucoup à la FAQ de Scott Alexander sur les marchés prédictifs :
+      <a
+        href="https://readscottalexander.com/posts/acx-prediction-market-faq"
+        target="_blank"
+        rel="noopener">readscottalexander.com/posts/acx-prediction-market-faq</a
+      >.
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .faq h1 { margin-bottom: 0.35rem; }
+  .faq .lede {
+    color: #6b6a66;
+    font-size: 0.92rem;
+    margin: 0 0 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e3e2de;
+  }
+  .faq section { margin-bottom: 2rem; }
+  .faq h2 {
+    font-size: 1.05rem;
+    margin: 0 0 0.6rem;
+  }
+  .faq p {
+    margin: 0 0 0.9rem;
+    line-height: 1.6;
+    font-size: 0.94rem;
+    color: #2b2b28;
+  }
+  .faq p:last-child { margin-bottom: 0; }
+
+  .faq .example {
+    background: #ffffff;
+    border: 1px solid #e3e2de;
+    border-left: 3px solid #2454c7;
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.9rem;
+    color: #6b6a66;
+    margin: 0.9rem 0;
+  }
+  .faq .example b { color: #1a1a1a; }
+
+  .faq footer {
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #e3e2de;
+    font-size: 0.82rem;
+    color: #8a8983;
+    font-style: italic;
+  }
+  .faq footer a { color: #2454c7; font-style: normal; }
+</style>

@@ -34,29 +34,29 @@ const categories = [
 // liste et son candidat en tête, recalculé à chaque build donc toujours à jour
 const SITE_URL = "https://polymarket-france.vercel.app/";
 const firstMarket = entries[0]?.[1];
-const ogTitle = "Polymarket France";
+const ogTitle = "France Futur";
 const ogDescription = (() => {
   const latest = firstMarket?.history?.[firstMarket.history.length - 1];
   const top = latest?.outcomes?.[0];
   if (firstMarket && top) {
     return `${firstMarket.description_fr} — ${top.name} en tête avec ${Math.round(top.price * 100)}%`;
   }
-  return "Suivi non officiel des marchés prédictifs concernant la France (Polymarket, Kalshi), traduits en français.";
+  return "Suivi non officiel des marchés prédictifs concernant la France (Polymarket, Kalshi, Manifold), traduits en français.";
 })();
 ---
 
 <BaseLayout
-  title="Polymarket France — marchés prédictifs traduits"
+  title="France Futur — marchés prédictifs traduits"
   description={ogDescription}
   ogTitle={ogTitle}
   ogDescription={ogDescription}
   url={SITE_URL}
 >
-  <h1>Polymarket — marchés concernant la France</h1>
+  <h1>Marchés concernant la France</h1>
   <p class="intro">
-    Suivi non officiel des marchés prédictifs concernant la France (Polymarket, Kalshi), traduits en
-    français. Site indépendant, non affilié à ces plateformes, à but purement informatif — aucune
-    fonction de pari.
+    Suivi non officiel des marchés prédictifs concernant la France (Polymarket, Kalshi, Manifold),
+    traduits en français. Site indépendant, non affilié à ces plateformes, à but purement
+    informatif — aucune fonction de pari.
   </p>
 
   {entries.length === 0 && <p>Aucune donnée pour l'instant — lancez le script de collecte.</p>}

@@ -179,6 +179,7 @@
     const toggleBtn = card.querySelector(".toggle-btn");
     const link = card.querySelector(".source-link");
     const updatedEl = card.querySelector(".updated");
+    const copyBtn = card.querySelector(".copy-link-btn");
 
     const optButtons = [...switchEl.querySelectorAll(".switch-opt")];
     optButtons.forEach((btn, index) => {
@@ -212,6 +213,9 @@
         if (link) {
           link.href = view.url;
           link.textContent = `Voir sur ${SOURCE_LABELS[src] ?? src} ↗`;
+        }
+        if (copyBtn && view.pageSlug) {
+          copyBtn.dataset.slug = view.pageSlug;
         }
         if (updatedEl && view.updatedTs) {
           updatedEl.textContent = `Maj : ${new Date(view.updatedTs).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}`;

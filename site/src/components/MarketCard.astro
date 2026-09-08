@@ -71,6 +71,7 @@ function buildView(entry: SourceEntry) {
   };
 
   return {
+    pageSlug: sourceSlug,
     visibleOutcomes,
     extraOutcomes,
     chart,
@@ -89,7 +90,7 @@ const anyHasHistory = Object.values(views).some((v: any) => v.hasHistory);
   <header>
     <div class="header-row">
       <h2>{primaryMarket.title_fr}</h2>
-      <button class="copy-link-btn" type="button" data-slug={slug} title="Copier le lien direct de ce marché" aria-label="Copier le lien direct de ce marché">🔗</button>
+      <button class="copy-link-btn" type="button" data-slug={view.pageSlug} title="Copier le lien direct de ce marché" aria-label="Copier le lien direct de ce marché">🔗</button>
     </div>
     <p class="desc">{primaryMarket.description_fr}</p>
     {sourceKeys.length > 1 ? (

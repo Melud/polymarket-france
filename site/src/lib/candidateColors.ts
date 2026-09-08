@@ -10,13 +10,29 @@ const CANDIDATE_COLORS: Record<string, string> = {
   "Marine Le Pen": "#0D378A", // RN
   "Bruno Retailleau": "#0066CC", // LR
   "David Lisnard": "#0066CC", // LR
+  "Laurent Wauquiez": "#0066CC", // LR
+  "Michel Barnier": "#0066CC", // LR
+  "Valérie Pécresse": "#0066CC", // LR
+  "Xavier Bertrand": "#0066CC", // LR
   "Édouard Philippe": "#0001B8", // Horizons
   "Gabriel Attal": "#FFEB00", // Renaissance
+  "Gérald Darmanin": "#FFEB00", // Renaissance
+  "Sébastien Lecornu": "#FFEB00", // Renaissance
+  "Yaël Braun-Pivet": "#FFEB00", // Renaissance
+  "Élisabeth Borne": "#FFEB00", // Renaissance
   "Jean-Luc Mélenchon": "#CC2443", // LFI
+  "Manuel Bompard": "#CC2443", // LFI
+  "Mathilde Panot": "#CC2443", // LFI
+  "Clémence Guetté": "#CC2443", // LFI
   "Raphaël Glucksmann": "#FFC0C0", // Place Publique
   "François Hollande": "#FF8080", // PS
   "Olivier Faure": "#FF8080", // PS
+  "Carole Delga": "#FF8080", // PS
+  "Ségolène Royal": "#FF8080", // PS
   "Nathalie Arthaud": "#BB0000", // LO
+  "Fabien Roussel": "#DD0000", // PCF
+  "Marine Tondelier": "#00C000", // Les Écologistes
+  "François Bayrou": "#FF9900", // MoDem
   "Dominique de Villepin": "#999999", // sans étiquette
 };
 

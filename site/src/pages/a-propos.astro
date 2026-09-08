@@ -3,7 +3,7 @@ import BaseLayout from "../components/BaseLayout.astro";
 
 const SITE_URL = "https://polymarket-france.vercel.app/a-propos/";
 const DESCRIPTION =
-  "Comment lire les pourcentages affichés sur France Futur, pourquoi leur faire confiance, et ce que ce site n'est pas.";
+  "Qui fait France Futur, comment me contacter, d'où viennent les pourcentages affichés et comment les lire.";
 ---
 
 <BaseLayout
@@ -18,20 +18,60 @@ const DESCRIPTION =
 
   <article class="faq">
     <h1>À propos</h1>
-    <p class="lede">{DESCRIPTION}</p>
+    <p class="lede">
+      Qui fait ce site, d'où viennent les pourcentages affichés et comment les lire.
+    </p>
+
+    <section>
+      <h2>Contact</h2>
+      <p>
+        Je m'appelle Emmanuel Memmi, je suis prof de maths curieux et touche-à-tout, et je
+        m'intéresse notamment aux marchés de prévision. Je trouve qu'on les néglige comme outil
+        d'information : on parle beaucoup des sondages, on donne la parole à des experts qui
+        parfois n'engagent rien — pourquoi ne pas recourir davantage à la sagesse des foules ?
+      </p>
+
+      <ul class="contact-list">
+        <li class="contact-item">
+          <span class="glyph">✉</span>
+          <span class="body">
+            <span class="label"><a href="mailto:contact@[domaine-à-définir]">contact@[domaine à définir]</a></span>
+            <span class="caption">Erreur de traduction, marché à ajouter, question de presse...</span>
+          </span>
+        </li>
+        <li class="contact-item">
+          <span class="glyph">⌥</span>
+          <span class="body">
+            <span class="label"><a href="https://github.com/Melud/polymarket-france" target="_blank" rel="noopener">github.com/Melud/polymarket-france</a></span>
+            <span class="caption">Bug technique, ou proposer un correctif directement</span>
+          </span>
+        </li>
+        <li class="contact-item soon">
+          <span class="glyph">𝕏</span>
+          <span class="body">
+            <span class="label">X / Bluesky</span>
+            <span class="caption">Pas encore de compte — à venir</span>
+          </span>
+          <span class="badge-soon">Bientôt</span>
+        </li>
+      </ul>
+    </section>
+
+    <p class="faq-heading">Comment fonctionne ce site</p>
 
     <section>
       <h2>C'est quoi, un marché prédictif ?</h2>
       <p>
-        Un marché prédictif est un pari public sur l'issue d'un événement futur (qui sera élu, un
-        budget sera-t-il voté...). Le principe ressemble aux paris sportifs : quand plus de monde
-        parie sur telle issue, son prix — donc sa probabilité implicite — augmente ; si personne
-        n'y croit, son prix chute.
+        Un marché prédictif est un pari public sur l'issue d'un événement futur, par exemple
+        «&nbsp;qui remportera une élection&nbsp;», «&nbsp;qui sera le prochain James
+        Bond&nbsp;», «&nbsp;le taux de chômage dépassera-t-il un certain seuil&nbsp;». Le
+        principe ressemble aux paris sportifs : quand plus de monde parie sur telle issue, son
+        prix — donc sa probabilité implicite — augmente ; si personne n'y croit, son prix chute.
       </p>
       <div class="example">
-        <b>Concrètement :</b> si un candidat est affiché à 30&nbsp;%, une part « Oui » sur ce
-        candidat coûte 30 centimes. S'il gagne, cette part vaut 1&nbsp;€ — vous empochez 70
-        centimes de gain pour 30 centimes misés. S'il perd, la part ne vaut plus rien — vous
+        <b>Concrètement :</b> si un candidat est affiché à 30&nbsp;%, une part «&nbsp;Oui&nbsp;»
+        sur ce candidat coûte 30 centimes. S'il gagne, cette part vaut 1&nbsp;€ — vous empochez
+        70 centimes de gain pour 30 centimes misés. S'il perd, la part ne vaut plus rien — vous
         perdez votre mise de 30 centimes.
       </div>
       <p>
@@ -45,12 +85,20 @@ const DESCRIPTION =
     <section>
       <h2>Pourquoi ce serait plus fiable qu'un sondage ou un expert ?</h2>
       <p>
-        Parce que se tromper coûte de l'argent. Si un marché affiche 10&nbsp;% pour un événement
-        dont la vraie probabilité tourne plutôt autour de 50&nbsp;%, n'importe qui peut acheter
-        des parts à bas prix et empocher la différence quand l'écart se corrige — un peu comme un
-        billet de banque qui traînerait par terre : quelqu'un finit toujours par le ramasser. Ce
-        mécanisme pousse le prix vers la meilleure estimation disponible, en agrégeant l'avis de
-        tous les participants plutôt que celui d'une seule source.
+        Parce que se tromper coûte de l'argent (voir l'expression anglaise
+        <a href="https://en.wikipedia.org/wiki/Skin_in_the_game" target="_blank" rel="noopener">skin in the game</a>).
+      </p>
+      <p>
+        Sur un plateau TV, dire que Jean Lassalle va gagner ne coûte rien. En revanche, parier
+        sur Jean Lassalle dans un marché de prévision risque de vous faire perdre votre mise.
+      </p>
+      <p>
+        Si un marché affiche 10&nbsp;% pour un événement dont la vraie probabilité tourne plutôt
+        autour de 50&nbsp;%, n'importe qui peut acheter des parts à bas prix et empocher la
+        différence quand l'écart se corrige — un peu comme un billet de banque qui traînerait
+        par terre : quelqu'un finit toujours par le ramasser. Ce mécanisme pousse le prix vers la
+        meilleure estimation disponible, en agrégeant l'avis de tous les participants plutôt que
+        celui d'une seule source.
       </p>
       <p>
         Dans les faits, les marchés prédictifs ont un bon historique : sur les élections
@@ -64,9 +112,9 @@ const DESCRIPTION =
       <p>
         Le même mécanisme qui corrige les erreurs corrige aussi les tentatives de manipulation.
         Pousser artificiellement un prix loin de la réalité crée une opportunité de profit
-        évidente pour quiconque parie dans l'autre sens — plus l'écart est gros, plus l'incitation
-        à le corriger est grande. Ça ne rend pas la manipulation impossible, mais ça la rend chère
-        et généralement de courte durée.
+        évidente pour quiconque parie dans l'autre sens — plus l'écart est gros, plus
+        l'incitation à le corriger est grande. Ça ne rend pas la manipulation impossible, mais ça
+        la rend chère et généralement de courte durée.
       </p>
     </section>
 
@@ -75,8 +123,8 @@ const DESCRIPTION =
       <p>
         Lorsqu'un marché est à 60&nbsp;%, ça veut dire que si dix situations comme celle-ci se
         répétaient, l'événement se produirait environ 6 fois. Un candidat à 10&nbsp;% qui gagne
-        n'est pas une preuve que le marché avait tort : un événement à 10&nbsp;% arrive quand même
-        une fois sur dix.
+        n'est pas une preuve que le marché avait tort : un événement à 10&nbsp;% arrive quand
+        même une fois sur dix.
       </p>
     </section>
 
@@ -124,9 +172,8 @@ const DESCRIPTION =
   .faq .lede {
     color: #6b6a66;
     font-size: 0.92rem;
-    margin: 0 0 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #e3e2de;
+    margin: 0 0 1.75rem;
+    line-height: 1.5;
   }
   .faq section { margin-bottom: 2rem; }
   .faq h2 {
@@ -140,6 +187,18 @@ const DESCRIPTION =
     color: #2b2b28;
   }
   .faq p:last-child { margin-bottom: 0; }
+  .faq section p a { color: #2454c7; }
+
+  .faq .faq-heading {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #8a8983;
+    margin: 0 0 1.25rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e3e2de;
+  }
 
   .faq .example {
     background: #ffffff;
@@ -162,4 +221,58 @@ const DESCRIPTION =
     font-style: italic;
   }
   .faq footer a { color: #2454c7; font-style: normal; }
+
+  /* --- bloc contact --- */
+  .contact-list {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.15rem 0;
+  }
+  .contact-item .glyph {
+    flex: none;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 7px;
+    background: #ece9e3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: #6b6a66;
+  }
+  .contact-item .body { flex: 1; min-width: 0; }
+  .contact-item .label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #1a1a1a;
+  }
+  .contact-item .label a { color: #2454c7; text-decoration: none; }
+  .contact-item .label a:hover { text-decoration: underline; }
+  .contact-item .caption {
+    display: block;
+    font-size: 0.78rem;
+    color: #8a8983;
+  }
+  .contact-item.soon .label { color: #6b6a66; }
+  .contact-item .badge-soon {
+    flex: none;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #8a8983;
+    background: #ece9e3;
+    padding: 0.18rem 0.45rem;
+    border-radius: 999px;
+  }
 </style>

@@ -890,6 +890,60 @@ et `CLAUDE.md`.
   `/a-propos/`, classe `current` bien posée sur le lien "À propos" quand on
   est sur cette page, citation de la FAQ ACX cliquable en pied de page.
 
+### 33. Couleurs candidats "second tour", fix copie de lien, fusion À propos/Contact
+- **Couleurs** : liste des candidats du marché "second tour" sans couleur
+  mappée, en distinguant ceux dont le parti n'était pas encore en collision
+  dans ce marché précis de ceux qui l'étaient déjà (ex. 6 candidats LR, 5
+  Renaissance, 4 LFI, 4 PS présents simultanément — leur donner à tous la
+  couleur du parti les rendrait indiscernables entre eux). L'utilisateur a
+  tranché : collision acceptée, le top 6 affiché sur le graphique n'a de
+  toute façon jamais 2 candidats du même parti en pratique. Couleurs
+  vérifiées via le Modèle Wikipédia (`fr.wikipedia.org/wiki/Modèle:Infobox_
+  Parti_politique_français/couleurs`) : PCF `#DD0000`, Les Écologistes
+  `#00C000`, MoDem `#FF9900`. Reconquête n'a pas de couleur propre dans ce
+  modèle (catégorisée "divers extrême droite", `#404040` générique) —
+  Zemmour/Knafo laissés en gris par défaut plutôt que de deviner une
+  couleur. Une quinzaine de candidats ajoutés à `CANDIDATE_COLORS` au
+  total (Wauquiez/Barnier/Pécresse/Bertrand → LR, Darmanin/Lecornu/Braun-
+  Pivet/Borne → Renaissance, Bompard/Panot/Guetté → LFI, Delga/Royal → PS,
+  Roussel → PCF, Tondelier → Écologistes, Bayrou → MoDem).
+- **Bug corrigé** : le bouton 🔗 copiait toujours le slug canonique du
+  groupe (généralement la source Polymarket), même quand le slider était
+  basculé sur Kalshi/Manifold. `buildView()` dans `MarketCard.astro`
+  renvoie désormais `pageSlug` (le slug propre à CETTE source), utilisé à
+  la fois pour l'attribut `data-slug` initial du bouton et mis à jour par
+  `ChartScripts.astro` au clic sur le slider. Vérifié : basculer sur Kalshi
+  puis copier donne bien `.../marche/kalshi-next-french-presidential-
+  election/` au lieu du slug Polymarket.
+- **Fusion À propos + Contact** : après une maquette dédiée à `/contact/`
+  (email, GitHub, X/Bluesky "bientôt", bloc "Qui suis-je"), l'utilisateur a
+  préféré fusionner les deux pages (Contact jugé trop court pour une page à
+  part) — avec un ordre précis : contact et bio EN PREMIER (avant la FAQ),
+  l'objectif explicite étant qu'un journaliste ou curieux puisse le
+  contacter sans avoir à tout lire d'abord. Masthead simplifié à un seul
+  lien "À propos / Contact" au lieu de deux.
+- Vraie identité de l'utilisateur intégrée sur sa demande : Emmanuel Memmi,
+  prof de maths (pas développeur — à ne pas supposer dans de futurs textes
+  publics), intéressé par les marchés de prévision comme alternative aux
+  sondages/experts ("sagesse des foules"). Lien vers site perso prévu mais
+  pas encore ajouté (URL à fournir plus tard).
+- Beaucoup d'itérations de texte fines sur la FAQ, à retenir pour le ton
+  général de la page : typographie française stricte (espace insécable
+  après `«` et avant `»`), "par exemple" plutôt qu'un tiret cadratin avant
+  une liste d'exemples, exemples volontairement variés et non 100%
+  politiques (élection, James Bond, taux de chômage — après avoir écarté
+  people/célébrités jugé pas assez sérieux et une réplication scientifique
+  jugée trop abstraite), référence "skin in the game" (Wikipédia anglais)
+  et exemple concret Jean Lassalle (plateau TV vs argent réellement
+  engagé) pour la section sur la fiabilité.
+- Domaine `francefutur.fr` indisponible — nom de site à reconsidérer (voir
+  pistes non traitées ci-dessous). L'email de contact reste un placeholder
+  visible `contact@[domaine à définir]` en attendant.
+- Vérifié via Puppeteer+Chrome sur le site buildé : `/a-propos/` fusionnée
+  correspond exactement à la maquette validée, le nav du masthead affiche
+  bien "À PROPOS / CONTACT" sur toutes les pages, les couleurs du marché
+  second tour s'affichent sans erreur.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.
@@ -906,11 +960,11 @@ et `CLAUDE.md`.
   appelant `workflow_dispatch` via l'API GitHub) donnerait un rythme de
   collecte plus proche du réel "toutes les heures" si le décalage à `17 *
   * * *` ne suffit pas.
-- **Idée notée pour plus tard (pas encore commencée)** : ajouter une page
-  "Contact" au site (le nom du site a été changé en "France Futur" et la
-  page "À propos" est faite — voir section 32).
-- **Idée notée pour plus tard (pas encore commencée)** : le bouton 🔗 copie
-  toujours le lien du slug "canonique" du groupe (généralement la source
-  Polymarket), même si on a basculé le slider sur Kalshi/Manifold avant de
-  cliquer — il faudrait que le lien copié reflète la source actuellement
-  affichée dans la carte.
+- **Idée notée pour plus tard (pas encore commencée)** : "France Futur" est
+  déjà pris comme nom de domaine (`francefutur.fr` indisponible) — il
+  faudra choisir un autre nom/domaine (pistes déjà proposées : France
+  Prévisions, Baromètre France, Marchés France, Prédictions France) puis
+  mettre à jour le site en conséquence (marque, `og:site_name`, titres).
+  L'email de contact est pour l'instant un placeholder
+  `contact@[domaine à définir]` (voir section 33) — à remplacer par une
+  vraie adresse une fois le domaine choisi.

@@ -5,7 +5,7 @@ interface Props {
   ogTitle: string;
   ogDescription: string;
   url: string;
-  activeNav?: "about" | "contact";
+  activeNav?: "about";
 }
 const { title, description, ogTitle, ogDescription, url, activeNav } = Astro.props;
 ---
@@ -32,7 +32,7 @@ const { title, description, ogTitle, ogDescription, url, activeNav } = Astro.pro
       <div class="masthead">
         <a href="/" class="brand">France Futur</a>
         <nav class="masthead-nav">
-          <a href="/a-propos/" class:list={{ current: activeNav === "about" }}>À propos</a>
+          <a href="/a-propos/" class:list={{ current: activeNav === "about" }}>À propos / Contact</a>
         </nav>
       </div>
       <slot />

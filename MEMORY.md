@@ -843,6 +843,53 @@ et `CLAUDE.md`.
   graphique (qui affiche alors tout l'historique 2024→2026 reconstruit), le
   thumb glisse à la bonne position (`--active-index` passe à 2/2).
 
+### 32. Renommage en "France Futur" + page À propos
+- Le nom "Polymarket France" ne représentait plus le site depuis l'ajout de
+  Kalshi et Manifold. Plusieurs noms de remplacement discutés (France
+  Prévisions, Marchés France, Baromètre France...) — l'utilisateur a
+  finalement choisi **France Futur**.
+- Avant d'implémenter : maquette (artifact) de l'intégration, affinée sur
+  plusieurs retours — une première version avec une barre de nav classique
+  en haut ("Accueil · À propos · Contact" en liens bleus) jugée pas assez
+  soignée, remplacée par un **masthead** (bande d'en-tête façon
+  presse/site éditorial : marque en gras à gauche, nav en petites
+  capitales espacées à droite, séparés du contenu par un filet). Une
+  variante avec juste un pied de page discret en bas de l'accueil a aussi
+  été testée puis écartée au profit du masthead, la marque étant ensuite
+  agrandie à deux reprises sur retour utilisateur (1.35rem → 1.85rem,
+  plus grande que le h1 lui-même).
+- Contenu de la page "À propos" : FAQ inspirée de
+  https://readscottalexander.com/posts/acx-prediction-market-faq (citée en
+  pied de page), mais réécrite et raccourcie, avec plusieurs allers-retours
+  de contenu avant validation : ajout d'une comparaison avec les paris
+  sportifs dans la première section (à la demande de l'utilisateur, "les
+  gens connaissent bien"), reformulée pour ne jamais utiliser le mot
+  "cote" (raisonner en prix/probabilité implicite à la place) et pour
+  inclure un exemple chiffré concret (miser 30 centimes sur un candidat à
+  30%, gagner 70 centimes ou perdre la mise) ; ajustement des chiffres de
+  l'exemple "comment lire un pourcentage" (35%/3-4 fois → 60%/6 fois,
+  perdant à 5% → gagnant à 10%) ; suppression de la limite sur Manifold et
+  sur les critères de résolution (jugées superflues) ; suppression de la
+  mention "(redirection ANJ)" dans "pourquoi ce site existe" ; ajout d'une
+  précision sur la revente de parts avant échéance (contrairement à un pari
+  sportif classique, on peut acheter/revendre à tout moment au prix
+  courant, pas seulement attendre le résultat).
+- Implémentation : `BaseLayout.astro` porte désormais le masthead partagé
+  (nouvelle prop `activeNav` pour griser/désactiver l'onglet de la page
+  courante) et `og:site_name: "France Futur"` ; `index.astro` et
+  `[slug].astro` mis à jour (titres, h1 — qui perd le préfixe "Polymarket —"
+  /"France Futur —" devenu redondant avec le masthead) ; nouvelle page
+  `site/src/pages/a-propos.astro`. Au passage, corrigé un oubli de la
+  section 31 : la description de repli de l'accueil mentionnait encore
+  "Polymarket, Kalshi" sans Manifold.
+- Le lien "Contact" n'a délibérément pas été ajouté au masthead tout de
+  suite : la page n'existe pas encore, un lien mort aurait été pire qu'une
+  entrée manquante. À ajouter quand la page Contact sera construite.
+- Vérifié via Puppeteer+Chrome sur le site buildé (15 pages générées) :
+  masthead identique à la maquette validée sur l'accueil et sur
+  `/a-propos/`, classe `current` bien posée sur le lien "À propos" quand on
+  est sur cette page, citation de la FAQ ACX cliquable en pied de page.
+
 ## Pistes non traitées (du README)
 
 - Pas de déduplication des points d'historique proches dans la collecte horaire.
@@ -859,8 +906,9 @@ et `CLAUDE.md`.
   appelant `workflow_dispatch` via l'API GitHub) donnerait un rythme de
   collecte plus proche du réel "toutes les heures" si le décalage à `17 *
   * * *` ne suffit pas.
-- **Idée notée pour plus tard (pas encore commencée)** : ajouter des pages/
-  sections "À propos", "Explications" et "Contact" au site.
+- **Idée notée pour plus tard (pas encore commencée)** : ajouter une page
+  "Contact" au site (le nom du site a été changé en "France Futur" et la
+  page "À propos" est faite — voir section 32).
 - **Idée notée pour plus tard (pas encore commencée)** : le bouton 🔗 copie
   toujours le lien du slug "canonique" du groupe (généralement la source
   Polymarket), même si on a basculé le slider sur Kalshi/Manifold avant de

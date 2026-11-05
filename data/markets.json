@@ -105786,6 +105786,192 @@
             "price": 0.0005
           }
         ]
+      },
+      {
+        "ts": "2026-11-05T15:29:41+00:00",
+        "volume": 166183937.114481,
+        "outcomes": [
+          {
+            "name": "Marine Le Pen",
+            "price": 0.4245
+          },
+          {
+            "name": "David Lisnard",
+            "price": 0.1605
+          },
+          {
+            "name": "Jean-Luc Mélenchon",
+            "price": 0.125
+          },
+          {
+            "name": "Édouard Philippe",
+            "price": 0.115
+          },
+          {
+            "name": "Christine Lagarde",
+            "price": 0.0675
+          },
+          {
+            "name": "Raphaël Glucksmann",
+            "price": 0.0255
+          },
+          {
+            "name": "Dominique de Villepin",
+            "price": 0.0225
+          },
+          {
+            "name": "Jordan Bardella",
+            "price": 0.0215
+          },
+          {
+            "name": "François Hollande",
+            "price": 0.0215
+          },
+          {
+            "name": "Éric Zemmour",
+            "price": 0.0075
+          },
+          {
+            "name": "Bruno Retailleau",
+            "price": 0.007
+          },
+          {
+            "name": "Gabriel Attal",
+            "price": 0.0055
+          },
+          {
+            "name": "Sarah Knafo",
+            "price": 0.0035
+          },
+          {
+            "name": "François Baroin",
+            "price": 0.0035
+          },
+          {
+            "name": "Sébastien Lecornu",
+            "price": 0.0015
+          },
+          {
+            "name": "Marion Maréchal",
+            "price": 0.0015
+          },
+          {
+            "name": "François Ruffin",
+            "price": 0.001
+          },
+          {
+            "name": "Xavier Bertrand",
+            "price": 0.0005
+          },
+          {
+            "name": "Laurent Wauquiez",
+            "price": 0.0005
+          },
+          {
+            "name": "Marine Tondelier",
+            "price": 0.0005
+          },
+          {
+            "name": "Fabien Roussel",
+            "price": 0.0005
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.0005
+          },
+          {
+            "name": "Ségolène Royal",
+            "price": 0.0005
+          },
+          {
+            "name": "François Asselineau",
+            "price": 0.0005
+          },
+          {
+            "name": "Clémentine Autain",
+            "price": 0.0005
+          },
+          {
+            "name": "Nicolas Dupont-Aignan",
+            "price": 0.0005
+          },
+          {
+            "name": "Michel Barnier",
+            "price": 0.0005
+          },
+          {
+            "name": "Valérie Pécresse",
+            "price": 0.0005
+          },
+          {
+            "name": "François Bayrou",
+            "price": 0.0005
+          },
+          {
+            "name": "Élisabeth Borne",
+            "price": 0.0005
+          },
+          {
+            "name": "Yaël Braun-Pivet",
+            "price": 0.0005
+          },
+          {
+            "name": "Jean Castex",
+            "price": 0.0005
+          },
+          {
+            "name": "Gérald Darmanin",
+            "price": 0.0005
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0005
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.0005
+          },
+          {
+            "name": "Manuel Bompard",
+            "price": 0.0005
+          },
+          {
+            "name": "Mathilde Panot",
+            "price": 0.0005
+          },
+          {
+            "name": "Juan Branco",
+            "price": 0.0005
+          },
+          {
+            "name": "Clémence Guetté",
+            "price": 0.0005
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0005
+          },
+          {
+            "name": "Lucie Castets",
+            "price": 0.0005
+          },
+          {
+            "name": "Yannick Jadot",
+            "price": 0.0005
+          },
+          {
+            "name": "Natacha Polony",
+            "price": 0.0005
+          },
+          {
+            "name": "Anasse Kazib",
+            "price": 0.0005
+          },
+          {
+            "name": "Sylvain Durif",
+            "price": 0.0005
+          }
+        ]
       }
     ],
     "style": "candidates",
@@ -169787,6 +169973,156 @@
             "price": 0.0125
           }
         ]
+      },
+      {
+        "ts": "2026-11-05T15:29:41+00:00",
+        "volume": 531565.6884880001,
+        "outcomes": [
+          {
+            "name": "Marine Le Pen",
+            "price": 0.895
+          },
+          {
+            "name": "Jean-Luc Mélenchon",
+            "price": 0.49
+          },
+          {
+            "name": "Édouard Philippe",
+            "price": 0.22
+          },
+          {
+            "name": "David Lisnard",
+            "price": 0.178
+          },
+          {
+            "name": "Jordan Bardella",
+            "price": 0.075
+          },
+          {
+            "name": "Raphaël Glucksmann",
+            "price": 0.0595
+          },
+          {
+            "name": "Gabriel Attal",
+            "price": 0.057
+          },
+          {
+            "name": "Xavier Bertrand",
+            "price": 0.055
+          },
+          {
+            "name": "Dominique de Villepin",
+            "price": 0.055
+          },
+          {
+            "name": "Laurent Wauquiez",
+            "price": 0.054
+          },
+          {
+            "name": "Sébastien Lecornu",
+            "price": 0.054
+          },
+          {
+            "name": "Sarah Knafo",
+            "price": 0.052
+          },
+          {
+            "name": "Bruno Retailleau",
+            "price": 0.0505
+          },
+          {
+            "name": "Clémence Guetté",
+            "price": 0.0445
+          },
+          {
+            "name": "François Hollande",
+            "price": 0.043
+          },
+          {
+            "name": "Manuel Bompard",
+            "price": 0.041
+          },
+          {
+            "name": "Éric Zemmour",
+            "price": 0.039
+          },
+          {
+            "name": "Juan Branco",
+            "price": 0.039
+          },
+          {
+            "name": "Fabien Roussel",
+            "price": 0.035
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.035
+          },
+          {
+            "name": "Marine Tondelier",
+            "price": 0.0345
+          },
+          {
+            "name": "Clémentine Autain",
+            "price": 0.034
+          },
+          {
+            "name": "François Ruffin",
+            "price": 0.0335
+          },
+          {
+            "name": "Nicolas Dupont-Aignan",
+            "price": 0.0315
+          },
+          {
+            "name": "Élisabeth Borne",
+            "price": 0.0305
+          },
+          {
+            "name": "Gérald Darmanin",
+            "price": 0.0295
+          },
+          {
+            "name": "Ségolène Royal",
+            "price": 0.029
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.0285
+          },
+          {
+            "name": "François Bayrou",
+            "price": 0.0285
+          },
+          {
+            "name": "Yaël Braun-Pivet",
+            "price": 0.025
+          },
+          {
+            "name": "François Asselineau",
+            "price": 0.0245
+          },
+          {
+            "name": "Michel Barnier",
+            "price": 0.024
+          },
+          {
+            "name": "Jean Castex",
+            "price": 0.0215
+          },
+          {
+            "name": "Mathilde Panot",
+            "price": 0.0175
+          },
+          {
+            "name": "Valérie Pécresse",
+            "price": 0.017
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0155
+          }
+        ]
       }
     ],
     "style": "candidates",
@@ -187354,6 +187690,52 @@
             "price": 0.0
           }
         ]
+      },
+      {
+        "ts": "2026-11-05T15:29:41+00:00",
+        "volume": 103201.172486,
+        "outcomes": [
+          {
+            "name": "Raphael Glucksmann",
+            "price": 1.0
+          },
+          {
+            "name": "Segolene Royal",
+            "price": 0.0
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.0
+          },
+          {
+            "name": "Philippe Brun",
+            "price": 0.0
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0
+          },
+          {
+            "name": "Francois Hollande",
+            "price": 0.0
+          },
+          {
+            "name": "Boris Vallaud",
+            "price": 0.0
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.0
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.0
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0
+          }
+        ]
       }
     ],
     "style": "candidates",
@@ -193986,6 +194368,20 @@
           {
             "name": "No",
             "price": 0.36
+          }
+        ]
+      },
+      {
+        "ts": "2026-11-05T15:29:41+00:00",
+        "volume": 26258.893138,
+        "outcomes": [
+          {
+            "name": "Yes",
+            "price": 0.54
+          },
+          {
+            "name": "No",
+            "price": 0.46
           }
         ]
       }
@@ -282072,6 +282468,196 @@
             "price": 0.0195
           }
         ]
+      },
+      {
+        "ts": "2026-11-05T15:29:41+00:00",
+        "volume": 657211.661078,
+        "outcomes": [
+          {
+            "name": "Jean-Luc Mélenchon",
+            "price": 0.9625
+          },
+          {
+            "name": "Marine Le Pen",
+            "price": 0.9
+          },
+          {
+            "name": "Nathalie Arthaud",
+            "price": 0.86
+          },
+          {
+            "name": "David Lisnard",
+            "price": 0.83
+          },
+          {
+            "name": "Raphaël Glucksmann",
+            "price": 0.82
+          },
+          {
+            "name": "Édouard Philippe",
+            "price": 0.785
+          },
+          {
+            "name": "Fabien Roussel",
+            "price": 0.73
+          },
+          {
+            "name": "Éric Zemmour",
+            "price": 0.685
+          },
+          {
+            "name": "Nicolas Dupont-Aignan",
+            "price": 0.63
+          },
+          {
+            "name": "Bruno Retailleau",
+            "price": 0.385
+          },
+          {
+            "name": "Dominique de Villepin",
+            "price": 0.385
+          },
+          {
+            "name": "François Hollande",
+            "price": 0.27
+          },
+          {
+            "name": "Marine Tondelier",
+            "price": 0.235
+          },
+          {
+            "name": "Gabriel Attal",
+            "price": 0.21
+          },
+          {
+            "name": "Sarah Knafo",
+            "price": 0.185
+          },
+          {
+            "name": "François Ruffin",
+            "price": 0.18
+          },
+          {
+            "name": "François Asselineau",
+            "price": 0.11
+          },
+          {
+            "name": "Jordan Bardella",
+            "price": 0.0995
+          },
+          {
+            "name": "Xavier Bertrand",
+            "price": 0.0795
+          },
+          {
+            "name": "Matthieu Pigasse",
+            "price": 0.062
+          },
+          {
+            "name": "Michel Barnier",
+            "price": 0.0595
+          },
+          {
+            "name": "Bally Bagayoko",
+            "price": 0.058
+          },
+          {
+            "name": "Michel-Edouard Leclerc",
+            "price": 0.0575
+          },
+          {
+            "name": "Sébastien Lecornu",
+            "price": 0.057
+          },
+          {
+            "name": "Yaël Braun-Pivet",
+            "price": 0.0555
+          },
+          {
+            "name": "Élisabeth Borne",
+            "price": 0.055
+          },
+          {
+            "name": "Jean-Michel Fauvergue",
+            "price": 0.055
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.0545
+          },
+          {
+            "name": "François Bayrou",
+            "price": 0.052
+          },
+          {
+            "name": "Philippe de Villiers",
+            "price": 0.0505
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.05
+          },
+          {
+            "name": "Jean Castex",
+            "price": 0.049
+          },
+          {
+            "name": "Manuel Bompard",
+            "price": 0.0485
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.0485
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.047
+          },
+          {
+            "name": "Mathilde Panot",
+            "price": 0.0435
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.042
+          },
+          {
+            "name": "Gérald Darmanin",
+            "price": 0.04
+          },
+          {
+            "name": "Manuel Valls",
+            "price": 0.04
+          },
+          {
+            "name": "Juan Branco",
+            "price": 0.04
+          },
+          {
+            "name": "Delphine Batho",
+            "price": 0.039
+          },
+          {
+            "name": "Valérie Pécresse",
+            "price": 0.0385
+          },
+          {
+            "name": "Teddy Riner",
+            "price": 0.036
+          },
+          {
+            "name": "Laurent Wauquiez",
+            "price": 0.033
+          },
+          {
+            "name": "Ségolène Royal",
+            "price": 0.0275
+          },
+          {
+            "name": "Clémentine Autain",
+            "price": 0.0195
+          }
+        ]
       }
     ],
     "source": "polymarket"
@@ -323843,6 +324429,96 @@
             "price": 0.016
           }
         ]
+      },
+      {
+        "ts": "2026-11-05T15:29:41+00:00",
+        "volume": 129666.17504500001,
+        "outcomes": [
+          {
+            "name": "Éric Zemmour",
+            "price": 1.0
+          },
+          {
+            "name": "Gabriel Attal",
+            "price": 1.0
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 1.0
+          },
+          {
+            "name": "Raphaël Glucksmann",
+            "price": 1.0
+          },
+          {
+            "name": "Jean-Luc Mélenchon",
+            "price": 1.0
+          },
+          {
+            "name": "Marine Le Pen",
+            "price": 1.0
+          },
+          {
+            "name": "Dominique de Villepin",
+            "price": 0.815
+          },
+          {
+            "name": "François Hollande",
+            "price": 0.155
+          },
+          {
+            "name": "Yaël Braun-Pivet",
+            "price": 0.0805
+          },
+          {
+            "name": "Gérald Darmanin",
+            "price": 0.056
+          },
+          {
+            "name": "Manuel Bompard",
+            "price": 0.045
+          },
+          {
+            "name": "Élisabeth Borne",
+            "price": 0.036
+          },
+          {
+            "name": "Sébastien Lecornu",
+            "price": 0.0305
+          },
+          {
+            "name": "François Bayrou",
+            "price": 0.028
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.0275
+          },
+          {
+            "name": "Valérie Pécresse",
+            "price": 0.025
+          },
+          {
+            "name": "Michel Barnier",
+            "price": 0.0245
+          },
+          {
+            "name": "Mathilde Panot",
+            "price": 0.0245
+          },
+          {
+            "name": "Jordan Bardella",
+            "price": 0.023
+          },
+          {
+            "name": "Jean Castex",
+            "price": 0.0195
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.016
+          }
+        ]
       }
     ],
     "source": "polymarket"
@@ -339824,6 +340500,48 @@
           {
             "name": "December 31, 2026",
             "price": 0.14
+          },
+          {
+            "name": "July 31, 2026",
+            "price": 0.0
+          },
+          {
+            "name": "September 30, 2026",
+            "price": 0.0
+          },
+          {
+            "name": "August 31, 2026",
+            "price": 0.0
+          },
+          {
+            "name": "December 31, 2025",
+            "price": 0.0
+          },
+          {
+            "name": "October 31",
+            "price": 0.0
+          },
+          {
+            "name": "November 30",
+            "price": 0.0
+          },
+          {
+            "name": "June 30, 2026",
+            "price": 0.0
+          },
+          {
+            "name": "October 31, 2026",
+            "price": 0.0
+          }
+        ]
+      },
+      {
+        "ts": "2026-11-05T15:29:41+00:00",
+        "volume": 370617.46757,
+        "outcomes": [
+          {
+            "name": "December 31, 2026",
+            "price": 0.125
           },
           {
             "name": "July 31, 2026",
@@ -427538,6 +428256,132 @@
             "price": 0.001
           }
         ]
+      },
+      {
+        "ts": "2026-11-05T15:29:43+00:00",
+        "volume": 1666911.66,
+        "outcomes": [
+          {
+            "name": "Marine Le Pen",
+            "price": 0.46
+          },
+          {
+            "name": "David Lisnard",
+            "price": 0.17
+          },
+          {
+            "name": "Jean-Luc Mélenchon",
+            "price": 0.1
+          },
+          {
+            "name": "Édouard Philippe",
+            "price": 0.087
+          },
+          {
+            "name": "Christine Lagarde",
+            "price": 0.06
+          },
+          {
+            "name": "Raphaël Glucksmann",
+            "price": 0.04
+          },
+          {
+            "name": "François Hollande",
+            "price": 0.03
+          },
+          {
+            "name": "Jordan Bardella",
+            "price": 0.018
+          },
+          {
+            "name": "Bruno Retailleau",
+            "price": 0.01
+          },
+          {
+            "name": "Dominique de Villepin",
+            "price": 0.01
+          },
+          {
+            "name": "Sarah Knafo",
+            "price": 0.008
+          },
+          {
+            "name": "Gabriel Attal",
+            "price": 0.007
+          },
+          {
+            "name": "Éric Zemmour",
+            "price": 0.006
+          },
+          {
+            "name": "Sébastien Lecornu",
+            "price": 0.004
+          },
+          {
+            "name": "Gérald Darmanin",
+            "price": 0.002
+          },
+          {
+            "name": "Michel Barnier",
+            "price": 0.001
+          },
+          {
+            "name": "Xavier Bertrand",
+            "price": 0.001
+          },
+          {
+            "name": "Valérie Pécresse",
+            "price": 0.001
+          },
+          {
+            "name": "Laurent Wauquiez",
+            "price": 0.001
+          },
+          {
+            "name": "Élisabeth Borne",
+            "price": 0.001
+          },
+          {
+            "name": "Yaël Braun-Pivet",
+            "price": 0.001
+          },
+          {
+            "name": "Jean Castex",
+            "price": 0.001
+          },
+          {
+            "name": "Bruno Le Maire",
+            "price": 0.001
+          },
+          {
+            "name": "François Bayrou",
+            "price": 0.001
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.001
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.001
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.001
+          },
+          {
+            "name": "Manuel Bompard",
+            "price": 0.001
+          },
+          {
+            "name": "Mathilde Panot",
+            "price": 0.001
+          },
+          {
+            "name": "François Ruffin",
+            "price": 0.001
+          }
+        ]
       }
     ],
     "pairs_with": "next-french-presidential-election"
@@ -449008,6 +449852,64 @@
           {
             "name": "Olivier Faure",
             "price": 0.05
+          }
+        ]
+      },
+      {
+        "ts": "2026-11-05T15:29:43+00:00",
+        "volume": 15369.6,
+        "outcomes": [
+          {
+            "name": "Marine Le Pen",
+            "price": 0.84
+          },
+          {
+            "name": "Jean-Luc Mélenchon",
+            "price": 0.43
+          },
+          {
+            "name": "Édouard Philippe",
+            "price": 0.28
+          },
+          {
+            "name": "Gabriel Attal",
+            "price": 0.16
+          },
+          {
+            "name": "Dominique de Villepin",
+            "price": 0.1
+          },
+          {
+            "name": "Raphaël Glucksmann",
+            "price": 0.08
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.08
+          },
+          {
+            "name": "François Hollande",
+            "price": 0.07
+          },
+          {
+            "name": "Bruno Retailleau",
+            "price": 0.06
+          },
+          {
+            "name": "Sébastien Lecornu",
+            "price": 0.06
+          },
+          {
+            "name": "Élisabeth Borne",
+            "price": 0.06
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.05
+          },
+          {
+            "name": "Jordan Bardella",
+            "price": 0.04
           }
         ]
       }
@@ -484954,6 +485856,104 @@
             "price": 0.0
           }
         ]
+      },
+      {
+        "ts": "2026-11-05T15:29:43+00:00",
+        "volume": 26886.29,
+        "outcomes": [
+          {
+            "name": "Marine Le Pen",
+            "price": 0.93
+          },
+          {
+            "name": "Jean-Luc Mélenchon",
+            "price": 0.87
+          },
+          {
+            "name": "Édouard Philippe",
+            "price": 0.84
+          },
+          {
+            "name": "Raphaël Glucksmann",
+            "price": 0.81
+          },
+          {
+            "name": "Fabien Roussel",
+            "price": 0.81
+          },
+          {
+            "name": "Nathalie Arthaud",
+            "price": 0.77
+          },
+          {
+            "name": "Éric Zemmour",
+            "price": 0.74
+          },
+          {
+            "name": "Nicolas Dupont-Aignan",
+            "price": 0.68
+          },
+          {
+            "name": "Gérald Darmanin",
+            "price": 0.5
+          },
+          {
+            "name": "Bruno Retailleau",
+            "price": 0.39
+          },
+          {
+            "name": "Dominique de Villepin",
+            "price": 0.36
+          },
+          {
+            "name": "François Hollande",
+            "price": 0.28
+          },
+          {
+            "name": "Marine Tondelier",
+            "price": 0.27
+          },
+          {
+            "name": "Gabriel Attal",
+            "price": 0.24
+          },
+          {
+            "name": "François Ruffin",
+            "price": 0.24
+          },
+          {
+            "name": "François Asselineau",
+            "price": 0.14
+          },
+          {
+            "name": "Jordan Bardella",
+            "price": 0.13
+          },
+          {
+            "name": "Clémentine Autain",
+            "price": 0.08
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.07
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.05
+          },
+          {
+            "name": "Jérôme Guedj",
+            "price": 0.05
+          },
+          {
+            "name": "Karim Bouamrane",
+            "price": 0.03
+          },
+          {
+            "name": "Jean Lassalle",
+            "price": 0.0
+          }
+        ]
       }
     ],
     "pairs_with": "2027-french-presidential-election-who-will-be-on-the-ballot"
@@ -494045,6 +495045,11 @@
       },
       {
         "ts": "2026-11-05T06:49:57+00:00",
+        "volume": 24246.989999999998,
+        "outcomes": []
+      },
+      {
+        "ts": "2026-11-05T15:29:43+00:00",
         "volume": 24246.989999999998,
         "outcomes": []
       }
@@ -552110,6 +553115,152 @@
             "price": 0.0003697526373206294
           }
         ]
+      },
+      {
+        "ts": "2026-11-05T15:29:44+00:00",
+        "volume": 51527.36021171269,
+        "outcomes": [
+          {
+            "name": "Marine Le Pen",
+            "price": 0.45031894156893537
+          },
+          {
+            "name": "David Lisnard",
+            "price": 0.1238249476846148
+          },
+          {
+            "name": "Jean-Luc Mélenchon",
+            "price": 0.12026002172048965
+          },
+          {
+            "name": "Édouard Philippe",
+            "price": 0.11377891437807602
+          },
+          {
+            "name": "Christine Lagarde",
+            "price": 0.0628739971381481
+          },
+          {
+            "name": "Raphaël Glucksmann",
+            "price": 0.021411043040694574
+          },
+          {
+            "name": "François Hollande",
+            "price": 0.015367331706202891
+          },
+          {
+            "name": "Jordan Bardella",
+            "price": 0.013972926274304185
+          },
+          {
+            "name": "Gabriel Attal",
+            "price": 0.012655828564776456
+          },
+          {
+            "name": "Dominique de Villepin",
+            "price": 0.005123015285150005
+          },
+          {
+            "name": "Michel Barnier",
+            "price": 0.004488093678697445
+          },
+          {
+            "name": "Gérard Larcher",
+            "price": 0.004184041075180045
+          },
+          {
+            "name": "Olivier Faure",
+            "price": 0.0024790766881251838
+          },
+          {
+            "name": "Gérald Darmanin",
+            "price": 0.0024674159989853638
+          },
+          {
+            "name": "Marine Tondelier",
+            "price": 0.002449481458713445
+          },
+          {
+            "name": "Marion Maréchal",
+            "price": 0.0015357799945487933
+          },
+          {
+            "name": "Francois Ruffin",
+            "price": 0.0013321025661356969
+          },
+          {
+            "name": "Ségolène Royal",
+            "price": 0.0012955785383238665
+          },
+          {
+            "name": "Eric Zemmour",
+            "price": 0.0012527870364326913
+          },
+          {
+            "name": "Nicolas Sarkozy",
+            "price": 0.001212929339904675
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.00115960496263925
+          },
+          {
+            "name": "Manon Aubry",
+            "price": 0.0010022291089313848
+          },
+          {
+            "name": "Carole Delga",
+            "price": 0.000875524595502186
+          },
+          {
+            "name": "Marie Toussaint",
+            "price": 0.0007507199228712531
+          },
+          {
+            "name": "Christiane Taubira",
+            "price": 0.0007319987091091838
+          },
+          {
+            "name": "Eva Joly",
+            "price": 0.0007126923756755684
+          },
+          {
+            "name": "Philippe Poutou",
+            "price": 0.0007018557835877114
+          },
+          {
+            "name": "François-Xavier Bellamy",
+            "price": 0.0006927194143989555
+          },
+          {
+            "name": "Cécile Duflot",
+            "price": 0.0006908431527990926
+          },
+          {
+            "name": "Nathalie Arthaud",
+            "price": 0.0006750840451207442
+          },
+          {
+            "name": "Alain Coulombel",
+            "price": 0.0006696976474708281
+          },
+          {
+            "name": "Laurent Wauquiez",
+            "price": 0.000633780368583748
+          },
+          {
+            "name": "Bruno Le Maire",
+            "price": 0.0005405569473046443
+          },
+          {
+            "name": "Emmanuel Macron",
+            "price": 0.00043303168445477666
+          },
+          {
+            "name": "Xavier Bertrand",
+            "price": 0.0003697526373206294
+          }
+        ]
       }
     ]
   },
@@ -576556,6 +577707,80 @@
           {
             "name": "Jean-Luc Mélenchon",
             "price": 0.4799999999999999
+          },
+          {
+            "name": "Edouard Philippe",
+            "price": 0.22999999999999993
+          },
+          {
+            "name": "David Lisnard",
+            "price": 0.13193570881497477
+          },
+          {
+            "name": "Gabriel Attal",
+            "price": 0.09
+          },
+          {
+            "name": "Christine de Lagarde",
+            "price": 0.07326200570711859
+          },
+          {
+            "name": "Dominique de Villepin",
+            "price": 0.07000000000000006
+          },
+          {
+            "name": "Raphaël Glucksmann",
+            "price": 0.060000000000000046
+          },
+          {
+            "name": "Laurent Wauquiez",
+            "price": 0.05689521507540226
+          },
+          {
+            "name": "Xavier Bertrand",
+            "price": 0.050000000000000024
+          },
+          {
+            "name": "Jordan Bardella",
+            "price": 0.03865153400889006
+          },
+          {
+            "name": "Bruno Retailleau",
+            "price": 0.035540263348039204
+          },
+          {
+            "name": "François Hollande",
+            "price": 0.031445996798358064
+          },
+          {
+            "name": "François Ruffin",
+            "price": 0.024297609949206156
+          },
+          {
+            "name": "Fabien Roussel",
+            "price": 0.02063135440463626
+          },
+          {
+            "name": "Éric Zemmour",
+            "price": 0.020000000000000014
+          },
+          {
+            "name": "Bernard Cazeneuve",
+            "price": 0.015879484156931103
+          }
+        ]
+      },
+      {
+        "ts": "2026-11-05T15:29:44+00:00",
+        "volume": 29284.741692075328,
+        "outcomes": [
+          {
+            "name": "Marine Le Pen",
+            "price": 0.86
+          },
+          {
+            "name": "Jean-Luc Mélenchon",
+            "price": 0.47000000000000003
           },
           {
             "name": "Edouard Philippe",
